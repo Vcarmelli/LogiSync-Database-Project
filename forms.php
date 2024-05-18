@@ -9,41 +9,63 @@
 </head>
 <body>
     <!-- Supplier Form -->
-    <form id="supplierForm" method="post" action="./includes/submit.php">
+    <form id="supplierForm" method="post" action="./includes/submit.php" class="container">
         <h2>Supplier Form</h2>
-        <label for="supplierName">Supplier Name:</label>
-        <input type="text" id="supplierName" name="supplierName" required>
-        <label for="contactPerson">Contact Person:</label>
-        <input type="text" id="contactPerson" name="contactPerson">
-        <label for="contactNumber">Contact Number:</label>
-        <input type="text" id="contactNumber" name="contactNumber">
-        <button type="submit">Submit</button>
+        <div class="mb-3">
+            <label for="supplierName" class="form-label">Supplier Name</label>
+            <input type="text" id="supplierName" name="supplierName" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="contactPerson" class="form-label">Contact Person</label>
+            <input type="text" id="contactPerson" name="contactPerson" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="contactNumber" class="form-label">Contact Number</label>
+            <input type="text" id="contactNumber" name="contactNumber" class="form-control" required>
+        </div>
+        
+        <button type="submit" id="addSupplier" name="addSupplier" class="btn btn-primary">Add Supplier</button>
     </form>
 
-    <!-- Product Form 
-    <form id="productForm">
+    <!-- Product Form -->
+    <form id="productForm" method="post" action="./includes/submit.php" class="container">
         <h2>Product Form</h2>
-        <label for="productName">Product Name:</label>
-        <input type="text" id="productName" name="productName" required>
-        <label for="supplierId">Supplier ID:</label>
-        <input type="number" id="supplierId" name="supplierId" required>
-        <label for="price">Price:</label>
-        <input type="number" step="0.01" id="price" name="price" required>
-        <button type="submit">Submit</button>
+        <div class="mb-3">
+            <label for="productName" class="form-label">Product Name</label>
+            <input type="text" id="productName" name="productName" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="supplierId" class="form-label">Supplier ID</label>
+            <input type="number" id="supplierId" name="supplierId" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" step="0.01" id="price" name="price" class="form-control" required>
+        </div>
+        
+        <button type="submit" name="addProduct" class="btn btn-primary">Add Product</button>
     </form>
 
-    <!-- Purchase Order Form 
-    <form id="purchaseOrderForm">
+    <!-- Purchase Order Form -->
+    <form id="orderForm" method="post" action="./includes/submit.php" class="container">
         <h2>Purchase Order Form</h2>
-        <label for="supplierIdPO">Supplier ID:</label>
-        <input type="number" id="supplierIdPO" name="supplierIdPO" required>
-        <label for="orderDate">Order Date:</label>
-        <input type="date" id="orderDate" name="orderDate" required>
-        <label for="deliveryDate">Delivery Date:</label>
-        <input type="date" id="deliveryDate" name="deliveryDate">
-        <button type="submit">Submit</button>
-    </form>
+        <div class="mb-3">
+            <label for="supplierIdPO" class="form-label">Supplier ID</label>
+            <input type="number" id="supplierIdPO" name="supplierIdPO" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="orderDate" class="form-label">Order Date</label>
+            <input type="date" id="orderDate" name="orderDate" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="deliveryDate" class="form-label">Delivery Date</label>
+        <input type="date" id="deliveryDate" name="deliveryDate" class="form-control" required>
+        </div>
+        
+        <button type="submit" name="addOrder" class="btn btn-primary">Add Order</button>
+    </form> 
 
-    -->
+    <script src="./backend/script.js"></script>
 </body>
 </html>
