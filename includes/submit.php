@@ -14,6 +14,8 @@ if(isset($_POST["addSupplier"])) {
 
     $supplier->validateSupplierForm();
 
+    saveSupplier($supplierName, $contactPerson, $contactNumber);
+
     echo "SUBMIT.PHP EXECUTED supplier !!  ";
 
 } else if(isset($_POST["addProduct"])) {
@@ -26,6 +28,7 @@ if(isset($_POST["addSupplier"])) {
 
     $product->validateProductForm();
 
+    saveProduct($productName, $supplierId, $price);
     echo "SUBMIT.PHP EXECUTED product!! ";
 
 } else if(isset($_POST["addOrder"])) {
@@ -38,6 +41,7 @@ if(isset($_POST["addSupplier"])) {
 
     $order->validateOrderForm();
 
+    saveOrder($supplierIdPO, $orderDate, $deliveryDate);
     echo "SUBMIT.PHP EXECUTED ORDER !!  ";
 
 }
@@ -46,23 +50,28 @@ if(isset($_POST["addSupplier"])) {
 
 function saveSupplier($supplierName, $contactPerson, $contactNumber) {
     try {
-
-        
         $database = new Database();
-        $stmt = $database->connect()->prepare("INSERT INTO supplier (SupplierID, SupplierName, ContactPerson, ContactNumber) VALUES (?, ?, ?, ?)");
+        $supplierID = getNewSupplierID($database);
 
+        $stmt = $database->connect()->prepare("INSERT INTO supplier (SupplierID, SupplierName, ContactPerson, ContactNumber) VALUES (?, ?, ?, ?)");
+        
+        if(!$stmt->execute(array($supplierID, $supplierName, $contactPerson, $contactNumber))) {
+            $stmt = null;
+            header("location: ../forms.php?error=inSaveSupplier");
+            exit();
+        }
+        $stmt = null;
+    } catch (Exception $e) {
+        die("Query Failed in saveSupplier:" . $e->getMessage());
     }
+
 }
 
-function getNewSupplierID() {
+function getNewSupplierID($database) {
     // Generate a random 4-digit number
     $randomNumber = mt_rand(1000, 9999);
+    $existingSupplierIds = [];
 
-    // Query the database to retrieve all existing supplier IDs
-    // Assuming you have a database connection established
-    $existingSupplierIds = []; // Initialize an array to store existing supplier IDs
-
-    $database = new Database();
     $stmt = $database->connect()->prepare("SELECT SupplierID FROM supplier;");
     $stmt->execute();
 
@@ -72,12 +81,67 @@ function getNewSupplierID() {
 
     // Check if the random number already exists in the list of supplier IDs
     while (in_array($randomNumber, $existingSupplierIds)) {
-    // If the random number exists, generate a new random number
-    $randomNumber = mt_rand(1000, 9999);
+        $randomNumber = mt_rand(1000, 9999);
     }
 
-    // Now $randomNumber is a unique 4-digit number not present in the database
-    // You can use this as the new supplier ID when adding a new supplier
+    print($randomNumber);
     return $randomNumber;
+}
+
+function saveProduct($productName, $supplierId, $price) {
+    try {
+        $database = new Database();
+        // Generate a random letter from A to Z
+        $randomLetter1 = chr(mt_rand(65, 90)); // ASCII values for A-Z
+        $randomLetter2 = chr(mt_rand(65, 90)); // ASCII values for A-Z
+
+        // Generate a random number between 10000 and 99999
+        $randomNumber = mt_rand(10000, 99999);
+
+        // Combine the random letter with the random number
+        $randomId = $randomLetter1 . $randomLetter2 . "-" . $randomNumber;
+        print($randomId);
+
+        $stmt = $database->connect()->prepare("INSERT INTO product (ProductID, ProductName, SupplierID, Price) VALUES (?, ?, ?, ?)");
+        
+        if(!$stmt->execute(array($randomId, $productName, $supplierId, $price))) {
+            $stmt = null;
+            header("location: ../forms.php?error=inSaveProduct");
+            exit();
+        }
+        $stmt = null;
+    } catch (Exception $e) {
+        die("Query Failed in saveProduct:" . $e->getMessage());
+    }
+
+}
+
+function saveOrder($supplierIdPO, $orderDate, $deliveryDate) {
+    try {
+        $database = new Database();
+        $randomValue = uniqid(mt_rand(), true); // Generating a random unique identifier
+
+        // Hash the random value using MD5
+        $hashedValue = md5($randomValue);
+
+        // Truncate the hashed value to the desired length (e.g., 8 characters)
+        $randomString = substr($hashedValue, 0, 8);
+
+        // Convert the truncated random string to uppercase
+        $randomString = strtoupper($randomString);
+
+        print($randomString);
+
+        $stmt = $database->connect()->prepare("INSERT INTO purchaseorder (OrderID, SupplierID, OrderDate, DeliveryDate) VALUES (?, ?, ?, ?)");
+        
+        if(!$stmt->execute(array($randomString, $supplierIdPO, $orderDate, $deliveryDate))) {
+            $stmt = null;
+            header("location: ../forms.php?error=inSaveOrder");
+            exit();
+        }
+        $stmt = null;
+    } catch (Exception $e) {
+        die("Query Failed in saveOrdert:" . $e->getMessage());
+    }
 
 }
