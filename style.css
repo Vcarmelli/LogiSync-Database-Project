@@ -44,6 +44,9 @@ body {
     background-color: #0e2238;
     display: flex;
     flex-direction: column;
+    position: fixed;
+    overflow-y: auto; 
+    height: 100vh;
 }
 
 #sidebar.expand {
@@ -112,15 +115,19 @@ a.sidebar-link:hover {
     left: 70px;
     background-color: #0e2238;
     padding: 0;
-    min-width: 15rem;
+    min-width: 13rem;
     display: none;
 }
 
 #sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
     display: block;
     max-height: 15em;
-    width: 100%;
+    width: 150px;
     opacity: 1;
+}
+
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown span {
+    display: block;
 }
 
 #sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
@@ -143,4 +150,9 @@ a.sidebar-link:hover {
 
 #forms li {
     margin-left: 1em;
+}
+
+.main-form {
+    display: flex;
+    align-items: center;
 }

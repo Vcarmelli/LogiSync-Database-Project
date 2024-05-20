@@ -1,10 +1,10 @@
-<aside id="sidebar">
+<aside id="sidebar" class="expand">
     <div class="d-flex">
         <button id="toggle-btn" type="button">
             <i class="fa-solid fa-bars"></i> 
         </button>
         <div class="sidebar-logo">
-            <a href="#">Project Name</a>
+            <a href="index.php">Project Name</a>
         </div>
     </div>
     <ul class="sidebar-nav">
@@ -15,19 +15,19 @@
             </a>
             <ul id="forms" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
-                    <a href="forms.php?form=order" class="sidebar-link">
+                    <a href="forms.php?form=supplier" class="sidebar-link">
                         <i class="fa-solid fa-warehouse"></i>
                         <span>Add Supplier</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="forms.php?form=product" class="sidebar-link">
                         <i class="fa-solid fa-circle-plus"></i>
                         <span>Add Product</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="forms.php?form=order" class="sidebar-link">
                         <i class="fa-solid fa-clipboard-list"></i>
                         <span>Add Order</span>
                     </a>
