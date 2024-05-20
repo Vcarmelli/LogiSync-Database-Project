@@ -15,34 +15,7 @@
         <?php include 'sidebar.php'; ?>
         <div class="main">
             <h1>HELLO </h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ProductID</th>
-                        <th>ProductName</th>
-                        <th>SupplierID</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                        include './includes/database.php';
-
-                        $dbase = new Database();
-                        $stmt = $dbase->connect()->prepare('SELECT * FROM product');
-                        $stmt->execute();
-                        $counter = 0;
-                        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
-                            <tr>
-                                <td><?php echo $row["ProductID"]; ?></td>
-                                <td><?php echo $row["ProductName"]; ?></td>
-                                <td><?php echo $row["SupplierID"]; ?></td>
-                                <td><?php echo $row["Price"]; ?></td>
-                            </tr>
-                        <?php } 
-                    ?>
-                </tbody>
-            </table>
+            <p>Input dashboard here</p>
         </div>
     </div>
     
