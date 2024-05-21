@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <?php include 'sidebar.php'; ?>
+        <?php include './components/sidebar.php'; ?>
         <div class="main">
             <h1>HELLO </h1>
             <p>Input dashboard here</p>

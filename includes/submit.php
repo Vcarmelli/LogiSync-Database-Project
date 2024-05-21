@@ -57,7 +57,7 @@ function saveSupplier($supplierName, $contactPerson, $contactNumber) {
         
         if(!$stmt->execute(array($supplierID, $supplierName, $contactPerson, $contactNumber))) {
             $stmt = null;
-            header("location: ../forms.php?error=inSaveSupplier");
+            header("location: ../pages/forms.php?error=inSaveSupplier");
             exit();
         }
         $stmt = null;
@@ -106,7 +106,7 @@ function saveProduct($productName, $supplierId, $price) {
         
         if(!$stmt->execute(array($randomId, $productName, $supplierId, $price))) {
             $stmt = null;
-            header("location: ../forms.php?error=inSaveProduct");
+            header("location: ../pages/forms.php?error=inSaveProduct");
             exit();
         }
         $stmt = null;
@@ -136,7 +136,7 @@ function saveOrder($supplierIdPO, $orderDate, $deliveryDate) {
         
         if(!$stmt->execute(array($randomString, $supplierIdPO, $orderDate, $deliveryDate))) {
             $stmt = null;
-            header("location: ../forms.php?error=inSaveOrder");
+            header("location: ../pages/forms.php?error=inSaveOrder");
             exit();
         }
         $stmt = null;
