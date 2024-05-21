@@ -18,7 +18,7 @@
                     <label for="supplier_id" class="form-label">Select Supplier</label>
                     <select name="supplier_id" id="supplier_id" class="form-select" required>
                         <?php
-                            include './includes/database.php';
+                            include '../includes/database.php';
                             $dbase = new Database();
                             $stmt = $dbase->connect()->prepare('SELECT SupplierID, SupplierName FROM Supplier ORDER BY SupplierName;');
                             $stmt->execute();

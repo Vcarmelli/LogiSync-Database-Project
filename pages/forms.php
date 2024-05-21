@@ -1,5 +1,5 @@
 <?php
-    $formToShow = isset($_GET['form']) ? $_GET['form'] : 'supplier'; 
+    $show = isset($_GET['form']) ? $_GET['form'] : 'supplier'; 
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
     <div class="wrapper">
         <?php include '../components/sidebar.php'; ?>
         <div class="main main-form">
-        <?php if ($formToShow === 'supplier'): ?>
+        <?php if ($show === 'supplier'): ?>
             <!-- Supplier Form -->
             <form id="supplierForm" method="post" action="./includes/submit.php" class="container">
                 <h2>Supplier Form</h2>
@@ -36,7 +36,7 @@
                 
                 <button type="submit" id="addSupplier" name="addSupplier" class="btn btn-primary">Add Supplier</button>
             </form>
-        <?php elseif ($formToShow === 'product'): ?>
+        <?php elseif ($show === 'product'): ?>
             <!-- Product Form -->
             <form id="productForm" method="post" action="./includes/submit.php" class="container">
                 <h2>Product Form</h2>
@@ -55,7 +55,7 @@
                 
                 <button type="submit" name="addProduct" class="btn btn-primary">Add Product</button>
             </form>
-        <?php elseif ($formToShow === 'order'): ?>
+        <?php elseif ($show === 'order'): ?>
             <!-- Purchase Order Form -->
             <form id="orderForm" method="post" action="./includes/submit.php" class="container">
                 <h2>Purchase Order Form</h2>

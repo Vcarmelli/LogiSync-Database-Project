@@ -53,15 +53,17 @@ body {
     top: 0;
 }
 
+
+ /* ======================================================================================================================== not  */
 .sidebar-pages {
     position: sticky;
-    top: 0;
+    top: 5em;
 }
 
 
 #sidebar.expand {
-    width: 260px;
-    min-width: 260px;
+    width: 300px;
+    min-width: 300px;
 }
 
 #toggle-btn {
@@ -157,6 +159,10 @@ a.sidebar-link:hover {
 #sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
     transform: rotate(45deg);
     transition: all .2s ease-out;
+}
+
+.sidebar-dropdown li {
+    margin-left: 1rem;
 }
 
 

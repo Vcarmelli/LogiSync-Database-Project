@@ -50,10 +50,10 @@ if(isset($_POST["addSupplier"])) {
 
 function saveSupplier($supplierName, $contactPerson, $contactNumber) {
     try {
-        $database = new Database();
-        $supplierID = getNewSupplierID($database);
+        $dbase = new Database();
+        $supplierID = getNewSupplierID($dbase);
 
-        $stmt = $database->connect()->prepare("INSERT INTO supplier (SupplierID, SupplierName, ContactPerson, ContactNumber) VALUES (?, ?, ?, ?)");
+        $stmt = $dbase->connect()->prepare("INSERT INTO supplier (SupplierID, SupplierName, ContactPerson, ContactNumber) VALUES (?, ?, ?, ?)");
         
         if(!$stmt->execute(array($supplierID, $supplierName, $contactPerson, $contactNumber))) {
             $stmt = null;
@@ -67,12 +67,12 @@ function saveSupplier($supplierName, $contactPerson, $contactNumber) {
 
 }
 
-function getNewSupplierID($database) {
+function getNewSupplierID($db) {
     // Generate a random 4-digit number
     $randomNumber = mt_rand(1000, 9999);
     $existingSupplierIds = [];
 
-    $stmt = $database->connect()->prepare("SELECT SupplierID FROM supplier;");
+    $stmt = $db->connect()->prepare("SELECT SupplierID FROM supplier;");
     $stmt->execute();
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -90,7 +90,7 @@ function getNewSupplierID($database) {
 
 function saveProduct($productName, $supplierId, $price) {
     try {
-        $database = new Database();
+        $dbase = new Database();
         // Generate a random letter from A to Z
         $randomLetter1 = chr(mt_rand(65, 90)); // ASCII values for A-Z
         $randomLetter2 = chr(mt_rand(65, 90)); // ASCII values for A-Z
@@ -102,7 +102,7 @@ function saveProduct($productName, $supplierId, $price) {
         $randomId = $randomLetter1 . $randomLetter2 . "-" . $randomNumber;
         print($randomId);
 
-        $stmt = $database->connect()->prepare("INSERT INTO product (ProductID, ProductName, SupplierID, Price) VALUES (?, ?, ?, ?)");
+        $stmt = $dbase->connect()->prepare("INSERT INTO product (ProductID, ProductName, SupplierID, Price) VALUES (?, ?, ?, ?)");
         
         if(!$stmt->execute(array($randomId, $productName, $supplierId, $price))) {
             $stmt = null;
@@ -118,7 +118,7 @@ function saveProduct($productName, $supplierId, $price) {
 
 function saveOrder($supplierIdPO, $orderDate, $deliveryDate) {
     try {
-        $database = new Database();
+        $dbase = new Database();
         $randomValue = uniqid(mt_rand(), true); // Generating a random unique identifier
 
         // Hash the random value using MD5
@@ -132,7 +132,7 @@ function saveOrder($supplierIdPO, $orderDate, $deliveryDate) {
 
         print($randomString);
 
-        $stmt = $database->connect()->prepare("INSERT INTO purchaseorder (OrderID, SupplierID, OrderDate, DeliveryDate) VALUES (?, ?, ?, ?)");
+        $stmt = $dbase->connect()->prepare("INSERT INTO purchaseorder (OrderID, SupplierID, OrderDate, DeliveryDate) VALUES (?, ?, ?, ?)");
         
         if(!$stmt->execute(array($randomString, $supplierIdPO, $orderDate, $deliveryDate))) {
             $stmt = null;
