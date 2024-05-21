@@ -2,86 +2,90 @@
     $show = isset($_GET['form']) ? $_GET['form'] : 'supplier'; 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Supplier</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../style.css">    
-</head>
-<body>
-    <div class="wrapper">
-        <?php include '../components/sidebar.php'; ?>
-        <div class="main main-form">
-        <?php if ($show === 'supplier'): ?>
-            <!-- Supplier Form -->
-            <form id="supplierForm" method="post" action="./includes/submit.php" class="container">
-                <h2>Supplier Form</h2>
-                <div class="mb-3">
-                    <label for="supplierName" class="form-label">Supplier Name</label>
-                    <input type="text" id="supplierName" name="supplierName" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="contactPerson" class="form-label">Contact Person</label>
-                    <input type="text" id="contactPerson" name="contactPerson" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="contactNumber" class="form-label">Contact Number</label>
-                    <input type="text" id="contactNumber" name="contactNumber" class="form-control" required>
-                </div>
-                
-                <button type="submit" id="addSupplier" name="addSupplier" class="btn btn-primary">Add Supplier</button>
-            </form>
-        <?php elseif ($show === 'product'): ?>
-            <!-- Product Form -->
-            <form id="productForm" method="post" action="./includes/submit.php" class="container">
-                <h2>Product Form</h2>
-                <div class="mb-3">
-                    <label for="productName" class="form-label">Product Name</label>
-                    <input type="text" id="productName" name="productName" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="supplierId" class="form-label">Supplier ID</label>
-                    <input type="number" id="supplierId" name="supplierId" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="price" class="form-label">Price</label>
-                    <input type="number" step="0.01" id="price" name="price" class="form-control" required>
-                </div>
-                
-                <button type="submit" name="addProduct" class="btn btn-primary">Add Product</button>
-            </form>
-        <?php elseif ($show === 'order'): ?>
-            <!-- Purchase Order Form -->
-            <form id="orderForm" method="post" action="./includes/submit.php" class="container">
-                <h2>Purchase Order Form</h2>
-                <div class="mb-3">
-                    <label for="supplierIdPO" class="form-label">Supplier ID</label>
-                    <input type="number" id="supplierIdPO" name="supplierIdPO" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="orderDate" class="form-label">Order Date</label>
-                    <input type="date" id="orderDate" name="orderDate" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="deliveryDate" class="form-label">Delivery Date</label>
-                <input type="date" id="deliveryDate" name="deliveryDate" class="form-control" required>
-                </div>
-                
-                <button type="submit" name="addOrder" class="btn btn-primary">Add Order</button>
-            </form> 
-        <?php endif; ?>
-        </div>
-        
+<?php if ($show === 'supplier'): ?>
+    <div class="modal-header">
+        <h5 class="modal-title fs-4 fw-bold" id="addSupplierModalLabel">Add Supplier</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../backend/index.js"></script>
-    <script src="../backend/script.js"></script>
-</body>
-</html>
+    <div class="modal-body">
+        <form id="addSupplierForm" method="post" action="">
+            <div class="mb-3">
+                <label for="supplierName" class="form-label">Supplier Name</label>
+                <input type="text" class="form-control" id="supplierName" name="supplierName" required>
+            </div>
+            <div class="mb-3">
+                <label for="contactPerson" class="form-label">Contact Person</label>
+                <input type="text" class="form-control" id="contactPerson" name="contactPerson" required>
+            </div>
+            <div class="mb-3">
+                <label for="contactNumber" class="form-label">Contact Number</label>
+                <input type="text" class="form-control" id="contactNumber" name="contactNumber" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Supplier</button>
+        </form>
+    </div>
+<?php elseif ($show === 'product'): ?>
+    <div class="modal-header">
+        <h5 class="modal-title fs-4 fw-bold" id="addProductModalLabel">Add Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form id="addProductForm" method="post" action="../includes/submit.php">
+            <div class="mb-3">
+                <label for="productName" class="form-label">Product Name</label>
+                <input type="text" class="form-control" id="productName" name="productName" required>
+            </div>
+            <div class="mb-3">
+                <label for="supplierId" class="form-label">Select Supplier</label>
+                <select name="supplierId" id="supplierId" class="form-select" required>
+                    <?php
+                        require_once '../includes/database.php';
+                        $dbase = new Database();
+                        $stmt = $dbase->connect()->prepare('SELECT SupplierID, SupplierName FROM supplier ORDER BY SupplierName;');
+                        $stmt->execute();
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            echo '<option value="' . $row['SupplierID'] . '">' . $row['SupplierName'] . '</option>';
+                        }
+                    ?>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Product</button>
+        </form>
+    </div>
+<?php elseif ($show === 'purchaseorder'): ?>
+    <div class="modal-header">
+        <h5 class="modal-title fs-4 fw-bold" id="addOrderModalLabel">Add Order</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form id="addOrderForm" method="post" action="../includes/submit.php">
+            <div class="mb-3">
+                <label for="supplierIdPO" class="form-label">Select Supplier</label>
+                <select name="supplierIdPO" id="supplierIdPO" class="form-select" required>
+                    <?php
+                        require_once '../includes/database.php';
+                        $dbase = new Database();
+                        $stmt = $dbase->connect()->prepare('SELECT SupplierID, SupplierName FROM supplier ORDER BY SupplierName;');
+                        $stmt->execute();
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            echo '<option value="' . $row['SupplierID'] . '">' . $row['SupplierName'] . '</option>';
+                        }
+                    ?>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="orderDate" class="form-label">Order Date</label>
+                <input type="date" class="form-control" id="orderDate" name="orderDate" required>
+            </div>
+            <div class="mb-3">
+                <label for="deliveryDate" class="form-label">Delivery Date</label>
+                <input type="date" class="form-control" id="deliveryDate" name="deliveryDate" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Order</button>
+        </form>
+    </div>
+<?php endif; ?>

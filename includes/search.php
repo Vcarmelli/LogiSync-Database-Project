@@ -20,7 +20,7 @@ if (isset($_GET['querySearch'])) {
     $stmt->execute();
 
 
-    echo '<table class="table table-striped table-hover table-bordered rounded">';
+    echo '<table class="table table-hover table-pad">';
     echo '<thead class="table-dark"><tr>';
     foreach ($columns as $column) {
         echo "<th>" . htmlspecialchars(formatColumnName($column), ENT_QUOTES, 'UTF-8') . "</th>";

@@ -62,8 +62,8 @@ body {
 
 
 #sidebar.expand {
-    width: 300px;
-    min-width: 300px;
+    width: 280px;
+    min-width: 280px;
 }
 
 #toggle-btn {
@@ -169,4 +169,9 @@ a.sidebar-link:hover {
 .main-form {
     display: flex;
     align-items: center;
+}
+
+.table-pad th,
+.table-pad td {
+    padding: 1rem 0.8rem;
 }

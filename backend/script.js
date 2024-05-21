@@ -1,9 +1,11 @@
-$(document).ready(function() {
-    $('#addSupplier').on('submit', addSupplier);
-    $('#addProduct').on('submit', addProduct);
-    $('#addOrder').on('submit', addOrder);
-}); 
+// FOR DATABASE MANIPULATION
 
+function formSubmissionHandlers() {
+    console.log("SCRIPT LOADED");
+    $('#addSupplierForm').on('submit', addSupplier);
+    $('#addProductForm').on('submit', addProduct);
+    $('#addOrderForm').on('submit', addOrder);
+}; 
 
 function addSupplier(event) {
     event.preventDefault();
@@ -31,10 +33,11 @@ function addSupplier(event) {
         data: data,
         success: function(response) {
             alert('Supplier added successfully!');
-
-            $('#supplierForm')[0].reset();
+            console.error("success:", response);
+            $('#addSupplierForm')[0].reset();
         },
         error: function(error) {
+            console.error("Error:", error);
             alert('Error adding supplier');
         }
     });
@@ -67,8 +70,7 @@ function addProduct(event) {
         data: data,
         success: function(response) {
             alert('Product added successfully!');
-
-            $('#supplierForm')[0].reset();
+            $('#addProductForm')[0].reset();
         },
         error: function(error) {
             alert('Error adding product');
@@ -103,8 +105,7 @@ function addOrder(event) {
         data: data,
         success: function(response) {
             alert('Product added successfully!');
-
-            $('#supplierForm')[0].reset();
+            $('#addOrderForm')[0].reset();
         },
         error: function(error) {
             alert('Error adding product');

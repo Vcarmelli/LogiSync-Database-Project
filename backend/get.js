@@ -29,6 +29,9 @@
 //     });
 // }
 
+
+// FOR QUERYING PURPOSES
+
 $(document).ready(function() {
     $('#search').on('submit', querySearch);
 }); 
@@ -71,7 +74,7 @@ function querySearch(event) {
                 $('.default-table').hide();
                 $('#results').html(response);
                 
-                alert('Searched query!');
+                //alert('Searched query!');
             }
             $('#search')[0].reset();
         },

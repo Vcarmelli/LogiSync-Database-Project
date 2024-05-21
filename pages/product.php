@@ -7,8 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reports</title>
-
+    <title>Products</title>
+    <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../style.css">
@@ -17,7 +17,19 @@
     <div class="wrapper">
         <?php include '../components/sidebar.php'; ?>
         <div class="main">
-            <div><h1>List of Products</h1></div>
+            <div class="d-flex align-items-center mt-3">
+                <h1 class="me-auto fs-1">Products</h1>
+                <span class="me-5"><button type="submit" id="add-product" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dynamicFormModal" data-form="product">
+                    <i class="fa-solid fa-user-pen"></i> Add Product</button>
+                </span>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade m-5" id="dynamicFormModal" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content px-4 py-3" id="modalContent"></div>
+                </div>
+            </div>
 
             <div class="container p-5">
                 <div>
@@ -32,7 +44,7 @@
                     <div id="results"></div>
                 </div>
 
-                <table class="table table-striped table-hover table-bordered rounded default-table">
+                <table class="table table-hover default-table table-pad">
                     <thead class="table-dark">
                         <tr>
                             <?php foreach (["Product ID", "Product Name", "Supplier ID", "Price", "Action"] as $columnName) { ?>
@@ -66,6 +78,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../backend/index.js"></script>
+    <script src="../backend/script.js"></script>
     <script src="../backend/get.js"></script>
 </body>
 </html>
