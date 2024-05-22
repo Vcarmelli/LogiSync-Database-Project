@@ -20,7 +20,6 @@ if (isset($_GET['querySearch'])) {
     $stmt->bindValue(':filterValues', "%$filterValues%", PDO::PARAM_STR);
     $stmt->execute();
     $tableId = assignId($whichTable);
-    echo $tableId;
     echo '<table id="' . $tableId . '" class="table table-hover table-pad">';
     echo '<thead class="table-dark"><tr>';
     foreach ($columns as $column) {
@@ -62,11 +61,14 @@ function formatColumnName($columnName) {
 }
 
 function assignId($table) {
-    if($table === "supplier") {
-        return "supplierTable";
-    } else if($table === "product") {
-        return "productTable";
-    } else if($table === "purchaseorder") {
-        return "orderTable";
-    }
+    switch ($table) {
+        case 'supplier':
+            return "supplierTable";
+        case 'product':
+            return "productTable";
+        case 'purchaseorder':
+            return "orderTable";
+        default:
+          //code block
+      }
 }

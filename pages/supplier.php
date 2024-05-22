@@ -24,13 +24,13 @@
                 </span>
             </div>
 
-            
             <!-- Modal -->
             <div class="modal fade m-5" id="dynamicFormModal" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content px-4 py-3" id="modalContent"></div>
                 </div>
             </div>
+            
             
             <div class="card m-5">
                 <div class="card-header">Suppliers Table</div>
@@ -63,7 +63,6 @@
                             $stmt = $dbase->connect()->prepare('SELECT * FROM supplier');
                             $stmt->execute();
 
-                            // Fetch the first column dynamically
                             $firstColumn = null;
                             while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
                                 if ($row) {
@@ -76,7 +75,7 @@
                                             <?php } ?>
                                             <?php include '../components/edit_delete.php'; ?>
                                         </tr>
-                                        <?php break; // exit the loop after the first column is found
+                                        <?php break;
                                     }
                                 }
                             }

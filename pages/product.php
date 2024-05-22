@@ -63,15 +63,23 @@
                             $dbase = new Database();
                             $stmt = $dbase->connect()->prepare('SELECT * FROM product');
                             $stmt->execute();
-                            while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
-                                <tr>
-                                    <?php foreach ($row as $value) { ?>
-                                        <td><?php echo $value; ?></td>
-                                    <?php } ?>
-                                    <?php include '../components/edit_delete.php'; ?>
-                                </tr>
-                            <?php }
-
+                            
+                            $firstColumn = null;
+                            while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
+                                if ($row) {
+                                    foreach ($row as $column => $value) {
+                                        $firstColumn = $column; ?>
+                                        <tr>
+                                            <input class="rowID" type="hidden" value="<?php echo $row[$firstColumn]; ?>">
+                                            <?php foreach ($row as $value) { ?>
+                                                <td><?php echo $value; ?></td>
+                                            <?php } ?>
+                                            <?php include '../components/edit_delete.php'; ?>
+                                        </tr>
+                                        <?php break; 
+                                    }
+                                }
+                            }
                         ?>
                         </tbody>
                     </table>

@@ -66,19 +66,16 @@ function querySearch(event) {
         url: '../includes/search.php',
         data: data,
         success: function(response) {
-            console.log("Raw response:", response);
             if (response === null){
-                $('#results').html("No matching records found.");
+                $('#results').html("No matching records found");
             } else {
-                //console.log("searched:", response);
                 $('.default-table').hide();
                 $('#results').html(response);
                 formModificationHandlers();
-                //alert('Searched query!');
             }
         },
         error: function(error) {
-            alert('Error Searched query!');
+            alert('Error searching query!');
         }
     });
 }

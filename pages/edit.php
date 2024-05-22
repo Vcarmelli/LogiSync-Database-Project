@@ -4,11 +4,11 @@
 
 <?php if ($show === 'supplier'): ?>
     <div class="modal-header">
-        <h5 class="modal-title fs-4 fw-bold" id="addSupplierModalLabel">Add Supplier</h5>
+        <h5 class="modal-title fs-4 fw-bold" id="addSupplierModalLabel">Edit Supplier</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-        <form id="addSupplierForm" method="post">
+        <form id="updateSupplierForm" method="post">
             <div class="mb-3">
                 <label for="supplierName" class="form-label">Supplier Name</label>
                 <input type="text" class="form-control" id="supplierName" name="supplierName" required>
@@ -21,16 +21,16 @@
                 <label for="contactNumber" class="form-label">Contact Number</label>
                 <input type="text" class="form-control" id="contactNumber" name="contactNumber" required>
             </div>
-            <button type="submit" class="btn btn-primary">Add Supplier</button>
+            <button type="submit" class="btn btn-primary">Update Supplier</button>
         </form>
     </div>
 <?php elseif ($show === 'product'): ?>
     <div class="modal-header">
-        <h5 class="modal-title fs-4 fw-bold" id="addProductModalLabel">Add Product</h5>
+        <h5 class="modal-title fs-4 fw-bold" id="addProductModalLabel">Edit Product</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-        <form id="addProductForm" method="post">
+        <form id="updateProductForm" method="post">
             <div class="mb-3">
                 <label for="productName" class="form-label">Product Name</label>
                 <input type="text" class="form-control" id="productName" name="productName" required>
@@ -53,16 +53,16 @@
                 <label for="price" class="form-label">Price</label>
                 <input type="number" step="0.01" class="form-control" id="price" name="price" required>
             </div>
-            <button type="submit" class="btn btn-primary">Add Product</button>
+            <button type="submit" class="btn btn-primary">Update Product</button>
         </form>
     </div>
 <?php elseif ($show === 'purchaseorder'): ?>
     <div class="modal-header">
-        <h5 class="modal-title fs-4 fw-bold" id="addOrderModalLabel">Add Order</h5>
+        <h5 class="modal-title fs-4 fw-bold" id="addOrderModalLabel">Edit Order</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-        <form id="addOrderForm" method="post">
+        <form id="updateOrderForm" method="post">
             <div class="mb-3">
                 <label for="supplierIdPO" class="form-label">Select Supplier</label>
                 <select name="supplierIdPO" id="supplierIdPO" class="form-select" required>
@@ -85,7 +85,7 @@
                 <label for="deliveryDate" class="form-label">Delivery Date</label>
                 <input type="date" class="form-control" id="deliveryDate" name="deliveryDate" required>
             </div>
-            <button type="submit" class="btn btn-primary">Add Order</button>
+            <button type="submit" class="btn btn-primary">Update Order</button>
         </form>
     </div>
 <?php endif; ?>
