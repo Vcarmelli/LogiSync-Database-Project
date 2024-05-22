@@ -24,54 +24,66 @@
                 </span>
             </div>
 
+            
             <!-- Modal -->
             <div class="modal fade m-5" id="dynamicFormModal" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content px-4 py-3" id="modalContent"></div>
                 </div>
             </div>
-
             
-            <div class="container p-5">
-                <div>
-                    <form id="search" action="" method="GET">
-                        <div class="input-group mb-5">
-                            <input type="text" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control search-input" 
-                                    placeholder="Search by Supplier ID or Supplier Name" required>
-                            <input type="hidden" name="report" value="supplier" class="search-table">
-                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </div>
-                    </form>
-                    <div id="results"></div>
-                </div>
+            <div class="card m-5">
+                <div class="card-header">Suppliers Table</div>
+                <div class="card-body">
+                    <div>
+                        <form id="search" action="" method="GET">
+                            <div class="input-group mb-5">
+                                <input type="text" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control search-input" 
+                                        placeholder="Search by Supplier ID or Supplier Name" required>
+                                <input type="hidden" name="report" value="supplier" class="search-table">
+                                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                        </form>
+                        <div id="results"></div>
+                    </div>
 
-                <table class="table table-hover default-table table-pad">
-                    <thead class="table-dark">
-                        <tr>
-                            <?php foreach (["Supplier ID", "Supplier Name", "Contact Person", "Contact Number", "Action"] as $columnName) { ?>
-                                <th><?php echo $columnName; ?></th>
-                            <?php } ?>
-                        </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
-                    <?php
-                        require_once '../includes/database.php';
-
-                        $dbase = new Database();
-                        $stmt = $dbase->connect()->prepare('SELECT * FROM supplier');
-                        $stmt->execute();
-                        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+                    <table id="supplierTable" class="table table-hover default-table table-pad">
+                        <thead class="table-dark">
                             <tr>
-                                <?php foreach ($row as $value) { ?>
-                                    <td><?php echo $value; ?></td>
+                                <?php foreach (["Supplier ID", "Supplier Name", "Contact Person", "Contact Number", "Action"] as $columnName) { ?>
+                                    <th><?php echo $columnName; ?></th>
                                 <?php } ?>
-                                <?php include '../components/edit_delete.php'; ?>
                             </tr>
-                        <?php }
+                        </thead>
+                        <tbody class="table-group-divider">
+                        <?php
+                            require_once '../includes/database.php';
 
-                    ?>
-                    </tbody>
-                </table>
+                            $dbase = new Database();
+                            $stmt = $dbase->connect()->prepare('SELECT * FROM supplier');
+                            $stmt->execute();
+
+                            // Fetch the first column dynamically
+                            $firstColumn = null;
+                            while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
+                                if ($row) {
+                                    foreach ($row as $column => $value) {
+                                        $firstColumn = $column; ?>
+                                        <tr>
+                                            <input class="rowID" type="hidden" value="<?php echo $row[$firstColumn]; ?>">
+                                            <?php foreach ($row as $value) { ?>
+                                                <td><?php echo $value; ?></td>
+                                            <?php } ?>
+                                            <?php include '../components/edit_delete.php'; ?>
+                                        </tr>
+                                        <?php break; // exit the loop after the first column is found
+                                    }
+                                }
+                            }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

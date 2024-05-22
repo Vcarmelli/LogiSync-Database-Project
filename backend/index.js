@@ -1,12 +1,15 @@
 // FOR INTERFACE
 
 $(document).ready(function() {
+    console.log("INDEX LOADED");
     $('#toggle-btn').click(menu);
+    formModificationHandlers();
 });
 
 function menu() {
     $('#sidebar').toggleClass('expand');
 }
+
 
 $(document).ready(function() {
     // Handle button clicks and load the appropriate form into the modal

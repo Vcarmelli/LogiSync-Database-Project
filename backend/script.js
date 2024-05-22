@@ -1,11 +1,36 @@
 // FOR DATABASE MANIPULATION
 
+
 function formSubmissionHandlers() {
     console.log("SCRIPT LOADED");
     $('#addSupplierForm').on('submit', addSupplier);
     $('#addProductForm').on('submit', addProduct);
     $('#addOrderForm').on('submit', addOrder);
 }; 
+
+function formModificationHandlers() {
+    console.log("MODIFY TABLE");
+    $('#($table === "supplier"').on('click', '.edit', editRow);
+    $('#supplierTable').on('click', '.delete', deleteRow);
+    $('#productTable').on('click', '.edit', editRow);
+    $('#productTable').on('click', '.delete', deleteRow);
+    $('#orderTable').on('click', '.edit', editRow);
+    $('#orderTable').on('click', '.delete', deleteRow);
+}
+
+function editRow(event) {
+    event.preventDefault(); 
+    
+    var rowID = $(this).closest('tr').find('.rowID').val();
+    console.log('Clicked row ID:', rowID);
+}
+
+function deleteRow(event) {
+    event.preventDefault();
+    var rowID = $(this).closest('tr').find('.rowID').val();
+    console.log('Delete clicked row ID:', rowID);
+}
+
 
 function addSupplier(event) {
     event.preventDefault();
@@ -48,7 +73,7 @@ function addProduct(event) {
     event.preventDefault();
 
     // Get input values
-    var productName = $('#productName').val();
+    var productName = $('#productNajme').val();
     var supplierId = $('#supplierId').val();
     var price = $('#price').val();
     

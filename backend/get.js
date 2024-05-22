@@ -73,10 +73,9 @@ function querySearch(event) {
                 //console.log("searched:", response);
                 $('.default-table').hide();
                 $('#results').html(response);
-                
+                formModificationHandlers();
                 //alert('Searched query!');
             }
-            $('#search')[0].reset();
         },
         error: function(error) {
             alert('Error Searched query!');

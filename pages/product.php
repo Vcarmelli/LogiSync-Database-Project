@@ -31,46 +31,51 @@
                 </div>
             </div>
 
-            <div class="container p-5">
-                <div>
-                    <form id="search" action="" method="GET">
-                        <div class="input-group mb-5">
-                            <input type="text" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control search-input" 
-                                    placeholder="Search by ID or Product Name" required>
-                            <input type="hidden" name="report" value="product" class="search-table">
-                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </div>
-                    </form>
+            
+
+            <div class="card m-5">
+                <div class="card-header">Products Table</div>
+                <div class="card-body">
+                    <div>
+                        <form id="search" action="" method="GET">
+                            <div class="input-group mb-5">
+                                <input type="text" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control search-input" 
+                                        placeholder="Search by ID or Product Name" required>
+                                <input type="hidden" name="report" value="product" class="search-table">
+                                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                        </form>
+                    </div>
                     <div id="results"></div>
-                </div>
 
-                <table class="table table-hover default-table table-pad">
-                    <thead class="table-dark">
-                        <tr>
-                            <?php foreach (["Product ID", "Product Name", "Supplier ID", "Price", "Action"] as $columnName) { ?>
-                                <th><?php echo $columnName; ?></th>
-                            <?php } ?>
-                        </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
-                    <?php
-                        require_once '../includes/database.php';
-
-                        $dbase = new Database();
-                        $stmt = $dbase->connect()->prepare('SELECT * FROM product');
-                        $stmt->execute();
-                        while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+                    <table id="orderTable" class="table table-hover default-table table-pad">
+                        <thead class="table-dark">
                             <tr>
-                                <?php foreach ($row as $value) { ?>
-                                    <td><?php echo $value; ?></td>
+                                <?php foreach (["Product ID", "Product Name", "Supplier ID", "Price", "Action"] as $columnName) { ?>
+                                    <th><?php echo $columnName; ?></th>
                                 <?php } ?>
-                                <?php include '../components/edit_delete.php'; ?>
                             </tr>
-                        <?php }
+                        </thead>
+                        <tbody class="table-group-divider">
+                        <?php
+                            require_once '../includes/database.php';
 
-                    ?>
-                    </tbody>
-                </table>
+                            $dbase = new Database();
+                            $stmt = $dbase->connect()->prepare('SELECT * FROM product');
+                            $stmt->execute();
+                            while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+                                <tr>
+                                    <?php foreach ($row as $value) { ?>
+                                        <td><?php echo $value; ?></td>
+                                    <?php } ?>
+                                    <?php include '../components/edit_delete.php'; ?>
+                                </tr>
+                            <?php }
+
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
