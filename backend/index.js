@@ -6,7 +6,7 @@ $(document).ready(function() {
     $('button[data-bs-toggle="modal"]').on('click', addData);
 
     $('.edit').on('click', editData);
-    formModificationHandlers();
+    $('.delete').on('click', deleteData);
 });
 
 
@@ -29,7 +29,7 @@ function addData() {
             formUrl = '';
     }
     
-    console.log('Form URL:', formUrl);
+    console.log('ADD Form URL:', formUrl);
     if (formUrl) {
         $.ajax({
             url: formUrl,
@@ -49,6 +49,7 @@ function addData() {
 
 function editData() {
     var formType = $(this).closest('table').attr('id');
+    var rowID = $(this).closest('tr').find('.rowID').val();
     var formUrl = '';
     console.log("EDIT BUTTON CLICKED");
 
@@ -66,18 +67,55 @@ function editData() {
             formUrl = '';
     }
     
-    console.log('Form URL:', formUrl);
+    console.log('EDIT Form URL:', formUrl);
     if (formUrl) {
         $.ajax({
             url: formUrl,
             method: 'GET',
             success: function(response) {
-                $('#modalContent').html(response);
-                formSubmissionHandlers();
+                $('#editModalContent').html(response);
+                formModificationHandlers(rowID);
             },
             error: function() {
                 console.error('Error:', error);
-                $('#modalContent').html('<p class="text-danger">An error occurred while loading the form.</p>');
+                $('#editModalContent').html('<p class="text-danger">An error occurred while loading the form.</p>');
+            }
+        });
+    }
+}
+
+function deleteData() {
+    var formType = $(this).closest('table').attr('id');
+    var rowID = $(this).closest('tr').find('.rowID').val();
+    var formUrl = '';
+    console.log("EDIT BUTTON CLICKED");
+
+    switch(formType) {
+        case 'supplierTable':
+            formUrl = '../pages/edit.php?form=supplier';
+            break;
+        case 'productTable':
+            formUrl = '../pages/edit.php?form=product';
+            break;
+        case 'orderTable':
+            formUrl = '../pages/edit.php?form=purchaseorder';
+            break;
+        default:
+            formUrl = '';
+    }
+    
+    console.log('EDIT Form URL:', formUrl);
+    if (formUrl) {
+        $.ajax({
+            url: formUrl,
+            method: 'GET',
+            success: function(response) {
+                $('#editModalContent').html(response);
+                formModificationHandlers(rowID);
+            },
+            error: function() {
+                console.error('Error:', error);
+                $('#editModalContent').html('<p class="text-danger">An error occurred while loading the form.</p>');
             }
         });
     }

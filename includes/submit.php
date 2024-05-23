@@ -8,23 +8,26 @@ if(isset($_POST['action']) && $_POST['action'] == 'add') {
     
     $table = $_POST['table'];
     $data = $_POST['data'];
-    $save = validInfo($table, $data);
-    echo $save;
-    if ($save == true) {
-        saveInfo($table, $data);
-        echo "save run";
-    }
 
+    if (validInfo($table, $data) == true)  {
+        addInfo($table, $data);
+        echo 'true';
+    } else {
+        echo 'false';
+    }
 
 } else if(isset($_POST['action']) && $_POST['action'] == 'edit') {
     
     $table = $_POST['table'];
     $id = $_POST['id'];
-    $data = $_POST['data'];
-    echo "EDIT HERE";
-    echo $table;
-    echo $id;
-    //echo $data;
+    $data = json_decode($_POST['data'], true);
+
+    if (validInfo($table, $data) == true)  {
+        saveInfo($table, $id, $data);
+        echo 'true';
+    } else {
+        echo 'false';
+    }
 
 } else if(isset($_POST['action']) && $_POST['action'] == 'delete') {
     
@@ -38,39 +41,69 @@ if(isset($_POST['action']) && $_POST['action'] == 'add') {
 function validInfo($table, $data) {
     switch ($table) {
         case 'addSupplierForm':
+        case 'supplier':
             $supplier = new ValidateSupplierForm($data['supplierName'], $data['contactPerson'], $data['contactNumber']);
-            $supplier->validateSupplierForm();
-            break;
+            $valid = $supplier->validateSupplierForm();
+            return $valid;
         case 'addProductForm':
+        case 'product':
             $product = new ValidateProductForm($data['productName'], $data['supplierId'], $data['price']);
-            $product->validateProductForm();
-            break;
+            $valid = $product->validateProductForm();
+            return $valid;
         case 'addOrderForm':
+        case 'purchaseorder':
             $order = new ValidateOrderForm($data['supplierIdPO'], $data['orderDate'], $data['deliveryDate']);
-            $order->validateOrderForm();
-            break;
+            $valid = $order->validateOrderForm();
+            return $valid;
         default:
-          //code block
-      }
-    return true;
+            return false;
+    }
 }
 
-function saveInfo($table, $data) {
+function addInfo($table, $data) {
     switch ($table) {
         case 'addSupplierForm':
             saveSupplier($data['supplierName'], $data['contactPerson'], $data['contactNumber']);
-            echo "SUBMIT.PHP EXECUTED supplier !!  ";
             break;
         case 'addProductForm':
             saveProduct($data['productName'], $data['supplierId'], $data['price']);
-            echo "SUBMIT.PHP EXECUTED product!! ";
             break;
         case 'addOrderForm':
             saveOrder($data['supplierIdPO'], $data['orderDate'], $data['deliveryDate']);
-            echo "SUBMIT.PHP EXECUTED ORDER !!  ";
             break;
         default:
-          //code block
-      }
-    
+            break;
+    }
+}
+
+function saveInfo($table, $id, $data) {
+    switch ($table) {
+        case 'supplier':
+            modifySupplier($id, $data['supplierName'], $data['contactPerson'], $data['contactNumber']);
+            break;
+        case 'product':
+            modifyProduct($id, $data['productName'], $data['supplierId'], $data['price']);
+            break;
+        case 'purchaseorder':
+            modifyOrder($id, $data['supplierIdPO'], $data['orderDate'], $data['deliveryDate']);
+            break;
+        default:
+            break;
+    }
+}
+
+function removeInfo($table, $id) {
+    switch ($table) {
+        case 'supplierTable':
+            deleteInfo("supplier", "SupplierID", $id);
+            break;
+        case 'productTable':
+            deleteInfo("product", "ProductID", $id);
+            break;
+        case 'orderTable':
+            deleteInfo("purchaseorder", "OrderID", $id);
+            break;
+        default:
+            break;
+    }
 }

@@ -19,7 +19,10 @@
             </div>
             <div class="mb-3">
                 <label for="contactNumber" class="form-label">Contact Number</label>
-                <input type="text" class="form-control" id="contactNumber" name="contactNumber" required>
+                <div class="input-group">
+                    <span class="input-group-text">(+63)</span>
+                    <input type="text" class="form-control" id="contactNumber" name="contactNumber" required>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Add Supplier</button>
         </form>
@@ -51,7 +54,10 @@
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
-                <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+                <div class="input-group">
+                    <span class="input-group-text">&#8369;</span>
+                    <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Add Product</button>
         </form>
@@ -88,4 +94,6 @@
             <button type="submit" class="btn btn-primary">Add Order</button>
         </form>
     </div>
-<?php endif; ?>
+<?php endif; 
+
+unset($show)?>

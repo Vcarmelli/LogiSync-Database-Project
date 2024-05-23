@@ -9,17 +9,19 @@ class ValidateSupplierForm extends Validator {
     }
 
     public function validateSupplierForm() {
-        if ($this->isInvalidName("supplier")) {
-            echo "INVALID SUP NAME ";
+        $valid = true;
+        if ($this->isInvalidSupplierName()) {
+            $valid = false;
         }
 
         if ($this->isInvalidName("contact")) {
-            echo "INVALID CONTACT NAME ";
+            $valid = false;
         }
 
         if ($this->isInvalidContactNumber()) {
-            echo "INVALID NUMBER ";
+            $valid = false;
         }
+        return $valid;
     }
 }
 
@@ -28,14 +30,14 @@ class ValidateProductForm extends Validator {
     public function __construct($productName, $supplierId, $price) {
         parent::__construct( null, null, null, $productName, $supplierId, $price, 
                              null, null, null);
-        $this->price = $price;
     }
 
     public function ValidateProductForm() {
+        $valid = true;
         if ($this->isInvalidName("product")) {
-            echo "INVALID PRODUCT NAME ";
+            $valid = false;
         }
-        echo $this->price;
+        return $valid;
     }
 }
 
@@ -44,14 +46,13 @@ class ValidateOrderForm extends Validator {
     public function __construct($supplierIdPO, $orderDate, $deliveryDate) {
         parent::__construct( null, null, null, null, null, null,
                              $supplierIdPO, $orderDate, $deliveryDate);
-
-        $this->deliveryDate = $deliveryDate;
     }
 
     public function validateOrderForm() {
+        $valid = true;
         if ($this->isInvalidDate()) {
-            echo "INVALID  ORDER DATE ";
+            $valid = false;
         }
-        echo $this->deliveryDate;
+        return $valid;
     }
 }

@@ -32,6 +32,7 @@ class Validator {
         if (preg_match('/^9[0-9]{9}$/', $this->contactNumber)) {
             return false; // valid number
         }
+
         return true; // invalid number
     }
     protected function isInvalidName($whichName) {
@@ -45,9 +46,16 @@ class Validator {
         }
 
         if (preg_match('/^[a-zA-Z ]+$/', $name)) {
-            return false; // valid number
+            return false; // valid name
         }
-        return true; // invalid number
+        return true; // invalid name
+    }
+
+    protected function isInvalidSupplierName() {
+        if (preg_match('/^[a-zA-Z \',.-]+$/', $this->supplierName)) {
+            return false; // valid name
+        }
+        return true; // invalid name
     }
 
     protected function isInvalidDate() {

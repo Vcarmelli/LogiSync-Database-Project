@@ -31,6 +31,15 @@
                 </div>
             </div>
 
+             <!-- Alerts -->
+            <div class="container w-50">
+                <div id="alert-success" class="alert alert-success d-none fade show" role="alert">
+                    Product updated successfully.
+                </div>
+                <div id="alert-error" class="alert alert-danger d-none fade show" role="alert">
+                    An error occurred while updating the product table.
+                </div>
+            </div>
             
 
             <div class="card m-5">

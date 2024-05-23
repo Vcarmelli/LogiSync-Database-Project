@@ -70,5 +70,5 @@ function assignId($table) {
             return "orderTable";
         default:
           //code block
-      }
+    }
 }

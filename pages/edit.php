@@ -4,7 +4,7 @@
 
 <?php if ($show === 'supplier'): ?>
     <div class="modal-header">
-        <h5 class="modal-title fs-4 fw-bold" id="addSupplierModalLabel">Edit Supplier</h5>
+        <h5 class="modal-title fs-4 fw-bold" id="updateSupplierModalLabel">Edit Supplier</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
@@ -19,14 +19,18 @@
             </div>
             <div class="mb-3">
                 <label for="contactNumber" class="form-label">Contact Number</label>
-                <input type="text" class="form-control" id="contactNumber" name="contactNumber" required>
+                <div class="input-group">
+                    <span class="input-group-text">(+63)</span>
+                    <input type="text" class="form-control" id="contactNumber" name="contactNumber" required>
+                </div>
             </div>
+            <input type="hidden" id="dbTable" value="<?php echo $show ?>">
             <button type="submit" class="btn btn-primary">Update Supplier</button>
         </form>
     </div>
 <?php elseif ($show === 'product'): ?>
     <div class="modal-header">
-        <h5 class="modal-title fs-4 fw-bold" id="addProductModalLabel">Edit Product</h5>
+        <h5 class="modal-title fs-4 fw-bold" id="updateProductModalLabel">Edit Product</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
@@ -51,14 +55,18 @@
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
-                <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+                <div class="input-group">
+                    <span class="input-group-text">&#8369;</span>
+                    <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+                </div>
             </div>
+            <input type="hidden" id="dbTable" value="<?php echo $show ?>">
             <button type="submit" class="btn btn-primary">Update Product</button>
         </form>
     </div>
 <?php elseif ($show === 'purchaseorder'): ?>
     <div class="modal-header">
-        <h5 class="modal-title fs-4 fw-bold" id="addOrderModalLabel">Edit Order</h5>
+        <h5 class="modal-title fs-4 fw-bold" id="updateOrderModalLabel">Edit Order</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
@@ -85,7 +93,10 @@
                 <label for="deliveryDate" class="form-label">Delivery Date</label>
                 <input type="date" class="form-control" id="deliveryDate" name="deliveryDate" required>
             </div>
+            <input type="hidden" id="dbTable" value="<?php echo $show ?>">
             <button type="submit" class="btn btn-primary">Update Order</button>
         </form>
     </div>
-<?php endif; ?>
+<?php endif; 
+
+unset($show); ?>

@@ -7,23 +7,16 @@ function formSubmissionHandlers() {
     $('#addOrderForm').on('submit', addRow);
 }; 
 
-function formModificationHandlers() {
+function formModificationHandlers(rowID) {
     console.log("MODIFY TABLE");
 
-    $('#updateSupplierForm').on('submit', editRow);
-    $('#updateProductForm').on('submit', editRow);
-    $('#updateOrderForm').on('submit', editRow);
+    $('#updateSupplierForm').on('submit', function(event) { editRow(event, rowID); });
+    $('#updateProductForm').on('submit', function(event) { editRow(event, rowID); });
+    $('#updateOrderForm').on('submit', function(event) { editRow(event, rowID); });
 
     $('#deleteSupplierForm').on('submit', deleteRow);
     $('#deleteProductForm').on('submit', deleteRow);
     $('#deleteOrderForm').on('submit', deleteRow);
-
-    // $('#supplierTable').on('click', '.edit', editRow);
-    // $('#supplierTable').on('click', '.delete', deleteRow);
-    // $('#productTable').on('click', '.edit', editRow);
-    // $('#productTable').on('click', '.delete', deleteRow);
-    // $('#orderTable').on('click', '.edit', editRow);
-    // $('#orderTable').on('click', '.delete', deleteRow);
 }
 
 function clearForm() {
@@ -33,11 +26,41 @@ function clearForm() {
     $('#addOrderForm')[0].reset();
 }; 
 
-function editRow(event) {
+
+function addRow(event) {
+    event.preventDefault();
+    var table = $(this).closest('form').attr('id');
+
+    const data = getData(table);
+    console.log('Data:', data);
+    
+    const tableData = {
+        action: 'add',
+        table: table,
+        data: data
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '../includes/submit.php',
+        data: tableData,
+        success: function(response) {
+            console.log(response);
+            triggerAlert(response);
+            //clearForm();
+        },
+        error: function(error) {
+            console.error("Error:", error);
+        }
+    });
+
+};
+
+
+function editRow(event, rowID) {
     event.preventDefault(); 
     
-    var table = $(this).closest('table').attr('id');
-    var rowID = $(this).closest('tr').find('.rowID').val();
+    var table = $('#dbTable').val()
     console.log('Edit ID:', rowID, 'from', table);
 
     const data = getData(table);
@@ -47,7 +70,7 @@ function editRow(event) {
         action: 'edit', 
         table: table,
         id: rowID,
-        data: data
+        data: JSON.stringify(data)
     }
 
     $.ajax({
@@ -55,21 +78,20 @@ function editRow(event) {
         url: '../includes/submit.php',
         data: sendData,
         success: function(response) {
-            console.log("success:", response);
+            console.log(response);
+            triggerAlert(response);
         },
         error: function(error) {
             console.error("Error:", error);
             alert('Error editing', table);
         }
     });
-
-    
 }
 
-function deleteRow(event) {
+
+function deleteRow(event, rowID) {
     event.preventDefault();
-    var table = $(this).closest('table').attr('id');
-    var rowID = $(this).closest('tr').find('.rowID').val();
+    
     console.log('Delete ID:', rowID, 'from', table);
 
     const sendData = {
@@ -83,7 +105,8 @@ function deleteRow(event) {
         url: '../includes/submit.php',
         data: sendData,
         success: function(response) {
-            console.log("success:", response);
+            console.log(response);
+            triggerAlert(response);
         },
         error: function(error) {
             console.error("Error:", error);
@@ -93,111 +116,20 @@ function deleteRow(event) {
 }
 
 
-function addRow(event) {
-    event.preventDefault();
-    var table = $(this).closest('form').attr('id');
 
-    const data = getData(table);
-    console.log('Data:', data);
-    
-
-    const supplierData = {
-        action: 'add',
-        table: table,
-        data: data
-    }
-
-    $.ajax({
-        type: 'POST',
-        url: '../includes/submit.php',
-        data: supplierData,
-        success: function(response) {
-            alert('Added successfully!');
-            //clearForm();
-        },
-        error: function(error) {
-            console.error("Error:", error);
-            alert('Error adding');
-        }
-    });
-
-};
-
-// function addProduct(event) {
-//     event.preventDefault();
-
-//     const data = getData("productTable");
-    
-//     // Display the values (for example, logging to the console)
-//     console.log('productName:', data.productName);
-//     console.log('supplierId:', data.supplierId);
-//     console.log('price:', data.price);
-
-//     const productData = {
-//         action: 'addProduct',
-//         data: data
-//     }
-
-//     $.ajax({
-//         type: 'POST',
-//         url: '../includes/submit.php',
-//         data: productData,
-//         success: function(response) {
-//             alert('Product added successfully!');
-//             $('#addProductForm')[0].reset();
-//         },
-//         error: function(error) {
-//             console.error("Error:", error);
-//             alert('Error adding product');
-//         }
-//     });
-
-// };
-
-// function addOrder(event) {
-//     event.preventDefault();
-
-//     const data = getData("orderTable");
-    
-//     // Display the values (for example, logging to the console)
-//     console.log('supplierIdPO:', supplierIdPO);
-//     console.log('orderDate:', orderDate);
-//     console.log('deliveryDate:', deliveryDate);
-
-//     const orderData = {
-//         action: 'addOrder',
-//         data: data
-//     }
-
-//     $.ajax({
-//         type: 'POST',
-//         url: '../includes/submit.php',
-//         data: orderData,
-//         success: function(response) {
-//             alert('Product added successfully!');
-//             $('#addOrderForm')[0].reset();
-//         },
-//         error: function(error) {
-//             console.error("Error:", error);
-//             alert('Error adding product');
-//         }
-//     });
-//};
-
-
+// getters
 function getData(table) {
     var data = {}; 
-    if(table === "supplierTable" || table === "addSupplierForm") {
+    if(table === "addSupplierForm" || table === "supplier") {
         data = getSupplierData();
-    } else if(table === "productTable" || table === "addProductForm") {
+    } else if(table === "addProductForm" || table === "product") {
         data = getProductData();
-    } else if(table === "orderTable" || table === "addOrderForm") {
+    } else if(table === "addOrderForm" || table === "purchaseorder") {
         data = getOrderData();
     }
     return data
 }
 
-// getters
 function getSupplierData() {
     const data = {
         supplierName: $('#supplierName').val(),
@@ -223,4 +155,25 @@ function getProductData() {
         price: $('#price').val()
     }
     return data
+}
+
+
+function triggerAlert(response) {
+    console.log("response:", response);
+    if(response == 'true') {
+        $('#alert-success').removeClass('d-none');
+        $('#alert-error').addClass('d-none');
+        //hideAlerts();
+    } else {
+        $('#alert-error').removeClass('d-none');
+        $('#alert-success').addClass('d-none');
+        //hideAlerts();
+    }
+}
+
+function hideAlerts() {
+    setTimeout(function() {
+        $('#alert-success').addClass('d-none');
+        $('#alert-error').addClass('d-none');
+    }, 5000); 
 }
