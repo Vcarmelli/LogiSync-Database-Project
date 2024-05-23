@@ -58,7 +58,7 @@
                     <div id="results"></div>
 
                     <table id="productTable" class="table table-hover default-table table-pad">
-                        <thead class="table-dark">
+                        <thead class="table-head">
                             <tr>
                                 <?php foreach (["Product ID", "Product Name", "Supplier ID", "Price", "Action"] as $columnName) { ?>
                                     <th><?php echo $columnName; ?></th>

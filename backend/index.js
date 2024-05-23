@@ -7,6 +7,10 @@ $(document).ready(function() {
 
     $('.edit').on('click', editData);
     $('.delete').on('click', deleteData);
+    loadCharts();
+    loadCounts();
+    loadAverage();
+    loadCountPerMonth();
 });
 
 

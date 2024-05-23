@@ -21,7 +21,7 @@ if (isset($_GET['querySearch'])) {
     $stmt->execute();
     $tableId = assignId($whichTable);
     echo '<table id="' . $tableId . '" class="table table-hover table-pad">';
-    echo '<thead class="table-dark"><tr>';
+    echo '<thead class="table-head"><tr>';
     foreach ($columns as $column) {
         echo "<th>" . htmlspecialchars(formatColumnName($column), ENT_QUOTES, 'UTF-8') . "</th>";
     }

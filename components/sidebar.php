@@ -1,14 +1,20 @@
 <aside id="sidebar" class="expand">
     <div class="d-flex sidebar-title">
         <button id="toggle-btn" type="button">
-            <i class="fa-solid fa-bars"></i> 
+            <img src="../assets/logisync-logo.png" alt="LogiSync" height="40">
         </button>
         <div class="sidebar-logo">
-            <a href="../index.php">Project Name</a>
+            <a href="../index.php"><img src="../assets/logisync-logo-text.png" alt="LogiSync" height="60"></a>
         </div>
     </div>
     <div class="sidebar-pages">
         <ul class="sidebar-nav">
+            <li class="sidebar-tem">
+                <a href="../index.php" class="sidebar-link">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link has-dropdown collapsed" data-bs-toggle="collapse" data-bs-target="#reports" aria-expanded="false" aria-controls="reports">
                     <i class="fa-solid fa-table"></i>
