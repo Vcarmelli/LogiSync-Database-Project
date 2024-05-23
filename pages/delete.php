@@ -1,53 +1,65 @@
 <?php
-    $show = isset($_GET['form']) ? $_GET['form'] : 'supplier'; 
-    $id = isset($_GET['id']) ? $_GET['id'] : ''; 
+    $show = $_GET['form'];
+    $col = $_GET['col'];
+    $id = $_GET['id'];
+
+    function formatColumnName($columnName) {
+        return preg_replace('/([a-z])([A-Z])/s','$1 $2', $columnName);
+    }
 ?>
 
-<?php if ($show === 'supplier'): ?>
-    <div class="modal-header">
-        <h5 class="modal-title fs-4 fw-bold" id="deleteSupplierModalLabel">Delete Supplier</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-        <form id="deleteSupplierForm" method="post">
-        <table id="supplierTable" class="table table-hover default-table table-pad">
+<div class="modal-header">
+    <h5 class="modal-title fs-4 fw-bold" id="deleteModalLabel">Delete Data</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="container">
+        <?php require_once '../includes/database.php';
+
+        $dbase = new Database();
+        $stmt = $dbase->connect()->prepare("SELECT * FROM $show WHERE $col = :id");
+
+        $stmt->execute([':id' => $id]);
+
+        // Fetch column names
+        $columnCount = $stmt->columnCount();
+        $columnNames = [];
+        for ($i = 0; $i < $columnCount; $i++) {
+            $columnMeta = $stmt->getColumnMeta($i);
+            $columnNames[] = $columnMeta['name'];
+        } ?>
+
+        <table id="deleteTable" class="table table-hover default-table table-pad">
             <thead class="table-dark">
                 <tr>
-                    <?php foreach (["Supplier ID", "Supplier Name", "Contact Person", "Contact Number", "Action"] as $columnName) { ?>
-                        <th><?php echo $columnName; ?></th>
+                    <?php foreach ($columnNames as $columnName) { ?>
+                        <th><?php echo formatColumnName($columnName); ?></th>
                     <?php } ?>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
-            <?php
-                require_once '../includes/database.php';
-
-                $dbase = new Database();
-                $stmt = $dbase->connect()->prepare('SELECT * FROM supplier');
-                $stmt->execute();
-
-                $firstColumn = null;
-                while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-                    if ($row) {
-                        foreach ($row as $column => $value) {
-                            $firstColumn = $column; ?>
-                            <tr>
-                                <input class="rowID" type="hidden" value="<?php echo $row[$firstColumn]; ?>">
-                                <?php foreach ($row as $value) { ?>
-                                    <td><?php echo $value; ?></td>
-                                <?php } ?>
-                                <?php include '../components/edit_delete.php'; ?>
-                            </tr>
-                            <?php break;
-                        }
-                    }
-                }
-            ?>
+                <?php while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+                    <tr>
+                        <?php foreach ($row as $value) { ?>
+                            <td><?php echo $value; ?></td>
+                        <?php } ?>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
-
-
-            <input type="hidden" id="dbTable" value="<?php echo $show ?>">
-            <button type="submit" class="btn btn-primary">Update Supplier</button>
-        </form>
     </div>
+</div>
+<div class="modal-footer">
+    <form id="deleteForm" method="post">                        
+        <input type="hidden" id="dbId" value="<?php echo $id ?>">
+        <input type="hidden" id="dbTable" value="<?php echo $show ?>">
+        <button type="submit" class="btn btn-danger">Delete Row</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+    </form>
+</div>
+
+<?php
+    unset($show);
+    unset($col); 
+    unset($id);
+?>

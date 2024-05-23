@@ -50,6 +50,7 @@ function querySearch(event) {
     const searchTable = $('.search-table').val();
     const searchColumns = tableColumns[searchTable];
 
+
     console.log('searchInput:', searchInput);
     console.log('searchTable:', searchTable);
     console.log('Columns to be checked:', searchColumns);
@@ -71,7 +72,7 @@ function querySearch(event) {
             } else {
                 $('.default-table').hide();
                 $('#results').html(response);
-                formModificationHandlers();
+                formModificationHandlers(rowID);
             }
         },
         error: function(error) {

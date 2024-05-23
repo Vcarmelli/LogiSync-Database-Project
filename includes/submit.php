@@ -33,9 +33,12 @@ if(isset($_POST['action']) && $_POST['action'] == 'add') {
     
     $table = $_POST['table'];
     $id = $_POST['id'];
-    echo "DELETEE HERE";
-    echo $table;
-    echo $id;
+
+    if(removeInfo($table, $id) == true) {
+        echo 'true';
+    } else {
+        echo 'false';
+    }
 }
 
 function validInfo($table, $data) {
@@ -94,16 +97,16 @@ function saveInfo($table, $id, $data) {
 
 function removeInfo($table, $id) {
     switch ($table) {
-        case 'supplierTable':
-            deleteInfo("supplier", "SupplierID", $id);
-            break;
-        case 'productTable':
-            deleteInfo("product", "ProductID", $id);
-            break;
-        case 'orderTable':
-            deleteInfo("purchaseorder", "OrderID", $id);
-            break;
+        case 'supplier':
+            $deleted = deleteInfo("supplier", "SupplierID", $id);
+            return $deleted;
+        case 'product':
+            $deleted = deleteInfo("product", "ProductID", $id);
+            return $deleted;
+        case 'order':
+            $deleted = deleteInfo("purchaseorder", "OrderID", $id);
+            return $deleted;
         default:
-            break;
+            return false;
     }
 }

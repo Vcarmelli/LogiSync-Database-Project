@@ -36,7 +36,7 @@ if (isset($_GET['querySearch'])) {
             $firstColumn = $columns[0];
 
             foreach ($results as $row) {
-                echo '<tr>';
+                echo '<tr class="results-row">';
                 echo '<input class="rowID" type="hidden" value="' . htmlspecialchars($row[$firstColumn], ENT_QUOTES, 'UTF-8') . '">';
 
                 // Output table data for each column

@@ -51,7 +51,7 @@ function editData() {
     var formType = $(this).closest('table').attr('id');
     var rowID = $(this).closest('tr').find('.rowID').val();
     var formUrl = '';
-    console.log("EDIT BUTTON CLICKED");
+    console.log("EDIT BUTTON CLICKED", formType);
 
     switch(formType) {
         case 'supplierTable':
@@ -88,34 +88,34 @@ function deleteData() {
     var formType = $(this).closest('table').attr('id');
     var rowID = $(this).closest('tr').find('.rowID').val();
     var formUrl = '';
-    console.log("EDIT BUTTON CLICKED");
+    console.log("DELETE BUTTON CLICKED");
 
     switch(formType) {
         case 'supplierTable':
-            formUrl = '../pages/edit.php?form=supplier';
+            formUrl = '../pages/delete.php?form=supplier&col=SupplierID&id=' + rowID;
             break;
         case 'productTable':
-            formUrl = '../pages/edit.php?form=product';
+            formUrl = '../pages/delete.php?form=product&col=ProductID&id=' + rowID;
             break;
         case 'orderTable':
-            formUrl = '../pages/edit.php?form=purchaseorder';
+            formUrl = '../pages/delete.php?form=purchaseorder&col=OrderID&id=' + rowID;
             break;
         default:
             formUrl = '';
     }
     
-    console.log('EDIT Form URL:', formUrl);
+    console.log('DELETE Form URL:', formUrl);
     if (formUrl) {
         $.ajax({
             url: formUrl,
             method: 'GET',
             success: function(response) {
-                $('#editModalContent').html(response);
+                $('#deleteModalContent').html(response);
                 formModificationHandlers(rowID);
             },
             error: function() {
                 console.error('Error:', error);
-                $('#editModalContent').html('<p class="text-danger">An error occurred while loading the form.</p>');
+                $('#deleteModalContent').html('<p class="text-danger">An error occurred while loading the form.</p>');
             }
         });
     }

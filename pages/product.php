@@ -25,7 +25,7 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade m-5" id="dynamicFormModal" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
+            <div class="modal fade mt-5" id="dynamicFormModal" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content px-4 py-3" id="modalContent"></div>
                 </div>
@@ -57,7 +57,7 @@
                     </div>
                     <div id="results"></div>
 
-                    <table id="orderTable" class="table table-hover default-table table-pad">
+                    <table id="productTable" class="table table-hover default-table table-pad">
                         <thead class="table-dark">
                             <tr>
                                 <?php foreach (["Product ID", "Product Name", "Supplier ID", "Price", "Action"] as $columnName) { ?>

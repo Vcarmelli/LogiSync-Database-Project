@@ -147,20 +147,16 @@ function modifyOrder($id, $supplierIdPO, $orderDate, $deliveryDate) {
 function deleteInfo($thisTable, $whichID, $id) {
     try {
         $dbase = new Database();
-
-        $stmt = $dbase->connect()->prepare("DELETE FROM :thisTable
-                                            WHERE :whichID = :id");
+        $stmt = $dbase->connect()->prepare("DELETE FROM $thisTable WHERE $whichID = :id");
         
-        if(!$stmt->execute([
-            ':thisTable' => $thisTable,
-            ':whichID' => $whichID,
-            ':id' => $id
-        ])) {
+        if(!$stmt->execute([':id' => $id])) {
             $stmt = null;
             header("location: ../pages/edit.php?error=inDeleteInfo");
-            exit();
+            return false;
+        } else {
+            $stmt = null;
+            return true;
         }
-        $stmt = null;
     } catch (Exception $e) {
         die("Query Failed in deleteInfo:" . $e->getMessage());
     }

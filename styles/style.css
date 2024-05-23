@@ -169,4 +169,8 @@ a.sidebar-link:hover {
 .table-pad th,
 .table-pad td {
   padding: 1rem 0.8rem;
+}
+
+.modal-size {
+  width: 50vw;
 }/*# sourceMappingURL=style.css.map */

@@ -14,9 +14,7 @@ function formModificationHandlers(rowID) {
     $('#updateProductForm').on('submit', function(event) { editRow(event, rowID); });
     $('#updateOrderForm').on('submit', function(event) { editRow(event, rowID); });
 
-    $('#deleteSupplierForm').on('submit', deleteRow);
-    $('#deleteProductForm').on('submit', deleteRow);
-    $('#deleteOrderForm').on('submit', deleteRow);
+    $('#deleteForm').on('submit', function(event) { deleteRow(event, rowID); });
 }
 
 function clearForm() {
@@ -91,7 +89,8 @@ function editRow(event, rowID) {
 
 function deleteRow(event, rowID) {
     event.preventDefault();
-    
+
+    var table = $('#dbTable').val()
     console.log('Delete ID:', rowID, 'from', table);
 
     const sendData = {

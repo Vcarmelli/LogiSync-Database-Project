@@ -25,7 +25,7 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade m-5" id="dynamicFormModal" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
+            <div class="modal fade mt-5" id="dynamicFormModal" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content px-4 py-3" id="modalContent"></div>
                 </div>
@@ -43,7 +43,7 @@
             
 
             <div class="card m-5">
-                <div class="card-header">Products Table</div>
+                <div class="card-header">Orders Table</div>
                 <div class="card-body">
                     <div>
                         <form id="search" action="" method="GET">
