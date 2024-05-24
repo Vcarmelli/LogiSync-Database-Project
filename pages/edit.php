@@ -10,18 +10,18 @@
     <div class="modal-body">
         <form id="updateSupplierForm" method="post">
             <div class="mb-3">
-                <label for="supplierName" class="form-label">Supplier Name</label>
-                <input type="text" class="form-control" id="supplierName" name="supplierName" required>
+                <label for="supplierNameUD" class="form-label">Supplier Name</label>
+                <input type="text" class="form-control" id="supplierNameUD" name="supplierNameUD" required>
             </div>
             <div class="mb-3">
-                <label for="contactPerson" class="form-label">Contact Person</label>
-                <input type="text" class="form-control" id="contactPerson" name="contactPerson" required>
+                <label for="contactPersonUD" class="form-label">Contact Person</label>
+                <input type="text" class="form-control" id="contactPersonUD" name="contactPersonUD" required>
             </div>
             <div class="mb-3">
-                <label for="contactNumber" class="form-label">Contact Number</label>
+                <label for="contactNumberUD" class="form-label">Contact Number</label>
                 <div class="input-group">
                     <span class="input-group-text">(+63)</span>
-                    <input type="text" class="form-control" id="contactNumber" name="contactNumber" required>
+                    <input type="text" class="form-control" id="contactNumberUD" name="contactNumberUD" required>
                 </div>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
@@ -36,12 +36,12 @@
     <div class="modal-body">
         <form id="updateProductForm" method="post">
             <div class="mb-3">
-                <label for="productName" class="form-label">Product Name</label>
-                <input type="text" class="form-control" id="productName" name="productName" required>
+                <label for="productNameUD" class="form-label">Product Name</label>
+                <input type="text" class="form-control" id="productNameUD" name="productNameUD" required>
             </div>
             <div class="mb-3">
-                <label for="supplierId" class="form-label">Select Supplier</label>
-                <select name="supplierId" id="supplierId" class="form-select" required>
+                <label for="supplierIdUD" class="form-label">Select Supplier</label>
+                <select name="supplierIdUD" id="supplierIdUD" class="form-select" required>
                     <?php
                         require_once '../includes/database.php';
                         $dbase = new Database();
@@ -54,10 +54,10 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="price" class="form-label">Price</label>
+                <label for="priceUD" class="form-label">Price</label>
                 <div class="input-group">
                     <span class="input-group-text">&#8369;</span>
-                    <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+                    <input type="number" step="0.01" class="form-control" id="priceUD" name="priceUD" required>
                 </div>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
@@ -72,8 +72,8 @@
     <div class="modal-body">
         <form id="updateOrderForm" method="post">
             <div class="mb-3">
-                <label for="supplierIdPO" class="form-label">Select Supplier</label>
-                <select name="supplierIdPO" id="supplierIdPO" class="form-select" required>
+                <label for="supplierIdPOUD" class="form-label">Select Supplier</label>
+                <select name="supplierIdPOUD" id="supplierIdPOUD" class="form-select" required>
                     <?php
                         require_once '../includes/database.php';
                         $dbase = new Database();
@@ -86,12 +86,12 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="orderDate" class="form-label">Order Date</label>
-                <input type="date" class="form-control" id="orderDate" name="orderDate" required>
+                <label for="orderDateUD" class="form-label">Order Date</label>
+                <input type="date" class="form-control" id="orderDateUD" name="orderDateUD" required>
             </div>
             <div class="mb-3">
-                <label for="deliveryDate" class="form-label">Delivery Date</label>
-                <input type="date" class="form-control" id="deliveryDate" name="deliveryDate" required>
+                <label for="deliveryDateUD" class="form-label">Delivery Date</label>
+                <input type="date" class="form-control" id="deliveryDateUD" name="deliveryDateUD" required>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
             <button type="submit" class="btn btn-primary">Update Order</button>

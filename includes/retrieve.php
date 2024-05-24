@@ -57,7 +57,7 @@ if($_GET['view'] == 'charts') {
     }
 
 
-} else if($_GET['view'] == 'average' || $_GET['view'] == 'monthly')  {
+} else if($_GET['view'] == 'average') {
     try {
         $dbase = new Database();
 
@@ -78,5 +78,38 @@ if($_GET['view'] == 'charts') {
     } catch (\PDOException $e) {
         echo json_encode(['error' => $e->getMessage()]);
     }
+
+} else if($_GET['view'] == 'range') {
+    try {
+        $dbase = new Database();
+
+        $stmt = $dbase->connect()->query("SELECT CASE
+                                            WHEN price < 300 THEN '₱0 - ₱300'
+                                            WHEN price >= 300 AND Price < 600 THEN '₱300 - ₱600'
+                                            WHEN Price >= 600 AND Price < 1000 THEN '₱600 - ₱1000'
+                                            ELSE '₱1000+'
+                                            END AS PriceRange,
+                                            COUNT(ProductID) AS ProductCount
+                                        FROM product
+                                        GROUP BY PriceRange
+                                        ORDER BY PriceRange;");
+
+        $productRanges = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $formattedData = [];
+
+        // Loop through the fetched data and format it
+        foreach ($productRanges as $range) {
+            $formattedData[] = [
+                'PriceRange' => $range['PriceRange'],
+                'ProductCount' => (int) $range['ProductCount'] // Ensure ProductCount is an integer
+            ];
+        }
+        echo json_encode($formattedData);
+        
+    } catch (Exception $e) {
+        die("Query Failed in retrieve.php RANGE:" . $e->getMessage());
+    }
+
 }
     

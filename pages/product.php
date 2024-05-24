@@ -31,6 +31,20 @@
                 </div>
             </div>
 
+            <!-- EDIT Modal -->
+            <div class="modal fade mt-5" id="dynamicEditModal" tabindex="-1" aria-labelledby="dynamicEditModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content px-4 py-3" id="editModalContent"></div>
+                </div>
+            </div>
+
+            <!-- DELETE Modal -->
+            <div class="modal fade mt-5" id="dynamicDeleteModal" tabindex="-1" aria-labelledby="dynamicDeleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content px-4 py-3 modal-size" id="deleteModalContent"></div>
+                </div>
+            </div>
+
              <!-- Alerts -->
             <div class="container w-50">
                 <div id="alert-success" class="alert alert-success d-none fade show" role="alert">

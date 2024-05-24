@@ -24,10 +24,24 @@
                 </span>
             </div>
 
-            <!-- Modal -->
+            <!-- ADD Modal -->
             <div class="modal fade mt-5" id="dynamicFormModal" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content px-4 py-3" id="modalContent"></div>
+                </div>
+            </div>
+
+            <!-- EDIT Modal -->
+            <div class="modal fade mt-5" id="dynamicEditModal" tabindex="-1" aria-labelledby="dynamicEditModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content px-4 py-3" id="editModalContent"></div>
+                </div>
+            </div>
+
+            <!-- DELETE Modal -->
+            <div class="modal fade mt-5" id="dynamicDeleteModal" tabindex="-1" aria-labelledby="dynamicDeleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content px-4 py-3 modal-size" id="deleteModalContent"></div>
                 </div>
             </div>
 

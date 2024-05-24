@@ -16,7 +16,7 @@
         <div class="main chart-page">
             <h1 class="m-3 fs-1">Dashboard</h1>
             <div class="container d-flex ms-2">
-                <div class="d-flex flex-column align-items-start flex-wrap w-full">
+                <div class="d-flex flex-column align-items-start flex-wrap"id="left-charts">
                     <div class="d-flex align-items-start">
                         <div class="card counts">
                             <div class="counts-img"><i class="fa-solid fa-warehouse"></i></div>
@@ -36,13 +36,14 @@
                             <div class="counts-num ord-count"></div>
                         </div>
                     </div>
-                    <div class="d-flex">
-                        <div class="card chart">
+                    <div class="d-flex mt-4">
+                        <div class="card chart count-chart">
                             <div class="counts-title my-3">Overall Count</div>
-                            <div class="counts-num count-chart"><canvas id="overallChart"></canvas></div>
+                            <div class="counts-num"><canvas id="overallChart"></canvas></div>
                         </div>
-                        <div class="card">
-                            input
+                        <div class="card chart range-chart">
+                            <div class="counts-title my-3">Price Ranges</div>
+                            <div class="counts-num"><canvas id="priceDistributionChart"></canvas></div>
                         </div>
                     </div>
                 </div>
@@ -58,16 +59,6 @@
                         <div class="counts-num"><canvas id="ordersPerMonthChart"></canvas></div>
                     </div>
                 </div>
-                <!-- <div class="card prods-chart">
-                    <div class="counts-title">Number of products per supplier</div>
-                    <div class="counts-num overflow-prods"><canvas id="productsChart"></canvas></div>
-                </div> -->
-
-                
-                
-                <!-- <div class="chart">
-                    <canvas id="productsChart" width="300" height="80"></canvas>
-                </div> -->
             </div>
         </div>
     </div>

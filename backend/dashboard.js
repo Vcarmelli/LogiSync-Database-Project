@@ -62,7 +62,7 @@ function loadCounts() {
                             'rgb(201, 203, 163)',
                             'rgb(255, 225, 168)',
                             'rgb(226, 109, 92)'
-                          ],
+                        ],
                         hoverOffset: 10
                     }]
                 }
@@ -83,8 +83,8 @@ function loadCountPerMonth() {
         success: function(response) {
             
             const { labels, counts } = processCountPerMonth(response);
-            console.log("labels:", labels);
-            console.log("counts:", counts);
+            // console.log("labels:", labels);
+            // console.log("counts:", counts);
             // Create Bar Chart
             const ctx =  $('#ordersPerMonthChart')[0].getContext('2d');
             new Chart(ctx, {
@@ -122,6 +122,50 @@ function loadCountPerMonth() {
         error: function(error) {
             console.error("Error:", error);
             alert('Error fetching averages');
+        }
+    })
+}
+
+
+function loadRanges() {
+    $.ajax({
+        url: '../includes/retrieve.php?view=range',
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {   
+            const labels = response.map(item => item.PriceRange);
+            const counts = response.map(item => item.ProductCount);
+            
+            console.log("labels:", labels)
+            console.log("counts:", counts)
+            const ctx =  $('#priceDistributionChart')[0].getContext('2d');
+            new Chart(ctx, {
+                type: 'polarArea',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Number of Products',
+                        data: counts,
+                        backgroundColor: [
+                            'rgb(226, 109, 92)',
+                            'rgb(201, 203, 163)',
+                            'rgb(255, 225, 168)'
+                        ],
+                    }],
+                },
+                options: {
+                    scales: {
+                        r: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+
+            });
+        },
+        error: function(error) {
+            console.error("Error:", error);
+            alert('Error fetching ranges');
         }
     })
 }

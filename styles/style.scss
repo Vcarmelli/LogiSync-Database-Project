@@ -23,10 +23,18 @@ $gray: #CCCCCC;
 @mixin close($side: true) {
     @if $side {
         .top-suppliers-chart, .line-chart {
-            width: 40vw;
+            width: 37vw;
         }
         .counts {
-            width: 15rem;
+            width: 13rem;
+        }
+        .range-chart,
+        .count-chart {
+            width: 25vw;
+            height: 60vh;
+            & canvas {
+                height: 100% !important;
+            }
         }
         #ordersPerSupplierChart,
         #ordersPerMonthChart {
@@ -40,6 +48,10 @@ $gray: #CCCCCC;
         .counts {
             width: 11rem;
         }
+        .range-chart,
+        .count-chart {
+            width: 20vw;
+        }
     }
 }
 
@@ -48,6 +60,9 @@ $gray: #CCCCCC;
     @include close($side: true);
 }
 
+#left-charts.shorten {
+    @include close($side: true);
+}
 
 ::after,
 ::before {
@@ -77,6 +92,13 @@ body {
 thead {
     background-color: $primary;
 }
+
+.btn-primary {
+    color: $white;
+    border: $primary;
+    background-color: $primary !important;
+}
+
 
 .wrapper {
     display: flex;
@@ -283,7 +305,6 @@ a.sidebar-link:hover {
 }
 
 .chart {
-    width: 24vw;
     margin: 0.7rem;
     padding: 0.7rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -294,6 +315,11 @@ a.sidebar-link:hover {
     width: 31vw;
 }
 
+
+.range-chart,
+.count-chart {
+    width: 20vw;
+}
 // #ordersPerSupplierChart {
 //     width: 40vw !important;
 //     height: 100% !important;

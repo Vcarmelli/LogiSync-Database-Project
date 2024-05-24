@@ -1,12 +1,41 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 #right-charts.shorten .top-suppliers-chart, #right-charts.shorten .line-chart {
-  width: 40vw;
+  width: 37vw;
 }
 #right-charts.shorten .counts {
-  width: 15rem;
+  width: 13rem;
+}
+#right-charts.shorten .range-chart,
+#right-charts.shorten .count-chart {
+  width: 25vw;
+  height: 60vh;
+}
+#right-charts.shorten .range-chart canvas,
+#right-charts.shorten .count-chart canvas {
+  height: 100% !important;
 }
 #right-charts.shorten #ordersPerSupplierChart,
 #right-charts.shorten #ordersPerMonthChart {
+  width: 100% !important;
+}
+
+#left-charts.shorten .top-suppliers-chart, #left-charts.shorten .line-chart {
+  width: 37vw;
+}
+#left-charts.shorten .counts {
+  width: 13rem;
+}
+#left-charts.shorten .range-chart,
+#left-charts.shorten .count-chart {
+  width: 25vw;
+  height: 60vh;
+}
+#left-charts.shorten .range-chart canvas,
+#left-charts.shorten .count-chart canvas {
+  height: 100% !important;
+}
+#left-charts.shorten #ordersPerSupplierChart,
+#left-charts.shorten #ordersPerMonthChart {
   width: 100% !important;
 }
 
@@ -37,6 +66,12 @@ body {
 
 thead {
   background-color: #472D30;
+}
+
+.btn-primary {
+  color: #F5F5F5;
+  border: #472D30;
+  background-color: #472D30 !important;
 }
 
 .wrapper {
@@ -81,6 +116,10 @@ thead {
 #sidebar.expand .counts {
   width: 11rem;
 }
+#sidebar.expand .range-chart,
+#sidebar.expand .count-chart {
+  width: 20vw;
+}
 
 #toggle-btn {
   background-color: transparent;
@@ -111,11 +150,24 @@ thead {
 #sidebar:not(.expand) .sidebar-logo .top-suppliers-chart, #sidebar:not(.expand) .sidebar-logo .line-chart,
 #sidebar:not(.expand) a.sidebar-link span .top-suppliers-chart,
 #sidebar:not(.expand) a.sidebar-link span .line-chart {
-  width: 40vw;
+  width: 37vw;
 }
 #sidebar:not(.expand) .sidebar-logo .counts,
 #sidebar:not(.expand) a.sidebar-link span .counts {
-  width: 15rem;
+  width: 13rem;
+}
+#sidebar:not(.expand) .sidebar-logo .range-chart,
+#sidebar:not(.expand) .sidebar-logo .count-chart,
+#sidebar:not(.expand) a.sidebar-link span .range-chart,
+#sidebar:not(.expand) a.sidebar-link span .count-chart {
+  width: 25vw;
+  height: 60vh;
+}
+#sidebar:not(.expand) .sidebar-logo .range-chart canvas,
+#sidebar:not(.expand) .sidebar-logo .count-chart canvas,
+#sidebar:not(.expand) a.sidebar-link span .range-chart canvas,
+#sidebar:not(.expand) a.sidebar-link span .count-chart canvas {
+  height: 100% !important;
 }
 #sidebar:not(.expand) .sidebar-logo #ordersPerSupplierChart,
 #sidebar:not(.expand) .sidebar-logo #ordersPerMonthChart,
@@ -163,10 +215,19 @@ a.sidebar-link:hover {
   display: none;
 }
 #sidebar:not(.expand) .sidebar-item .sidebar-dropdown .top-suppliers-chart, #sidebar:not(.expand) .sidebar-item .sidebar-dropdown .line-chart {
-  width: 40vw;
+  width: 37vw;
 }
 #sidebar:not(.expand) .sidebar-item .sidebar-dropdown .counts {
-  width: 15rem;
+  width: 13rem;
+}
+#sidebar:not(.expand) .sidebar-item .sidebar-dropdown .range-chart,
+#sidebar:not(.expand) .sidebar-item .sidebar-dropdown .count-chart {
+  width: 25vw;
+  height: 60vh;
+}
+#sidebar:not(.expand) .sidebar-item .sidebar-dropdown .range-chart canvas,
+#sidebar:not(.expand) .sidebar-item .sidebar-dropdown .count-chart canvas {
+  height: 100% !important;
 }
 #sidebar:not(.expand) .sidebar-item .sidebar-dropdown #ordersPerSupplierChart,
 #sidebar:not(.expand) .sidebar-item .sidebar-dropdown #ordersPerMonthChart {
@@ -180,10 +241,19 @@ a.sidebar-link:hover {
   opacity: 1;
 }
 #sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown .top-suppliers-chart, #sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown .line-chart {
-  width: 40vw;
+  width: 37vw;
 }
 #sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown .counts {
-  width: 15rem;
+  width: 13rem;
+}
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown .range-chart,
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown .count-chart {
+  width: 25vw;
+  height: 60vh;
+}
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown .range-chart canvas,
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown .count-chart canvas {
+  height: 100% !important;
 }
 #sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown #ordersPerSupplierChart,
 #sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown #ordersPerMonthChart {
@@ -194,10 +264,19 @@ a.sidebar-link:hover {
   display: block;
 }
 #sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown span .top-suppliers-chart, #sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown span .line-chart {
-  width: 40vw;
+  width: 37vw;
 }
 #sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown span .counts {
-  width: 15rem;
+  width: 13rem;
+}
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown span .range-chart,
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown span .count-chart {
+  width: 25vw;
+  height: 60vh;
+}
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown span .range-chart canvas,
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown span .count-chart canvas {
+  height: 100% !important;
 }
 #sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown span #ordersPerSupplierChart,
 #sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown span #ordersPerMonthChart {
@@ -222,6 +301,10 @@ a.sidebar-link:hover {
 #sidebar.expand .sidebar-link[data-bs-toggle=collapse]::after .counts {
   width: 11rem;
 }
+#sidebar.expand .sidebar-link[data-bs-toggle=collapse]::after .range-chart,
+#sidebar.expand .sidebar-link[data-bs-toggle=collapse]::after .count-chart {
+  width: 20vw;
+}
 
 #sidebar.expand .sidebar-link[data-bs-toggle=collapse].collapsed::after {
   transform: rotate(45deg);
@@ -232,6 +315,10 @@ a.sidebar-link:hover {
 }
 #sidebar.expand .sidebar-link[data-bs-toggle=collapse].collapsed::after .counts {
   width: 11rem;
+}
+#sidebar.expand .sidebar-link[data-bs-toggle=collapse].collapsed::after .range-chart,
+#sidebar.expand .sidebar-link[data-bs-toggle=collapse].collapsed::after .count-chart {
+  width: 20vw;
 }
 
 .sidebar-dropdown li {
@@ -298,7 +385,6 @@ a.sidebar-link:hover {
 }
 
 .chart {
-  width: 24vw;
   margin: 0.7rem;
   padding: 0.7rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -307,4 +393,9 @@ a.sidebar-link:hover {
 .line-chart,
 .top-suppliers-chart {
   width: 31vw;
+}
+
+.range-chart,
+.count-chart {
+  width: 20vw;
 }/*# sourceMappingURL=style.css.map */

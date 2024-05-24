@@ -10,6 +10,7 @@ $(document).ready(function() {
     loadCharts();
     loadCounts();
     loadCountPerMonth();
+    loadRanges();
 });
 
 
@@ -55,6 +56,8 @@ function editData() {
     var rowID = $(this).closest('tr').find('.rowID').val();
     var formUrl = '';
     console.log("EDIT BUTTON CLICKED", formType);
+    console.log("rowID:", rowID);
+
 
     switch(formType) {
         case 'supplierTable':
@@ -92,6 +95,8 @@ function deleteData() {
     var rowID = $(this).closest('tr').find('.rowID').val();
     var formUrl = '';
     console.log("DELETE BUTTON CLICKED");
+    console.log("rowID:", rowID);
+    console.log("formType:", formType);
 
     switch(formType) {
         case 'supplierTable':
@@ -127,4 +132,5 @@ function deleteData() {
 function menu() {
     $('#sidebar').toggleClass('expand');
     $('#right-charts').toggleClass('shorten');
+    $('#left-charts').toggleClass('shorten');
 }
