@@ -20,6 +20,34 @@ $gray: #CCCCCC;
     //filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#472D30", endColorstr="#723D46", GradientType=1 );
 }
 
+@mixin close($side: true) {
+    @if $side {
+        .top-suppliers-chart, .line-chart {
+            width: 40vw;
+        }
+        .counts {
+            width: 15rem;
+        }
+        #ordersPerSupplierChart,
+        #ordersPerMonthChart {
+            width: 100% !important;
+        }
+    }
+    @else {
+        .top-suppliers-chart, .line-chart {
+            width: 32vw;
+        }
+        .counts {
+            width: 11rem;
+        }
+    }
+}
+
+
+#right-charts.shorten {
+    @include close($side: true);
+}
+
 
 ::after,
 ::before {
@@ -56,11 +84,12 @@ thead {
 
 .main {
     min-height: 100vh;
-    width: 100%;
+    width: 100vw;
     overflow: hidden;
     transition: all 0.35s ease-in-out;
     background-color: $background;
 }
+
 
 #sidebar {
     width: 70px;
@@ -79,7 +108,6 @@ thead {
 }
 
 
- /* ======================================================================================================================== not  */
 .sidebar-pages {
     position: sticky;
     top: 5em;
@@ -89,6 +117,7 @@ thead {
 #sidebar.expand {
     width: 280px;
     min-width: 280px;
+    @include close($side: false);
 }
 
 #toggle-btn {
@@ -116,6 +145,7 @@ thead {
 #sidebar:not(.expand) .sidebar-logo,
 #sidebar:not(.expand) a.sidebar-link span {
     display: none;
+    @include close();
 }
 
 .sidebar-nav {
@@ -155,6 +185,7 @@ a.sidebar-link:hover {
     padding: 0;
     min-width: 13rem;
     display: none;
+    @include close();
 }
 
 #sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
@@ -162,10 +193,12 @@ a.sidebar-link:hover {
     max-height: 15em;
     width: 150px;
     opacity: 1;
+    @include close();
 }
 
 #sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown span {
     display: block;
+    @include close();
 }
 
 #sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
@@ -179,11 +212,13 @@ a.sidebar-link:hover {
     top: 1.4rem;
     transform: rotate(-135deg);
     transition: all .2s ease-out;
+    @include close($side: false);
 }
 
 #sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
     transform: rotate(45deg);
     transition: all .2s ease-out;
+    @include close($side: false);
 }
 
 .sidebar-dropdown li {
@@ -212,8 +247,9 @@ a.sidebar-link:hover {
 
 .counts {
     color: $white;
-    width: 25rem;
+    width: 11rem;
     margin: 0.7rem;
+    margin-bottom: 1.3rem;
     padding: 0.7rem;
     display: grid;
     grid-template-columns: auto 1fr;
@@ -242,23 +278,23 @@ a.sidebar-link:hover {
 .counts-num {
     padding-left: 0.3rem;
     color: $white;
-}
-  
-
-.count-chart {
-    height: 50vh;
+    height: 100%;
     
 }
 
 .chart {
-    width: 23vw;
+    width: 24vw;
     margin: 0.7rem;
     padding: 0.7rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.bar-chart {
-    width: 50vw;
-    overflow: visible;
+.line-chart,
+.top-suppliers-chart {
+    width: 31vw;
 }
 
+// #ordersPerSupplierChart {
+//     width: 40vw !important;
+//     height: 100% !important;
+// }

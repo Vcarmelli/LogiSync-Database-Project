@@ -5,7 +5,7 @@ class Database {
         try {
             $username = "root";
             $password = "";
-            $db = new PDO('mysql:host=localhost;dbname=product_supplier_db', $username, $password);
+            $db = new PDO('mysql:host=localhost;port=3306;dbname=supplier_product_db', $username, $password);
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //echo "Database connected!";
             return $db;

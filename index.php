@@ -13,49 +13,57 @@
 <body>
     <div class="wrapper">
         <?php include './components/sidebar.php'; ?>
-        <div class="main">
-            <h1 class="fs-1">Dashboard</h1>
-            <div class="container ms-2">
-                <div class="d-flex w-75">
-                    <div class="card counts">
-                        <div class="counts-img"><i class="fa-solid fa-warehouse"></i></div>
-                        <div class="counts-title">Suppliers</div>
-                        <div class="counts-num sup-count"></div>
-                    </div>
+        <div class="main chart-page">
+            <h1 class="m-3 fs-1">Dashboard</h1>
+            <div class="container d-flex ms-2">
+                <div class="d-flex flex-column align-items-start flex-wrap w-full">
+                    <div class="d-flex align-items-start">
+                        <div class="card counts">
+                            <div class="counts-img"><i class="fa-solid fa-warehouse"></i></div>
+                            <div class="counts-title">Suppliers</div>
+                            <div class="counts-num sup-count"></div>
+                        </div>
 
-                    <div class="card counts">
-                        <div class="counts-img"><i class="fa-solid fa-spray-can-sparkles"></i></div>
-                        <div class="counts-title">Products</div>
-                        <div class="counts-num pro-count"></div>
-                    </div>
+                        <div class="card counts">
+                            <div class="counts-img"><i class="fa-solid fa-spray-can-sparkles"></i></div>
+                            <div class="counts-title">Products</div>
+                            <div class="counts-num pro-count"></div>
+                        </div>
 
-                    <div class="card counts">
-                        <div class="counts-img"><i class="fa-solid fa-clipboard-list "></i></div>
-                        <div class="counts-title">Order</div>
-                        <div class="counts-num ord-count"></div>
+                        <div class="card counts">
+                            <div class="counts-img"><i class="fa-solid fa-clipboard-list "></i></div>
+                            <div class="counts-title">Order</div>
+                            <div class="counts-num ord-count"></div>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="card chart">
+                            <div class="counts-title my-3">Overall Count</div>
+                            <div class="counts-num count-chart"><canvas id="overallChart"></canvas></div>
+                        </div>
+                        <div class="card">
+                            input
+                        </div>
                     </div>
                 </div>
 
-                <div class="d-flex">
-                    <div class="card chart">
-                        <div class="counts-title">Overall Count</div>
-                        <div class="counts-num count-chart"><canvas id="overallChart"></canvas></div>
+                <div class="d-flex flex-column" id="right-charts">                    
+                    <div class="card chart top-suppliers-chart">
+                        <div class="counts-title ">Top Suppliers</div>
+                        <div class="counts-num"><canvas id="ordersPerSupplierChart" class="top-suppliers"></canvas></div>
                     </div>
                     
-                    <div class="card chart bar-chart">
+                    <div class="card chart line-chart">
                         <div class="counts-title">Orders per Month</div>
-                        <div class="counts-num count-chart"><canvas id="ordersPerMonthChart"></canvas></div>
+                        <div class="counts-num"><canvas id="ordersPerMonthChart"></canvas></div>
                     </div>
                 </div>
-                <!-- <div class="card chart bar-chart">
-                    <div class="counts-title">Average Delivery Time</div>
-                    <div class="counts-num count-chart"><canvas id="aveDelTimeChart"></canvas></div>
+                <!-- <div class="card prods-chart">
+                    <div class="counts-title">Number of products per supplier</div>
+                    <div class="counts-num overflow-prods"><canvas id="productsChart"></canvas></div>
                 </div> -->
 
-                <!-- <div class="card ">
-                    <div class="counts-title">Order-Delivery</div>
-                    <div class="counts-num count-chart"><canvas id="orderDeliveryChart"></canvas></div>
-                </div> -->
+                
                 
                 <!-- <div class="chart">
                     <canvas id="productsChart" width="300" height="80"></canvas>

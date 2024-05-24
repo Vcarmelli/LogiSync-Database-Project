@@ -9,7 +9,6 @@ $(document).ready(function() {
     $('.delete').on('click', deleteData);
     loadCharts();
     loadCounts();
-    loadAverage();
     loadCountPerMonth();
 });
 
@@ -127,4 +126,5 @@ function deleteData() {
 
 function menu() {
     $('#sidebar').toggleClass('expand');
+    $('#right-charts').toggleClass('shorten');
 }

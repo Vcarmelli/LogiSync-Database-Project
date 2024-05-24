@@ -7,31 +7,17 @@ if($_GET['view'] == 'charts') {
     try {
         // Fetch data for products with each supplier
         $dbase = new Database();
-
-        $stmt = $dbase->connect()->query('SELECT SupplierName FROM supplier');
-        $supplierData = $stmt->fetchAll(PDO::FETCH_COLUMN);
-
-        $stmt = $dbase->connect()->query('SELECT SupplierName, COUNT(ProductID) AS ProductCount 
-                                          FROM supplier LEFT JOIN product ON supplier.SupplierID = product.SupplierID 
-                                          GROUP BY supplier.SupplierID');
-
-        $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+    
         // Fetch data for orders placed with each supplier
         $stmt = $dbase->connect()->query('SELECT SupplierName, COUNT(OrderID) AS OrderCount 
                                           FROM supplier LEFT JOIN purchaseorder ON supplier.SupplierID = purchaseorder.SupplierID 
-                                          GROUP BY Supplier.SupplierID');
+                                          GROUP BY Supplier.SupplierID
+                                          ORDER BY OrderCount DESC 
+                                          LIMIT 5');
         $orderData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // echo $supplierData;
-        // echo $productData;
-        // echo $orderData;
 
-        $data = [
-            'suppliers' => $supplierData,
-            'products' => $productData,
-            'orders' => $orderData
-        ];
+        $data = [ 'orders' => $orderData ];
 
         header('Content-Type: application/json');
         echo json_encode($data);
