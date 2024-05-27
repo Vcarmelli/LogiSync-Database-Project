@@ -63,7 +63,7 @@
                         <form id="search" action="" method="GET">
                             <div class="input-group mb-5">
                                 <input type="text" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control search-input" 
-                                        placeholder="Search by Order ID" required>
+                                        placeholder="Search by Order ID or Supplier ID" required>
                                 <input type="hidden" name="report" value="purchaseorder" class="search-table">
                                 <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
                             </div>

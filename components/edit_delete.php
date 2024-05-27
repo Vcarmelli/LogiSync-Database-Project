@@ -12,7 +12,7 @@
 </td>
 
 <?php elseif ($whichTable === 'product'): ?>
-<td><button id="stock" class="btn btn-stock mx-2">Out of Stock</button></td>
+<td><button type="button" class="stock btn btn-stock mx-2">Out of Stock</button></td>
 <td class="mx-5">
     <div class="d-flex gap-4">
         <a href="#" class="edit text-primary" data-bs-toggle="modal" data-bs-target="#dynamicEditModal">
@@ -25,7 +25,7 @@
 </td>
 
 <?php elseif ($whichTable === 'purchaseorder'): ?>
-<td><button id="print" class="btn btn-stock mx-2">Print</button></td>
+<td><button type="button" class="print btn btn-stock mx-2">Print</button></td>
 <td class="mx-5">
     <div class="d-flex gap-4">
         <a href="#" class="edit text-primary" data-bs-toggle="modal" data-bs-target="#dynamicEditModal">

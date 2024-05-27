@@ -7,8 +7,8 @@ $(document).ready(function() {
 
     $('.edit').on('click', editData);
     $('.delete').on('click', deleteData);
-    $('#stock').on('click', deleteData);
-    $('#print').on('click', printInvoice);
+    //$('.stock').on('click', deleteData);
+    $('.print').on('click', printInvoice);
 });
 
 function menu() {
@@ -138,15 +138,18 @@ function printInvoice() {
     var rowID = $(this).closest('tr').find('.rowID').val();
     var formUrl = '';
 
+    console.log("PRINT rowID:", rowID);
+    console.log("PRINT formType:", formType);
+
     switch(formType) {
         case 'supplierTable':
-            formUrl = '../includes/print.php?form=supplier&col=SupplierID&id=' + rowID;
+            formUrl = '../includes/print.php?id=' + rowID;
             break;
         case 'productTable':
-            formUrl = '../includes/print.php?form=product&col=ProductID&id=' + rowID;
+            formUrl = '../includes/print.php?id=' + rowID;
             break;
         case 'orderTable':
-            formUrl = '../includes/print.php?form=purchaseorder&col=OrderID&id=' + rowID;
+            formUrl = '../includes/print.php?id=' + rowID;
             break;
         default:
             formUrl = '';
@@ -156,14 +159,13 @@ function printInvoice() {
         $.ajax({
             url: formUrl,
             method: 'GET',
-            data: data,
+            data: {print: true},
             success: function(response) {
-
+                console.log("print:", response);
             },
             error: function() {
                 console.error('Error:', error);
             }
         });
     }
-
 }
