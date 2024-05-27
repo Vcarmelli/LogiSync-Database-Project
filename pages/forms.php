@@ -24,8 +24,9 @@
                     <input type="text" class="form-control" id="contactNumber" name="contactNumber" placeholder="Enter a contact number" required>
                 </div>
             </div>
-            <div class="invalid-feedback"></div>
-            <button type="submit" class="btn btn-primary">Add Supplier</button>
+            <div class="invalid-feedback"></div><div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Add Supplier</button>
+            </div>
         </form>
     </div>
 <?php elseif ($show === 'product'): ?>
@@ -60,7 +61,9 @@
                     <input type="number" step="0.01" class="form-control" id="price" name="price" placeholder="Enter a price" required>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Add Product</button>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Add Product</button>
+            </div>
         </form>
     </div>
 <?php elseif ($show === 'purchaseorder'): ?>
@@ -92,7 +95,9 @@
                 <label for="deliveryDate" class="form-label">Delivery Date</label>
                 <input type="date" class="form-control" id="deliveryDate" name="deliveryDate" placeholder="Enter a delivery date" required>
             </div>
-            <button type="submit" class="btn btn-primary">Add Order</button>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Add Order</button>
+            </div>
         </form>
     </div>
 <?php endif; 

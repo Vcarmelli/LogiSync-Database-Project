@@ -29,7 +29,9 @@
                 </div>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
-            <button type="submit" class="btn btn-primary">Update Supplier</button>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Update Supplier</button>
+            </div>
         </form>
     </div>
 <?php elseif ($show === 'product'): ?>
@@ -68,7 +70,9 @@
                 </div>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
-            <button type="submit" class="btn btn-primary">Update Product</button>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Update Product</button>
+            </div>
         </form>
     </div>
 <?php elseif ($show === 'purchaseorder'): ?>
@@ -104,7 +108,9 @@
                 <input type="date" class="form-control" id="deliveryDateUD" name="deliveryDateUD" placeholder="Enter a new delivery date" required>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
-            <button type="submit" class="btn btn-primary">Update Order</button>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Update Order</button>
+            </div>
         </form>
     </div>
 <?php endif; 

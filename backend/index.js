@@ -139,7 +139,6 @@ function printInvoice() {
     var formUrl = '';
 
     console.log("PRINT rowID:", rowID);
-    console.log("PRINT formType:", formType);
 
     switch(formType) {
         case 'supplierTable':
@@ -161,7 +160,7 @@ function printInvoice() {
             method: 'GET',
             data: {print: true},
             success: function(response) {
-                console.log("print:", response);
+                console.log("Printer Response:", response);
             },
             error: function() {
                 console.error('Error:', error);

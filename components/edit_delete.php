@@ -12,7 +12,6 @@
 </td>
 
 <?php elseif ($whichTable === 'product'): ?>
-<td><button type="button" class="stock btn btn-stock mx-2">Out of Stock</button></td>
 <td class="mx-5">
     <div class="d-flex gap-4">
         <a href="#" class="edit text-primary" data-bs-toggle="modal" data-bs-target="#dynamicEditModal">

@@ -30,7 +30,6 @@ if (isset($_GET['print'])) {
 
     $stmt->execute([':id' => $id]);
     $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //echo json_encode($row);
 
     openPrinter($row);
 }
@@ -94,5 +93,7 @@ function openPrinter($rows) {
     // Output the PDF
     ob_clean(); 
     $mpdf->Output('invoice.pdf', 'D');
+
+    echo "Invoice printed as invoice.pdf";
 }
 

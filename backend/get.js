@@ -73,6 +73,7 @@ function querySearch(event) {
                 $('#results').html(response);
                 $('.edit').on('click', editData);
                 $('.delete').on('click', deleteData);
+                $('.print').on('click', printInvoice);
             }
         },
         error: function(error) {
