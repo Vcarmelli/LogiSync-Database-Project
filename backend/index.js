@@ -7,12 +7,15 @@ $(document).ready(function() {
 
     $('.edit').on('click', editData);
     $('.delete').on('click', deleteData);
-    loadCharts();
-    loadCounts();
-    loadCountPerMonth();
-    loadRanges();
+    $('#stock').on('click', deleteData);
+    $('#print').on('click', printInvoice);
 });
 
+function menu() {
+    $('#sidebar').toggleClass('expand');
+    $('#right-charts').toggleClass('shorten');
+    $('#left-charts').toggleClass('shorten');
+}
 
 function addData() {
     var formType = $(this).data('form');
@@ -61,13 +64,13 @@ function editData() {
 
     switch(formType) {
         case 'supplierTable':
-            formUrl = '../pages/edit.php?form=supplier';
+            formUrl = '../pages/edit.php?form=supplier&id=' + rowID;
             break;
         case 'productTable':
-            formUrl = '../pages/edit.php?form=product';
+            formUrl = '../pages/edit.php?form=product&id=' + rowID;
             break;
         case 'orderTable':
-            formUrl = '../pages/edit.php?form=purchaseorder';
+            formUrl = '../pages/edit.php?form=purchaseorder&id=' + rowID;
             break;
         default:
             formUrl = '';
@@ -129,8 +132,38 @@ function deleteData() {
     }
 }
 
-function menu() {
-    $('#sidebar').toggleClass('expand');
-    $('#right-charts').toggleClass('shorten');
-    $('#left-charts').toggleClass('shorten');
+
+function printInvoice() {
+    var formType = $(this).closest('table').attr('id');
+    var rowID = $(this).closest('tr').find('.rowID').val();
+    var formUrl = '';
+
+    switch(formType) {
+        case 'supplierTable':
+            formUrl = '../includes/print.php?form=supplier&col=SupplierID&id=' + rowID;
+            break;
+        case 'productTable':
+            formUrl = '../includes/print.php?form=product&col=ProductID&id=' + rowID;
+            break;
+        case 'orderTable':
+            formUrl = '../includes/print.php?form=purchaseorder&col=OrderID&id=' + rowID;
+            break;
+        default:
+            formUrl = '';
+    }
+
+    if (formUrl) {
+        $.ajax({
+            url: formUrl,
+            method: 'GET',
+            data: data,
+            success: function(response) {
+
+            },
+            error: function() {
+                console.error('Error:', error);
+            }
+        });
+    }
+
 }

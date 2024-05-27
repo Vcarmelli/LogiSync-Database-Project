@@ -46,18 +46,15 @@ function validInfo($table, $data) {
         case 'addSupplierForm':
         case 'supplier':
             $supplier = new ValidateSupplierForm($data['supplierName'], $data['contactPerson'], $data['contactNumber']);
-            $valid = $supplier->validateSupplierForm();
-            return $valid;
+            return $supplier->validateSupplierForm();
         case 'addProductForm':
         case 'product':
             $product = new ValidateProductForm($data['productName'], $data['supplierId'], $data['price']);
-            $valid = $product->validateProductForm();
-            return $valid;
+            return $product->validateProductForm();
         case 'addOrderForm':
         case 'purchaseorder':
             $order = new ValidateOrderForm($data['supplierIdPO'], $data['orderDate'], $data['deliveryDate']);
-            $valid = $order->validateOrderForm();
-            return $valid;
+            return $order->validateOrderForm();
         default:
             return false;
     }
@@ -98,14 +95,11 @@ function saveInfo($table, $id, $data) {
 function removeInfo($table, $id) {
     switch ($table) {
         case 'supplier':
-            $deleted = deleteInfo("supplier", "SupplierID", $id);
-            return $deleted;
+            return deleteInfo("supplier", "SupplierID", $id);
         case 'product':
-            $deleted = deleteInfo("product", "ProductID", $id);
-            return $deleted;
-        case 'order':
-            $deleted = deleteInfo("purchaseorder", "OrderID", $id);
-            return $deleted;
+            return deleteInfo("product", "ProductID", $id);
+        case 'purchaseorder':
+            return deleteInfo("purchaseorder", "OrderID", $id);
         default:
             return false;
     }

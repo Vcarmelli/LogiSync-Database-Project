@@ -10,47 +10,17 @@ function formSubmissionHandlers() {
 function formModificationHandlers(rowID) {
     console.log("MODIFY TABLE");
     
-    $('#updateSupplierForm').on('submit', function(event) { editRow(event, rowID); });
-    $('#updateProductForm').on('submit', function(event) { editRow(event, rowID); });
-    $('#updateOrderForm').on('submit', function(event) { editRow(event, rowID); });
+    $('#updateSupplierForm').on('submit', function(event) { editRow(event, rowID, $(this).closest('form')); });
+    $('#updateProductForm').on('submit', function(event) { editRow(event, rowID, $(this).closest('form')); });
+    $('#updateOrderForm').on('submit', function(event) { editRow(event, rowID, $(this).closest('form')); });
 
-    $('#deleteForm').on('submit', function(event) { deleteRow(event, rowID); });
+    $('#deleteForm').on('submit', function(event) { deleteRow(event, rowID, $(this).closest('form')); });
 }
-
-function addClearForm() {
-    console.log("ADD FORM CLEARED");
-    $('#addSupplierForm')[0].reset();
-    $('#addProductForm')[0].reset();
-    $('#addOrderForm')[0].reset();
-
-    // try {
-    //     if ($('#addSupplierForm').length > 0) {
-    //         $('#addSupplierForm')[0].reset();
-    //         console.log("CLEARED");
-    //     } else {
-    //         throw new Error('Form not found');
-    //     }
-    // } catch (error) {
-    //     console.error(error);
-    // }
-}; 
-
-function updateClearForm() {
-    console.log("UPDATE FORM CLEARED");
-    $('#updateSupplierForm')[0].reset();
-    $('#updateProductForm')[0].reset();
-    $('#updateOrderForm')[0].reset();
-}; 
-
-function deleteClearForm() {
-    console.log("DELETE FORM CLEARED");
-    $('#deleteForm')[0].reset();
-}; 
-
 
 function addRow(event) {
     event.preventDefault();
-    var table = $(this).closest('form').attr('id');
+    var form = $(this).closest('form');
+    var table = form.attr('id');
 
     const data = getData(table);
     console.log('Data:', data);
@@ -66,9 +36,9 @@ function addRow(event) {
         url: '../includes/submit.php',
         data: tableData,
         success: function(response) {
-            console.log(response);
-            triggerAlert(response);
-            addClearForm();
+            console.log('response:', response);
+            triggerAlert(response, table);
+            form[0].reset();
         },
         error: function(error) {
             console.error("Error:", error);
@@ -78,7 +48,7 @@ function addRow(event) {
 };
 
 
-function editRow(event, rowID) {
+function editRow(event, rowID, form) {
     event.preventDefault(); 
     
     var table = $('#dbTable').val()
@@ -99,9 +69,9 @@ function editRow(event, rowID) {
         url: '../includes/submit.php',
         data: sendData,
         success: function(response) {
-            console.log(response);
-            triggerAlert(response);
-            updateClearForm();
+            console.log('table:', table);
+            triggerAlert(response, table);
+            form[0].reset();
         },
         error: function(error) {
             console.error("Error:", error);
@@ -111,7 +81,7 @@ function editRow(event, rowID) {
 }
 
 
-function deleteRow(event, rowID) {
+function deleteRow(event, rowID, form) {
     event.preventDefault();
 
     var table = $('#dbTable').val()
@@ -128,9 +98,9 @@ function deleteRow(event, rowID) {
         url: '../includes/submit.php',
         data: sendData,
         success: function(response) {
-            console.log(response);
-            triggerAlert(response);
-            deleteClearForm();
+            console.log('table:', table);
+            triggerAlert(response, table);
+            form[0].reset();
         },
         error: function(error) {
             console.error("Error:", error);
@@ -187,7 +157,7 @@ function getUpdatedData(table) {
         data = getUDSupplierData();
     } else if(table === "product") {
         data = getUDProductData();
-    } else if(table === "order") {
+    } else if(table === "purchaseorder") {
         data = getUDOrderData();
     }
     return data
@@ -221,22 +191,36 @@ function getUDProductData() {
 }
 
 
-function triggerAlert(response) {
+function triggerAlert(response, table) {
     console.log("response:", response);
-    if(response == 'true') {
-        $('#alert-success').removeClass('d-none');
+    if(response === 'true') {
+        $('#alert-success').removeClass('d-none').fadeTo(2000, 500).slideUp(500, function(){
+            $(this).slideUp(500);
+        });
         $('#alert-error').addClass('d-none');
-        //hideAlerts();
     } else {
-        $('#alert-error').removeClass('d-none');
+        $('#alert-error').html(response.message);
+        $('#alert-error').removeClass('d-none').fadeTo(2000, 500).slideUp(500, function(){
+            $(this).slideUp(500);
+        });
         $('#alert-success').addClass('d-none');
-        //hideAlerts();
     }
+    closeModal(table);
 }
 
-function hideAlerts() {
-    setTimeout(function() {
-        $('#alert-success').addClass('d-none');
-        $('#alert-error').addClass('d-none');
-    }, 5000); 
+function closeModal(table) {
+    switch (table) {
+        case 'addSupplierForm':
+        case 'addProductForm':
+        case 'addOrderForm':
+            $('#dynamicFormModal').modal('hide');
+            break;
+        case 'supplier':
+        case 'product':
+        case 'purchaseorder':
+            $('#dynamicEditModal').modal('hide');
+            break;
+        default:
+            break;
+    }
 }

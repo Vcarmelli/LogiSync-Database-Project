@@ -29,8 +29,8 @@
             $columnNames[] = $columnMeta['name'];
         } ?>
 
-        <table id="deleteTable" class="table table-hover default-table table-pad">
-            <thead class="table-dark">
+        <table id="deleteTable" class="table table-hover table-pad">
+            <thead class="table-head">
                 <tr>
                     <?php foreach ($columnNames as $columnName) { ?>
                         <th><?php echo formatColumnName($columnName); ?></th>
@@ -53,7 +53,7 @@
     <form id="deleteForm" method="post">                        
         <input type="hidden" id="dbId" value="<?php echo $id ?>">
         <input type="hidden" id="dbTable" value="<?php echo $show ?>">
-        <button type="submit" class="btn btn-danger">Delete Row</button>
+        <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Delete Row</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
     </form>
 </div>

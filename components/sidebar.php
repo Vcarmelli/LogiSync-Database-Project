@@ -36,7 +36,7 @@
                     <li class="sidebar-item">
                         <a href="../pages/purchaseorder.php" class="sidebar-link">
                             <i class="fa-solid fa-clipboard-list"></i>
-                            <span>Purchase Orders</span>
+                            <span>Orders</span>
                         </a>
                     </li>
                 </ul>

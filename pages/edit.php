@@ -1,5 +1,6 @@
 <?php
     $show = isset($_GET['form']) ? $_GET['form'] : 'supplier'; 
+    $id = $_GET['id'];
 ?>
 
 <?php if ($show === 'supplier'): ?>
@@ -8,20 +9,23 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
+        <div><?php  $col = 'SupplierID';
+                    include '../components/row.php'; ?>
+        </div>
         <form id="updateSupplierForm" method="post">
             <div class="mb-3">
                 <label for="supplierNameUD" class="form-label">Supplier Name</label>
-                <input type="text" class="form-control" id="supplierNameUD" name="supplierNameUD" required>
+                <input type="text" class="form-control" id="supplierNameUD" name="supplierNameUD"  placeholder="Enter a new supplier name" required>
             </div>
             <div class="mb-3">
                 <label for="contactPersonUD" class="form-label">Contact Person</label>
-                <input type="text" class="form-control" id="contactPersonUD" name="contactPersonUD" required>
+                <input type="text" class="form-control" id="contactPersonUD" name="contactPersonUD"  placeholder="Enter a new contact person" required>
             </div>
             <div class="mb-3">
                 <label for="contactNumberUD" class="form-label">Contact Number</label>
                 <div class="input-group">
                     <span class="input-group-text">(+63)</span>
-                    <input type="text" class="form-control" id="contactNumberUD" name="contactNumberUD" required>
+                    <input type="text" class="form-control" id="contactNumberUD" name="contactNumberUD"  placeholder="Enter a new contact number" required>
                 </div>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
@@ -34,14 +38,17 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
+        <div><?php  $col = 'ProductID';
+                    include '../components/row.php'; ?>
+        </div>
         <form id="updateProductForm" method="post">
             <div class="mb-3">
                 <label for="productNameUD" class="form-label">Product Name</label>
-                <input type="text" class="form-control" id="productNameUD" name="productNameUD" required>
+                <input type="text" class="form-control" id="productNameUD" name="productNameUD" placeholder="Enter a new product name" required>
             </div>
             <div class="mb-3">
                 <label for="supplierIdUD" class="form-label">Select Supplier</label>
-                <select name="supplierIdUD" id="supplierIdUD" class="form-select" required>
+                <select name="supplierIdUD" id="supplierIdUD" class="form-select" placeholder="Choose a new supplier" required>
                     <?php
                         require_once '../includes/database.php';
                         $dbase = new Database();
@@ -57,7 +64,7 @@
                 <label for="priceUD" class="form-label">Price</label>
                 <div class="input-group">
                     <span class="input-group-text">&#8369;</span>
-                    <input type="number" step="0.01" class="form-control" id="priceUD" name="priceUD" required>
+                    <input type="number" step="0.01" class="form-control" id="priceUD" name="priceUD" placeholder="Enter a new price" required>
                 </div>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
@@ -70,10 +77,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
+        <div><?php  $col = 'OrderID';
+                    include '../components/row.php'; ?>
+        </div>
         <form id="updateOrderForm" method="post">
             <div class="mb-3">
                 <label for="supplierIdPOUD" class="form-label">Select Supplier</label>
-                <select name="supplierIdPOUD" id="supplierIdPOUD" class="form-select" required>
+                <select name="supplierIdPOUD" id="supplierIdPOUD" class="form-select" placeholder="Choose a new supplier" required>
                     <?php
                         require_once '../includes/database.php';
                         $dbase = new Database();
@@ -87,11 +97,11 @@
             </div>
             <div class="mb-3">
                 <label for="orderDateUD" class="form-label">Order Date</label>
-                <input type="date" class="form-control" id="orderDateUD" name="orderDateUD" required>
+                <input type="date" class="form-control" id="orderDateUD" name="orderDateUD" placeholder="Enter a new order date" required>
             </div>
             <div class="mb-3">
                 <label for="deliveryDateUD" class="form-label">Delivery Date</label>
-                <input type="date" class="form-control" id="deliveryDateUD" name="deliveryDateUD" required>
+                <input type="date" class="form-control" id="deliveryDateUD" name="deliveryDateUD" placeholder="Enter a new delivery date" required>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
             <button type="submit" class="btn btn-primary">Update Order</button>

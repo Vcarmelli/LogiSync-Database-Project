@@ -7,8 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purchase Orders</title>
-    <link rel="shortcut icon" href="#">
+    <title>LogiSync | Orders</title>
+    <link rel="icon" type="image/x-icon" href="../assets/logisync-logo-color.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../styles/style.css">    
@@ -32,26 +32,26 @@
             </div>
 
             <!-- EDIT Modal -->
-            <div class="modal fade mt-5" id="dynamicEditModal" tabindex="-1" aria-labelledby="dynamicEditModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+            <div class="modal fade mt-2" id="dynamicEditModal" tabindex="-1" aria-labelledby="dynamicEditModalLabel" aria-hidden="true">
+                <div class="modal-dialog d-flex justify-self-center modal-lg">
                     <div class="modal-content px-4 py-3" id="editModalContent"></div>
                 </div>
             </div>
 
             <!-- DELETE Modal -->
             <div class="modal fade mt-5" id="dynamicDeleteModal" tabindex="-1" aria-labelledby="dynamicDeleteModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content px-4 py-3 modal-size" id="deleteModalContent"></div>
+                <div class="modal-dialog d-flex justify-self-center modal-lg">
+                    <div class="modal-content px-4 py-3" id="deleteModalContent"></div>
                 </div>
             </div>
 
              <!-- Alerts -->
             <div class="container w-50">
                 <div id="alert-success" class="alert alert-success d-none fade show" role="alert">
-                    Order updated successfully.
+                    Order table updated successfully.
                 </div>
                 <div id="alert-error" class="alert alert-danger d-none fade show" role="alert">
-                    An error occurred while updating the order table.
+                    Invalid input. Please review the information provided and try again.
                 </div>
             </div>
             
@@ -74,7 +74,7 @@
                     <table id="orderTable" class="table table-hover default-table table-pad">
                         <thead class="table-head">
                             <tr>
-                                <?php foreach (["Order ID", "Supplier ID", "Order Date", "Delivery Date", "Action"] as $columnName) { ?>
+                                <?php foreach (["Order ID", "Supplier ID", "Order Date", "Delivery Date", "Details", "Action"] as $columnName) { ?>
                                     <th><?php echo $columnName; ?></th>
                                 <?php } ?>
                             </tr>
@@ -97,7 +97,8 @@
                                             <?php foreach ($row as $value) { ?>
                                                 <td><?php echo $value; ?></td>
                                             <?php } ?>
-                                            <?php include '../components/edit_delete.php'; ?>
+                                            <?php  $whichTable = "purchaseorder"; 
+                                                    include '../components/edit_delete.php'; ?>                              
                                         </tr>
                                         <?php break; 
                                     }
@@ -116,5 +117,6 @@
     <script src="../backend/index.js"></script>
     <script src="../backend/script.js"></script>
     <script src="../backend/get.js"></script>
+    
 </body>
 </html>

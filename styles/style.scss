@@ -44,6 +44,7 @@ $gray: #CCCCCC;
     @else {
         .top-suppliers-chart, .line-chart {
             width: 32vw;
+            height: 50px !important;
         }
         .counts {
             width: 11rem;
@@ -99,6 +100,9 @@ thead {
     background-color: $primary !important;
 }
 
+.btn-stock {
+    background-color: $secondary !important;
+}
 
 .wrapper {
     display: flex;
@@ -139,7 +143,6 @@ thead {
 #sidebar.expand {
     width: 280px;
     min-width: 280px;
-    @include close($side: false);
 }
 
 #toggle-btn {
@@ -167,7 +170,7 @@ thead {
 #sidebar:not(.expand) .sidebar-logo,
 #sidebar:not(.expand) a.sidebar-link span {
     display: none;
-    @include close();
+
 }
 
 .sidebar-nav {
@@ -207,7 +210,6 @@ a.sidebar-link:hover {
     padding: 0;
     min-width: 13rem;
     display: none;
-    @include close();
 }
 
 #sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
@@ -215,12 +217,12 @@ a.sidebar-link:hover {
     max-height: 15em;
     width: 150px;
     opacity: 1;
-    @include close();
+
 }
 
 #sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown span {
     display: block;
-    @include close();
+
 }
 
 #sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
@@ -234,13 +236,13 @@ a.sidebar-link:hover {
     top: 1.4rem;
     transform: rotate(-135deg);
     transition: all .2s ease-out;
-    @include close($side: false);
+
 }
 
 #sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
     transform: rotate(45deg);
     transition: all .2s ease-out;
-    @include close($side: false);
+
 }
 
 .sidebar-dropdown li {
@@ -263,9 +265,6 @@ a.sidebar-link:hover {
     color: $white;
 }
 
-.modal-size {
-    width: 50vw;
-}
 
 .counts {
     color: $white;
@@ -310,17 +309,17 @@ a.sidebar-link:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
+
 .line-chart,
 .top-suppliers-chart {
     width: 31vw;
 }
 
 
+
+
 .range-chart,
 .count-chart {
     width: 20vw;
 }
-// #ordersPerSupplierChart {
-//     width: 40vw !important;
-//     height: 100% !important;
-// }

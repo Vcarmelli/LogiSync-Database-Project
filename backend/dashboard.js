@@ -1,3 +1,15 @@
+$(document).ready(function() {
+    loadCharts();
+    loadCounts();
+    loadCountPerMonth();
+    loadRanges();
+});
+
+let ordersPerSupplierChart;
+let overallChart;
+let ordersPerMonthChart;
+let priceDistributionChart;
+
 function loadCharts() {
     $.ajax({
         url: '../includes/retrieve.php?view=charts',
@@ -7,8 +19,11 @@ function loadCharts() {
             const suppliers = response.orders.map(entry => entry.SupplierName); 
             const orderCounts = response.orders.map(entry => entry.OrderCount); 
 
+            if (ordersPerSupplierChart) {
+                ordersPerSupplierChart.destroy();
+            }
             const ctxProducts = $('#ordersPerSupplierChart')[0].getContext('2d');
-            new Chart(ctxProducts, {
+            ordersPerSupplierChart = new Chart(ctxProducts, {
                 type: 'bar',
                 data: {
                     labels: suppliers,
@@ -16,20 +31,21 @@ function loadCharts() {
                         label: 'Orders',
                         data: orderCounts,
                         backgroundColor: 'rgb(114, 61, 70, 0.8)',
+                        minBarLength: 1,
                     }],
                     
                 },
+                maintainAspectRatio: false, 
                 options: {
                     indexAxis: 'y',
                     responsive: true,
                     plugins: {
                       legend: {
-                        position: 'right',
+                        position: 'top',
                       }
                     }
                     
                 },
-                maintainAspectRatio: false, // Disable the aspect ratio
             });
         },
         error: function(error) {
@@ -50,8 +66,12 @@ function loadCounts() {
             $('.pro-count').html(response.products);
             $('.ord-count').html(response.orders);
 
+            if (overallChart) {
+                overallChart.destroy();
+            }
+
             const ctxAll = $('#overallChart')[0].getContext('2d');
-            new Chart(ctxAll, {
+            overallChart = new Chart(ctxAll, {
                 type: 'doughnut',
                 data: {
                     labels: ['Suppliers', 'Products', 'Orders'],
@@ -81,13 +101,13 @@ function loadCountPerMonth() {
         method: 'GET',
         dataType: 'json',
         success: function(response) {
-            
             const { labels, counts } = processCountPerMonth(response);
-            // console.log("labels:", labels);
-            // console.log("counts:", counts);
-            // Create Bar Chart
+            
+            if (ordersPerMonthChart) {
+                ordersPerMonthChart.destroy();
+            }
             const ctx =  $('#ordersPerMonthChart')[0].getContext('2d');
-            new Chart(ctx, {
+            ordersPerMonthChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
@@ -136,10 +156,11 @@ function loadRanges() {
             const labels = response.map(item => item.PriceRange);
             const counts = response.map(item => item.ProductCount);
             
-            console.log("labels:", labels)
-            console.log("counts:", counts)
+            if (priceDistributionChart) {
+                priceDistributionChart.destroy();
+            }
             const ctx =  $('#priceDistributionChart')[0].getContext('2d');
-            new Chart(ctx, {
+            priceDistributionChart = new Chart(ctx, {
                 type: 'polarArea',
                 data: {
                     labels: labels,

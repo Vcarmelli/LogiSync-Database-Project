@@ -13,7 +13,7 @@ if (isset($_GET['querySearch'])) {
     $getColumns = $dbase->connect()->prepare("SHOW COLUMNS FROM $whichTable");
     $getColumns->execute();
     $columns = $getColumns->fetchAll(PDO::FETCH_COLUMN);
-    $columns[] = "Action";
+    $columns = additionalColumns($whichTable, $columns);
 
     // Prepare the search query
     $stmt = $dbase->connect()->prepare("SELECT * FROM $whichTable WHERE CONCAT($checkColumns) LIKE :filterValues;");
@@ -69,6 +69,25 @@ function assignId($table) {
         case 'purchaseorder':
             return "orderTable";
         default:
-          //code block
+            break;
+    }
+}
+
+function additionalColumns($table, $col) {
+    $columns = $col;
+    switch ($table) {
+        case 'supplier':
+            $columns[] = "Action";
+            return $columns;
+        case 'product':
+            $columns[] = "Status";
+            $columns[] = "Action";
+            return $columns;
+        case 'purchaseorder':
+            $columns[] = "Details";
+            $columns[] = "Action";
+            return $columns;
+        default:
+            return $columns;
     }
 }
