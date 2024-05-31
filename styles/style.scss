@@ -108,6 +108,18 @@ thead {
     display: flex;
 }
 
+.landing {
+    //background: $tertiary url('../assets/logisync-logo.png') no-repeat cover;
+    background-image: url('../assets/main.svg');
+    //background-color: #472D30;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-top: 5%;
+    height: 100vh;
+    overflow: visible;
+}
+
 .main {
     min-height: 100vh;
     width: 100vw;
@@ -309,17 +321,14 @@ a.sidebar-link:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
-
 .line-chart,
 .top-suppliers-chart {
     width: 31vw;
 }
 
-
-
-
 .range-chart,
 .count-chart {
     width: 20vw;
 }
+
+

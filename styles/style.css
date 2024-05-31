@@ -82,6 +82,18 @@ thead {
   display: flex;
 }
 
+.landing {
+  margin:0;
+  padding: 0;
+  /* background-image: url("../assets/main.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-top: 5%;
+  height: 100vh;
+  overflow: visible; */
+}
+
 .main {
   min-height: 100vh;
   width: 100vw;
