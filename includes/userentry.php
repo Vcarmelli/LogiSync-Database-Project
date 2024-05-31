@@ -1,40 +1,51 @@
 <?php
 
-include_once './includes/signup.php';
-include_once './includes/login.php';
+include_once 'database.php';
+include_once 'signup.php';
+include_once 'login.php';
 
 if(isset($_POST["signup"])) {
 
-    $uid = $_POST["username"];
-    $pwd = $_POST["password"]; 
-    $pwdrepeat = $_POST["repassword"];
+    $name = $_POST["username"];
+    $pass = $_POST["password"]; 
+    $repass = $_POST["repassword"];
     $email = $_POST["email"];  
 
+    ob_start();
+    $signup = new Signup($name, $pass, $repass, $email);
 
-    $signup = new SignupContr($uid, $pwd, $pwdrepeat, $email);
+    if ($signup->validateSignUpAccount()) {
+        $signup->signupUser();
+        //header("location: ../index.php?error=none");
+        exit();
+    }
+    $output = ob_get_clean();
+    session_start();
+    session_unset();
+    $_SESSION["OUTPUT"] = $output;
+    //header("location: ../index.php?error=error_signingup");
 
-    // running all error handlers
-    $signup->signupUser();
 
-    // back to front page
-    header("location: ../index.php?error=none");
+} else if(isset($_POST['action']) && $_POST['action'] == 'login') {
+    $name = $_POST["username"];
+    $pass = $_POST["password"]; 
 
+    //ob_start();
+    $login = new Login($name, $pass);
 
-} else if(isset($_POST["login"])) {
-    // grabing the data from html
-    $uid = $_POST["username"];
-    $pwd = $_POST["password"]; 
+    if ($login->validateLogInAccount()) {
+        $login->loginUser();
+        // header("location: ../index.php?error=none");
+        // exit();
+        echo "validated";
+        exit();
+    }
 
-    // instantiate signupcontr class
-    include "../classes/dbh.classes.php";
-    include "../classes/login.classes.php";
-    include "../classes/login-contr.classes.php";
-
-    $login = new LoginContr($uid, $pwd);
-
-    // running all error handlers
-    $login->loginUser();
-
-    // back to front page
-    header("location: ../index.php?error=none");
+    // $output = ob_get_clean();
+    // session_start();
+    // session_unset();
+    // $_SESSION["OUTPUT"] = $output;
+    //header("location: ../index.php?error=error_logingIn");
+    
+    echo "not valid";
 }

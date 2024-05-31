@@ -9557,19 +9557,19 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 
 				// We send to a browser
 				if (PHP_SAPI !== 'cli') {
-					header('Content-Type: application/pdf');
+					//header('Content-Type: application/pdf');
 
 					if (!isset($_SERVER['HTTP_ACCEPT_ENCODING']) || empty($_SERVER['HTTP_ACCEPT_ENCODING'])) {
 						// don't use length if server using compression
-						header('Content-Length: ' . strlen($this->buffer));
+						//header('Content-Length: ' . strlen($this->buffer));
 					}
 
-					header('Content-disposition: inline; filename="' . $name . '"');
-					header('Cache-Control: public, must-revalidate, max-age=0');
-					header('Pragma: public');
-					header('X-Generator: mPDF' . ($this->exposeVersion ? (' ' . static::VERSION) : ''));
-					header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
-					header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+					//header('Content-disposition: inline; filename="' . $name . '"');
+					//header('Cache-Control: public, must-revalidate, max-age=0');
+					//header('Pragma: public');
+					//header('X-Generator: mPDF' . ($this->exposeVersion ? (' ' . static::VERSION) : ''));
+					//header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
+					//header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 				}
 
 				echo $this->buffer;
@@ -9582,21 +9582,21 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 					throw new \Mpdf\MpdfException('Data has already been sent to output, unable to output PDF file');
 				}
 
-				header('Content-Description: File Transfer');
-				header('Content-Transfer-Encoding: binary');
-				header('Cache-Control: public, must-revalidate, max-age=0');
-				header('Pragma: public');
-				header('X-Generator: mPDF' . ($this->exposeVersion ? (' ' . static::VERSION) : ''));
-				header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
-				header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-				header('Content-Type: application/pdf');
+				//header('Content-Description: File Transfer');
+				//header('Content-Transfer-Encoding: binary');
+				//header('Cache-Control: public, must-revalidate, max-age=0');
+				//header('Pragma: public');
+				//header('X-Generator: mPDF' . ($this->exposeVersion ? (' ' . static::VERSION) : ''));
+				//header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
+				//header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+				//header('Content-Type: application/pdf');
 
 				if (!isset($_SERVER['HTTP_ACCEPT_ENCODING']) || empty($_SERVER['HTTP_ACCEPT_ENCODING'])) {
 					// don't use length if server using compression
-					header('Content-Length: ' . strlen($this->buffer));
+					//header('Content-Length: ' . strlen($this->buffer));
 				}
 
-				header('Content-Disposition: attachment; filename="' . $name . '"');
+				//header('Content-Disposition: attachment; filename="' . $name . '"');
 
 				echo $this->buffer;
 
@@ -27242,9 +27242,9 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 			case Destination::INLINE:
 				if (isset($_SERVER['SERVER_NAME'])) {
 					// We send to a browser
-					header('Content-Type: application/pdf');
-					header('Content-Length: ' . strlen($pdf));
-					header('Content-disposition: inline; filename=' . $file_out);
+					//header('Content-Type: application/pdf');
+					//header('Content-Length: ' . strlen($pdf));
+					//header('Content-disposition: inline; filename=' . $file_out);
 				}
 
 				echo $pdf;
@@ -27274,13 +27274,13 @@ class Mpdf implements \Psr\Log\LoggerAwareInterface
 			case Destination::DOWNLOAD: // Download file
 			default:
 				if (isset($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
-					header('Content-Type: application/force-download');
+					//header('Content-Type: application/force-download');
 				} else {
-					header('Content-Type: application/octet-stream');
+					//header('Content-Type: application/octet-stream');
 				}
 
-				header('Content-Length: ' . strlen($pdf));
-				header('Content-disposition: attachment; filename=' . $file_out);
+				//header('Content-Length: ' . strlen($pdf));
+				//header('Content-disposition: attachment; filename=' . $file_out);
 
 				echo $pdf;
 

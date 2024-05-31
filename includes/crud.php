@@ -1,6 +1,5 @@
 <?php
 
-
 function saveSupplier($supplierName, $contactPerson, $contactNumber) {
     try {
         $dbase = new Database();
@@ -11,7 +10,7 @@ function saveSupplier($supplierName, $contactPerson, $contactNumber) {
         
         if(!$stmt->execute(array($newId, $supplierName, $contactPerson, $formattedContactNumber))) {
             $stmt = null;
-            header("location: ../pages/forms.php?error=inSaveSupplier");
+            //header("location: ../pages/forms.php?error=inSaveSupplier");
             exit();
         }
         $stmt = null;
@@ -31,7 +30,7 @@ function saveProduct($productName, $supplierId, $price) {
     
         if(!$stmt->execute(array($newId, $productName, $supplierId, $price))) {
             $stmt = null;
-            header("location: ../pages/forms.php?error=inSaveProduct");
+            //header("location: ../pages/forms.php?error=inSaveProduct");
             exit();
         }
         $stmt = null;
@@ -52,7 +51,7 @@ function saveOrder($supplierIdPO, $orderDate, $deliveryDate) {
         
         if(!$stmt->execute(array($newId, $supplierIdPO, $formattedOrderDate, $formattedDeliveryDate))) {
             $stmt = null;
-            header("location: ../pages/forms.php?error=inSaveOrder");
+            //header("location: ../pages/forms.php?error=inSaveOrder");
             exit();
         }
         $stmt = null;
@@ -79,7 +78,7 @@ function modifySupplier($id, $supplierName, $contactPerson, $contactNumber) {
             ':id' => $id
         ])) {
             $stmt = null;
-            header("location: ../pages/edit.php?error=inModifySupplier");
+            //header("location: ../pages/edit.php?error=inModifySupplier");
             exit();
         }
         $stmt = null;
@@ -105,7 +104,7 @@ function modifyProduct($id, $productName, $supplierId, $price) {
             ':id' => $id
         ])){
             $stmt = null;
-            header("location: ../pages/edit.php?error=inModifyProduct");
+            //header("location: ../pages/edit.php?error=inModifyProduct");
             exit();
         }
         $stmt = null;
@@ -134,7 +133,7 @@ function modifyOrder($id, $supplierIdPO, $orderDate, $deliveryDate) {
             ':id' => $id
         ])) {
             $stmt = null;
-            header("location: ../pages/edit.php?error=inModifyOrder");
+            //header("location: ../pages/edit.php?error=inModifyOrder");
             exit();
         }
         $stmt = null;
@@ -151,7 +150,7 @@ function deleteInfo($thisTable, $whichID, $id) {
         
         if(!$stmt->execute([':id' => $id])) {
             $stmt = null;
-            header("location: ../pages/edit.php?error=inDeleteInfo");
+            //header("location: ../pages/edit.php?error=inDeleteInfo");
             return false;
         } else {
             $stmt = null;

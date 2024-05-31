@@ -15,12 +15,12 @@ if ($tempfilename && file_exists($path . $tempfilename)) {
 	// mPDF 5.3.17
 	if ($dest === 'I') {
 		if (PHP_SAPI != 'cli') {
-			header('Content-Type: application/pdf');
-			header('Content-disposition: inline; filename="' . $name . '"');
-			header('Cache-Control: public, must-revalidate, max-age=0');
-			header('Pragma: public');
-			header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
-			header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+			//header('Content-Type: application/pdf');
+			//header('Content-disposition: inline; filename="' . $name . '"');
+			//header('Cache-Control: public, must-revalidate, max-age=0');
+			//header('Pragma: public');
+			//header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
+			//header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 		}
 	} elseif ($dest === 'D') {
 
@@ -28,23 +28,23 @@ if ($tempfilename && file_exists($path . $tempfilename)) {
 			throw new MpdfException('Some data has already been output to browser, can\'t send PDF file');
 		}
 
-		header('Content-Description: File Transfer');
-		header('Content-Transfer-Encoding: binary');
-		header('Cache-Control: public, must-revalidate, max-age=0');
-		header('Pragma: public');
-		header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
-		header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
-		header('Content-Type: application/force-download');
-		header('Content-Type: application/octet-stream', false);
-		header('Content-Type: application/download', false);
-		header('Content-Type: application/pdf', false);
-		header('Content-disposition: attachment; filename="' . $name . '"');
+		//header('Content-Description: File Transfer');
+		//header('Content-Transfer-Encoding: binary');
+		//header('Cache-Control: public, must-revalidate, max-age=0');
+		//header('Pragma: public');
+		//header('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
+		//header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+		//header('Content-Type: application/force-download');
+		//header('Content-Type: application/octet-stream', false);
+		//header('Content-Type: application/download', false);
+		//header('Content-Type: application/pdf', false);
+		//header('Content-disposition: attachment; filename="' . $name . '"');
 	}
 
 	$filesize = filesize($path.$tempfilename);
 	if (empty($_SERVER['HTTP_ACCEPT_ENCODING'])) {
 		// don't use length if server using compression
-		header('Content-Length: ' . $filesize);
+		//header('Content-Length: ' . $filesize);
 	}
 
 	$fd = fopen($path . $tempfilename, 'rb');

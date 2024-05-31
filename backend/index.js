@@ -2,14 +2,67 @@
 
 $(document).ready(function() {
     console.log("INDEX LOADED");
-    $('#toggle-btn').click(menu);
-    $('button[data-bs-toggle="modal"]').on('click', addData);
 
+    $('#guest-btn').click(guestDashboard);
+    $('#toggle-btn').click(menu);
+
+    $('button[data-bs-toggle="modal"]').on('click', addData);
     $('.edit').on('click', editData);
     $('.delete').on('click', deleteData);
     //$('.stock').on('click', deleteData);
     $('.print').on('click', printInvoice);
+
+    loginSubmissionHandlers();
 });
+
+
+function loginSubmissionHandlers() {
+    console.log("LOGIN LOADED");
+    $('#loginForm').on('submit', loginUser);
+};
+
+function loginUser(event) {
+    event.preventDefault();
+
+    const data = {
+        action: 'login',
+        username: $('#usernameLI').val(),
+        password: $('#passwordLI').val()
+    }
+    console.log("LOGIN DATA:", data);
+
+    $.post('./includes/userentry.php', data)
+        .done(function(response) {
+            console.log("res from login:", response);
+
+            // $.get('./pages/dashboard.php', {view: 'admin'})
+            //     .done(function(response){
+            //         console.log("res from dash:", response);
+            //         window.location.href = './pages/dashboard.php';
+            //     })
+            //     .fail(function(jqXHR, textStatus, errorThrown) {
+            //         console.error('Error from dash:', textStatus, errorThrown);
+            //     });
+            
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            console.error('LOGIN Error:', textStatus, errorThrown);
+        });
+};
+
+
+
+function guestDashboard() {
+    // Send GET request to dashboard.php with view=guest parameter
+    $.get('./pages/dashboard.php', { view: 'guest' })
+        .done(function(data) {
+            window.location.href = './pages/dashboard.php';
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            // Handle error
+            console.error('Error:', textStatus, errorThrown);
+        });
+}
 
 function menu() {
     $('#sidebar').toggleClass('expand');

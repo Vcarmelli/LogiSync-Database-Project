@@ -19,7 +19,7 @@ if($_GET['view'] == 'charts') {
 
         $data = [ 'orders' => $orderData ];
 
-        header('Content-Type: application/json');
+        //header('Content-Type: application/json');
         echo json_encode($data);
 
     } catch (Exception $e) {
@@ -49,7 +49,7 @@ if($_GET['view'] == 'charts') {
             'orders' => $ordCount
         ];
 
-        header('Content-Type: application/json');
+        //header('Content-Type: application/json');
         echo json_encode($data);
 
     } catch (Exception $e) {

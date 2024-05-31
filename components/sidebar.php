@@ -9,12 +9,13 @@
     </div>
     <div class="sidebar-pages">
         <ul class="sidebar-nav">
-            <li class="sidebar-tem">
+            <li class="sidebar-item">
                 <a href="../index.php" class="sidebar-link">
                     <i class="fa-solid fa-chart-pie"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
+            <?php if ($view === 'admin'): ?>
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link has-dropdown collapsed" data-bs-toggle="collapse" data-bs-target="#reports" aria-expanded="false" aria-controls="reports">
                     <i class="fa-solid fa-table"></i>
@@ -41,6 +42,20 @@
                     </li>
                 </ul>
             </li>
+            <?php elseif ($view === 'guest'): ?>
+            <li class="sidebar-item">
+                <a href="../index.php" class="sidebar-link">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>WALA BLEH</span>
+                </a>
+            </li>   
+            <?php endif ?>
+            <li class="sidebar-item mt-5">
+                <a href="../includes/logout.php" class="sidebar-link">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </li>  
         </ul> 
     </div>
 </aside>

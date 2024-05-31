@@ -1,4 +1,6 @@
-
+<?php
+    $view = isset($_GET['view']) ? $_GET['view'] : 'guest'; 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,16 +8,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LogiSync | Dashboard</title>
-    <link rel="icon" type="image/x-icon" href="./assets/logisync-logo-color.png">
+    <link rel="icon" type="image/x-icon" href="../assets/logisync-logo-color.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./styles/style.css">  
+    <link rel="stylesheet" href="../styles/style.css">  
 </head>
 <body>
     <div class="wrapper">
-        <?php include './components/sidebar.php'; ?>
+        <?php include '../components/sidebar.php'; ?>
         <div class="main chart-page">
-            <h1 class="m-3 fs-1">Dashboard</h1>
+            <div class="">
+                <?php if(isset($_SESSION["userid"])): ?>        
+                    <span><h1 class="m-3 fs-1">Welcome, <?php echo $_SESSION["username"]; ?></h1></span>
+                    <a href="./includes/logout.php" class="btn btn-primary">Logout</a>
+                <?php else: ?>  
+                    <h1 class="m-3 fs-1">Dashboard</h1>
+                <?php endif ?>    
+            </div>
+            
             <div class="container d-flex ms-2">
                 <div class="d-flex flex-column align-items-start flex-wrap"id="left-charts">
                     <div class="d-flex align-items-start">
