@@ -18,7 +18,35 @@ $(document).ready(function() {
 
 function loginSubmissionHandlers() {
     console.log("LOGIN LOADED");
+    $('#signupForm').on('submit', signupUser);
     $('#loginForm').on('submit', loginUser);
+};
+
+
+function signupUser(event) {
+    event.preventDefault();
+
+    const data = {
+        action: 'signup',
+        username: $('#username').val(),
+        password: $('#password').val(),
+        repassword: $('#repassword').val(),
+        email: $('#email').val()
+    }
+    //console.log("LOGIN DATA:", data);
+
+    $.post('./includes/userentry.php', data)
+        .done(function(response) {
+            console.log("res from signup:", response);
+            if (response.success) {
+                window.href.location = './index.php';
+            } else {
+                console.log("res from signup:", response.errors);
+            }
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            console.error('SIGNUP Error:', textStatus, errorThrown);
+        });
 };
 
 function loginUser(event) {
@@ -29,21 +57,18 @@ function loginUser(event) {
         username: $('#usernameLI').val(),
         password: $('#passwordLI').val()
     }
-    console.log("LOGIN DATA:", data);
+    //console.log("LOGIN DATA:", data);
 
     $.post('./includes/userentry.php', data)
         .done(function(response) {
             console.log("res from login:", response);
+            if (response.success) {
+                view = 'manager';
+                window.location.href = `./pages/dashboard.php?view=${view}`;
+            } else {
+                console.log("res from login:", response.errors);
+            }
 
-            // $.get('./pages/dashboard.php', {view: 'admin'})
-            //     .done(function(response){
-            //         console.log("res from dash:", response);
-            //         window.location.href = './pages/dashboard.php';
-            //     })
-            //     .fail(function(jqXHR, textStatus, errorThrown) {
-            //         console.error('Error from dash:', textStatus, errorThrown);
-            //     });
-            
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
             console.error('LOGIN Error:', textStatus, errorThrown);
@@ -211,7 +236,7 @@ function printInvoice() {
         $.ajax({
             url: formUrl,
             method: 'GET',
-            data: {print: true},
+            data: {action: 'print'},
             success: function(response) {
                 console.log("Printer Response:", response);
             },

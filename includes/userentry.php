@@ -4,48 +4,37 @@ include_once 'database.php';
 include_once 'signup.php';
 include_once 'login.php';
 
-if(isset($_POST["signup"])) {
+if(isset($_POST['action']) && $_POST['action'] == 'signup') {
 
     $name = $_POST["username"];
     $pass = $_POST["password"]; 
     $repass = $_POST["repassword"];
     $email = $_POST["email"];  
 
-    ob_start();
     $signup = new Signup($name, $pass, $repass, $email);
+    $signup->validateSignUpAccount();
+    $signup->signupUser();
 
-    if ($signup->validateSignUpAccount()) {
-        $signup->signupUser();
-        //header("location: ../index.php?error=none");
-        exit();
+    if (empty($signup->errors)) {
+        $response = ['success' => true, 'message' => 'Account created successfully.'];
+    } else {
+        $response = ['success' => false, 'errors' => $signup->errors];
     }
-    $output = ob_get_clean();
-    session_start();
-    session_unset();
-    $_SESSION["OUTPUT"] = $output;
-    //header("location: ../index.php?error=error_signingup");
-
 
 } else if(isset($_POST['action']) && $_POST['action'] == 'login') {
     $name = $_POST["username"];
     $pass = $_POST["password"]; 
-
-    //ob_start();
+   
     $login = new Login($name, $pass);
+    $login->validateLogInAccount();
+    $login->loginUser();
 
-    if ($login->validateLogInAccount()) {
-        $login->loginUser();
-        // header("location: ../index.php?error=none");
-        // exit();
-        echo "validated";
-        exit();
+    if (empty($login->errors)) {
+        $response = ['success' => true, 'message' => 'Account logged in successfully.'];
+    } else {
+        $response = ['success' => false, 'errors' => $login->errors];
     }
-
-    // $output = ob_get_clean();
-    // session_start();
-    // session_unset();
-    // $_SESSION["OUTPUT"] = $output;
-    //header("location: ../index.php?error=error_logingIn");
-    
-    echo "not valid";
 }
+
+header('Content-Type: application/json');
+echo json_encode($response);

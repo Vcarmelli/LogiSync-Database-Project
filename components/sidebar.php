@@ -4,7 +4,7 @@
             <img src="../assets/logisync-logo.png" alt="LogiSync" height="40">
         </button>
         <div class="sidebar-logo">
-            <a href="../index.php"><img src="../assets/logisync-logo-text.png" alt="LogiSync" height="60"></a>
+            <a href="./pages/dashboard.php"><img src="../assets/logisync-logo-text.png" alt="LogiSync" height="60"></a>
         </div>
     </div>
     <div class="sidebar-pages">
@@ -15,7 +15,7 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            <?php if ($view === 'admin'): ?>
+            <?php if ($_SESSION["type"] === 'admin' || $_SESSION["type"] === 'manager'): ?>
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link has-dropdown collapsed" data-bs-toggle="collapse" data-bs-target="#reports" aria-expanded="false" aria-controls="reports">
                     <i class="fa-solid fa-table"></i>
@@ -42,7 +42,7 @@
                     </li>
                 </ul>
             </li>
-            <?php elseif ($view === 'guest'): ?>
+            <?php elseif ($_SESSION["type"] === 'guest'): ?>
             <li class="sidebar-item">
                 <a href="../index.php" class="sidebar-link">
                     <i class="fa-solid fa-chart-pie"></i>

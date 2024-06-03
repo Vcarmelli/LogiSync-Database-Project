@@ -36,7 +36,7 @@
             <div class="card-header">SIGN UP</div>
             <div class="card-body">
                 <p class="">Don't have an account yet? Sign up here!</p>
-                <form action="./includes/userentry.php" method="post">
+                <form id="signupForm" method="post">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
@@ -83,14 +83,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../backend/dashboard.js"></script>
     <script src="../backend/index.js"></script>
     <script src="../backend/script.js"></script>
     <script src="../backend/get.js"></script>
-    <script>
-        var phpOutput = <?php echo $_SESSION["OUTPUT"] ?>;
-        console.log(phpOutput);
-    </script>
     
 </body>
 </html>

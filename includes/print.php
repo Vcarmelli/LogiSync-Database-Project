@@ -1,9 +1,9 @@
 <?php
 
-require_once '../includes/database.php';
-require_once '../vendor/autoload.php';
+include_once '../includes/database.php';
+include_once '../vendor/autoload.php';
 
-if (isset($_GET['print'])) {
+if(isset($_GET['action']) && $_GET['action'] == 'print') {
     $id = $_GET['id'];
 
     $dbase = new Database();
@@ -92,8 +92,10 @@ function openPrinter($rows) {
 
     // Output the PDF
     ob_clean(); 
+    header('Content-Type: application/pdf');
+
     $mpdf->Output('invoice.pdf', 'D');
 
-    echo "Invoice printed as invoice.pdf";
+    //echo "Invoice printed as invoice.pdf";
 }
 

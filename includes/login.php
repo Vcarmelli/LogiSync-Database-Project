@@ -3,53 +3,52 @@
 class Login extends Database {
     private $un;
     private $pw;
+    public $errors = [];
 
     public function __construct($un, $pw) {
         $this->un = $un;
         $this->pw = $pw;
     } 
     public function validateLogInAccount() {
-        $valid = true;
+    
         if ($this->isInvalidUsernameOrEmail()) {
-            echo "Invalid username or email format";
-            $valid = false;
+            $this->errors['name'] = "Invalid username or email.";
         }
 
-        if ($this->isAccountDoesntExist()) {  
-            echo "no acc log in";
-            $valid = false;  // usename already in system
+        if ($this->isAccountDoesntExist()) { 
+            $this->errors['exist'] = "This account doesn't exist.";  // username not in system
         }
-        return $valid;
     }
 
     public function loginUser() {
         $stmt = $this->connect()->prepare('SELECT UserPass FROM accounts WHERE UserName = ? OR UserEmail = ?;');
     
-        $stmt->execute(array($this->un, $this->un)); // if user enter either username or email
+        if(!$stmt->execute(array($this->un, $this->un))) { // if user enter either username or email
+            $stmt = null;
+            $this->errors['query'] = "Query statement failed.";
+            return;
+        } 
     
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
         // Check if user exists
         if (!$user) {
             $stmt = null;
-            //header("location: ../index.php?error=userNotFound");
-            exit();
+            $this->errors['exist'] = "This account doesn't exist.";
+            return; 
         }
-    
-        // Verify password
+        
+        // User exists, then verify password
         $samePass = password_verify($this->pw, $user["UserPass"]);
-        // echo "<script>console.log('Unhashed Password: " . $this->pw . "')</script>";
-        // echo "<script>console.log('samePass? " . $samePass . "')</script>";
+        
         if ($samePass) {
             session_start();
             $_SESSION["username"] = $this->un;
             $stmt = null;
-            //header("location: ../dashboard.php?message=loginSuccess");
-            //exit();
         } else {
             $stmt = null;
-            //header("location: ../index.php?error=wrongPassword");
-            exit();
+            $this->errors['password'] = "Wrong password.";
+            return; 
         }
     }
     
@@ -72,8 +71,7 @@ class Login extends Database {
 
         if(!$stmt->execute(array($this->un, $this->un))) {
             $stmt = null;
-            //header("location: ../index.php?error=stmtfailed");
-            exit();
+            $this->errors['query'] = "Query statement failed.";
         }
 
         if($stmt->rowCount() == 0) {

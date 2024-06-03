@@ -1,4 +1,3 @@
-
 <?php if ($whichTable === 'supplier'): ?>
 <td class="mx-5">
     <div class="d-flex gap-4">
@@ -24,7 +23,6 @@
 </td>
 
 <?php elseif ($whichTable === 'purchaseorder'): ?>
-<td><button type="button" class="print btn btn-stock mx-2">Print</button></td>
 <td class="mx-5">
     <div class="d-flex gap-4">
         <a href="#" class="edit text-primary" data-bs-toggle="modal" data-bs-target="#dynamicEditModal">

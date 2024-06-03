@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 require_once 'database.php';
 
 if (isset($_GET['querySearch'])) {
@@ -43,7 +44,9 @@ if (isset($_GET['querySearch'])) {
                 foreach ($row as $value) {
                     echo '<td>' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8') . '</td>';
                 }
-                include '../components/edit_delete.php';
+                if ($_SESSION["type"] === 'admin') {
+                    include '../components/edit_delete.php';
+                }
                 echo '</tr>';
             }
         }
@@ -77,14 +80,18 @@ function additionalColumns($table, $col) {
     $columns = $col;
     switch ($table) {
         case 'supplier':
+            break;
         case 'product':
-            $columns[] = "Action";
-            return $columns;
+            $columns[] = "Quantity";
+            break;
         case 'purchaseorder':
             $columns[] = "Details";
-            $columns[] = "Action";
-            return $columns;
+            break;
         default:
-            return $columns;
+            break;
     }
+    if ($_SESSION["type"] === 'admin') {
+        $columns[] = "Action";
+    }
+    return $columns;
 }

@@ -1,5 +1,7 @@
 <?php
-    $view = isset($_GET['view']) ? $_GET['view'] : 'guest'; 
+    session_start();
+    $_SESSION["type"] = isset($_GET['view']) ? $_GET['view'] : 'guest'; 
+    echo $_SESSION["type"];
 ?>
 
 <!DOCTYPE html>

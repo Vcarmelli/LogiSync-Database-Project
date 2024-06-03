@@ -5,4 +5,4 @@
     session_destroy();
 
     // back to the front page
-    //header("location: ../index.php?error=logoutsuccess"); 
+    header("location: ../index.php?error=logoutsuccess"); 

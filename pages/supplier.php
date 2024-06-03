@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $show = isset($_GET['report']) ? $_GET['report'] : 'Supplier';
 ?>
 
@@ -74,9 +75,13 @@
                     <table id="supplierTable" class="table table-hover default-table table-pad">
                         <thead class="table-head">
                             <tr>
-                                <?php foreach (["Supplier ID", "Supplier Name", "Contact Person", "Contact Number", "Action"] as $columnName) { ?>
+                                <?php foreach (["Supplier ID", "Supplier Name", "Contact Person", "Contact Number"] as $columnName) { ?>
                                     <th><?php echo $columnName; ?></th>
                                 <?php } ?>
+
+                                <?php if ($_SESSION["type"] === 'admin'): ?>
+                                    <th>Action</th>
+                                <?php endif ?>
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
@@ -97,8 +102,10 @@
                                             <?php foreach ($row as $value) { ?>
                                                 <td><?php echo $value; ?></td>
                                             <?php } ?>
-                                            <?php  $whichTable = "supplier"; 
-                                                    include '../components/edit_delete.php'; ?>
+                                            <?php if ($_SESSION["type"] === 'admin'): 
+                                                $whichTable = "supplier"; 
+                                                include '../components/edit_delete.php'; 
+                                            endif ?>
                                         </tr>
                                         <?php break;
                                     }

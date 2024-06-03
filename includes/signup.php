@@ -5,6 +5,7 @@ class Signup extends Database {
     private $pw;
     private $repw;
     private $email;
+    public $errors = [];
 
     public function __construct($un, $pw, $repw, $email) {
         $this->un = $un;
@@ -13,28 +14,25 @@ class Signup extends Database {
         $this->email = $email;
     }
     public function validateSignUpAccount() {
-        $valid = true;
         if ($this->isInvalidUsername()) {
-            echo "invalid un sign up";
-            $valid = false;
+            $this->errors['name'] = "Invalid username.";
         }
 
         if ($this->isInvalidEmail()) {
-            echo "invalid em sign up";
-            $valid = false;
+            $this->errors['email'] = "Invalid email.";
         }
 
         if ($this->passwordNotMatch()) {
-            echo "pass not match sign up";
-            $valid = false;
+            $this->errors['password'] = "Password doesn't match.";
         }
 
         if ($this->isUserTaken()) {
-            echo "un taken sign up";
-            $valid = false;
+            if ($this->errors['name']) {
+                $this->errors['email'] = "This email already exist.";
+            } else {
+                $this->errors['name'] = "This username already exist.";
+            }
         }
-        
-        return $valid;
     }
 
     public function signupUser() {
@@ -44,10 +42,9 @@ class Signup extends Database {
 
         if(!$stmt->execute(array($this->un, $hashedPwd, $this->email))) {
             $stmt = null;
-            //header("location: ../index.php?error=stmtfailed");
-            exit();
+            $this->errors['query'] = "Query statement failed.";
+            return;
         }
-        //header("location: ../index.php?message=signupSuccess");
         $stmt = null;
     }
 
@@ -73,12 +70,12 @@ class Signup extends Database {
     }
 
     private function isUserTaken() {
-        $stmt = $this->connect()->prepare('SELECT UserName FROM accounts WHERE UserID = ? OR UserEmail = ?;');
+        $stmt = $this->connect()->prepare('SELECT UserName FROM accounts WHERE UserName = ? OR UserEmail = ?;');
 
         if(!$stmt->execute(array($this->un, $this->email))) {
             $stmt = null;
-            //header("location: ../index.php?error=stmtfailed");
-            exit();
+            $this->errors['query'] = "Query statement failed.";
+            return;
         }
 
         if ($stmt->rowCount() > 0) {

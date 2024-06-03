@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $show = isset($_GET['report']) ? $_GET['report'] : 'Supplier';
 ?>
 
@@ -74,9 +75,13 @@
                     <table id="orderTable" class="table table-hover default-table table-pad">
                         <thead class="table-head">
                             <tr>
-                                <?php foreach (["Order ID", "Supplier ID", "Order Date", "Delivery Date", "Details", "Action"] as $columnName) { ?>
+                                <?php foreach (["Order ID", "Supplier ID", "Order Date", "Delivery Date", "Details"] as $columnName) { ?>
                                     <th><?php echo $columnName; ?></th>
                                 <?php } ?>
+
+                                <?php if ($_SESSION["type"] === 'admin'): ?>
+                                    <th>Action</th>
+                                <?php endif ?>
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
@@ -97,8 +102,12 @@
                                             <?php foreach ($row as $value) { ?>
                                                 <td><?php echo $value; ?></td>
                                             <?php } ?>
-                                            <?php  $whichTable = "purchaseorder"; 
-                                                    include '../components/edit_delete.php'; ?>                              
+                                                <td><button type="button" class="print btn btn-stock mx-2">Print</button></td>
+
+                                            <?php if ($_SESSION["type"] === 'admin'): 
+                                                $whichTable = "purchaseorder"; 
+                                                include '../components/edit_delete.php'; 
+                                            endif ?>                    
                                         </tr>
                                         <?php break; 
                                     }
