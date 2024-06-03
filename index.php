@@ -32,47 +32,53 @@
             </div>
         </div>
             
-        <!-- <div class="card m-5">
-            <div class="card-header">SIGN UP</div>
-            <div class="card-body">
-                <p class="">Don't have an account yet? Sign up here!</p>
+        <div id="landing-signup" class="flex-column d-none">
+            <div class="landing-text mt-0">Sign Up</div>
+            <div>
                 <form id="signupForm" method="post">
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+                        <div class="invalid-feedback"></div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                        <div class="invalid-feedback"></div>
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="repassword" class="form-label">Re-enter Password</label>
                         <input type="password" class="form-control" id="repassword" name="repassword" placeholder="Re-enter your password" required>
+                        <div class="invalid-feedback"></div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="email" class="form-label">Email</label>
                         <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                        <div class="invalid-feedback"></div>
                     </div>
-                    <button  type="submit" name="signup" class="btn btn-primary" >SIGN UP</button>
+                    <div class="text-center"><a id="admin-btn"><i>Login as Admin</i></a></div>
+                    <button type="submit" name="signup" class="btn btn-primary logsign-btn" >SIGN UP</button>
                 </form>
             </div>
-        </div> -->
+        </div>
 
         <div id="landing-login" class="flex-column p-5 d-none">
             <div class="landing-text mt-0">Login as Admin</div>
-            <div class="f">
+            <div>
                 <form id="loginForm" method="post">
                     <div class="mb-3">
                         <label for="usernameLI" class="form-label">Username</label>
                         <input type="text" class="form-control" id="usernameLI" name="usernameLI" placeholder="Enter your username or email" required>
+                        <div class="invalid-feedback"></div>
                     </div>
                     <div class="mb-3">
                         <label for="passwordLI" class="form-label">Password</label>
                         <input type="password" class="form-control" id="passwordLI" name="passwordLI" placeholder="Enter your password" required>
+                        <div class="invalid-feedback"></div>
                     </div>
-                    <div><a class=""><i>Don't have an account yet? Sign up here!</i></a></div>
-                    <button type="submit" name="login" class="btn btn-primary mt-4" >LOG IN</button>
+                    <div class="text-center"><a id="signup-btn"><i>Don't have an account yet? Sign up here!</i></a></div>
+                    <button type="submit" name="login" class="btn btn-primary mt-4 logsign-btn">LOG IN</button>
                 </form>
             </div>
         </div>

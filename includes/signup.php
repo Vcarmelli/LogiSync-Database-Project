@@ -15,7 +15,7 @@ class Signup extends Database {
     }
     public function validateSignUpAccount() {
         if ($this->isInvalidUsername()) {
-            $this->errors['name'] = "Invalid username.";
+            $this->errors['username'] = "Invalid username.";
         }
 
         if ($this->isInvalidEmail()) {
@@ -23,14 +23,14 @@ class Signup extends Database {
         }
 
         if ($this->passwordNotMatch()) {
-            $this->errors['password'] = "Password doesn't match.";
+            $this->errors['repassword'] = "Password doesn't match.";
         }
 
         if ($this->isUserTaken()) {
-            if ($this->errors['name']) {
+            if ($this->errors['username']) {
                 $this->errors['email'] = "This email already exist.";
             } else {
-                $this->errors['name'] = "This username already exist.";
+                $this->errors['username'] = "This username already exist.";
             }
         }
     }

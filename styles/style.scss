@@ -114,6 +114,7 @@ thead {
 
 .wrapper {
     display: flex;
+    width: 100vw;
 }
 
 .landing-logo {
@@ -155,19 +156,26 @@ thead {
     font-style: normal;
     font-size: 5.7em;
     color: $primary;
-    margin: 4rem 0 2rem 0;
+    margin: 4rem 0 1rem 0;
     padding: 0;
     line-height: 0.8;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    text-shadow: 4px 4px 6px rgba(255, 241, 221, 0.99);
 }
 
+#landing-signup {
+    padding: 2.2rem 3rem;
+}
+
+#landing-signup, 
 #landing-login {
+    width: 30%;
     margin: 9% 0 0 56%;
     background-color: $background;
     border-radius: 10%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+#landing-signup .landing-text,
 #landing-login .landing-text {
     font-size: 4.2em;
 }
@@ -180,12 +188,29 @@ thead {
     background-color: $background;
 }
 
+#admin-btn,
+#signup-btn {
+    transition: color 0.4s ease; 
+    font-size: 0.8em;
+    color: $primary-light;
+    cursor: pointer;
+
+    &:hover {
+        color: $danger;
+    }
+}
+
 #guest-btn {
+    transition: color 0.4s ease; 
     color: $primary;
 
     &:hover {
         color: $danger;
     }
+}
+
+.logsign-btn {
+    width: 100%;
 }
 
 #sidebar {
@@ -389,5 +414,6 @@ a.sidebar-link:hover {
 .count-chart {
     width: 20vw;
 }
+
 
 

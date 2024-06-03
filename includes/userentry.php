@@ -4,6 +4,8 @@ include_once 'database.php';
 include_once 'signup.php';
 include_once 'login.php';
 
+error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
+
 if(isset($_POST['action']) && $_POST['action'] == 'signup') {
 
     $name = $_POST["username"];
@@ -24,7 +26,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'signup') {
 } else if(isset($_POST['action']) && $_POST['action'] == 'login') {
     $name = $_POST["username"];
     $pass = $_POST["password"]; 
-   
+
     $login = new Login($name, $pass);
     $login->validateLogInAccount();
     $login->loginUser();

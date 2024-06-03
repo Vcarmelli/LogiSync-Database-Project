@@ -6,3 +6,4 @@
 
     // back to the front page
     header("location: ../index.php?error=logoutsuccess"); 
+    exit();

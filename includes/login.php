@@ -12,11 +12,11 @@ class Login extends Database {
     public function validateLogInAccount() {
     
         if ($this->isInvalidUsernameOrEmail()) {
-            $this->errors['name'] = "Invalid username or email.";
+            $this->errors['usernameLI'] = "Invalid username or email.";
         }
 
         if ($this->isAccountDoesntExist()) { 
-            $this->errors['exist'] = "This account doesn't exist.";  // username not in system
+            $this->errors['passwordLI'] = "This account doesn't exist.";  // username not in system
         }
     }
 
@@ -34,7 +34,7 @@ class Login extends Database {
         // Check if user exists
         if (!$user) {
             $stmt = null;
-            $this->errors['exist'] = "This account doesn't exist.";
+            $this->errors['passwordLI'] = "This account doesn't exist.";
             return; 
         }
         
@@ -47,7 +47,7 @@ class Login extends Database {
             $stmt = null;
         } else {
             $stmt = null;
-            $this->errors['password'] = "Wrong password.";
+            $this->errors['passwordLI'] = "Wrong password.";
             return; 
         }
     }

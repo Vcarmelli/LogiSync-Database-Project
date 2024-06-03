@@ -4,6 +4,8 @@ $(document).ready(function() {
     console.log("INDEX LOADED");
 
     $('#logo-btn').click(homepage);
+    $('#signup-btn').click(showSignup);
+    $('#admin-btn').click(showSignup);
     $('#log-btn').click(homepage);
     $('#guest-btn').click(guestDashboard);
     $('#toggle-btn').click(menu);
@@ -28,6 +30,8 @@ function loginSubmissionHandlers() {
 function signupUser(event) {
     event.preventDefault();
 
+    $('.form-control').removeClass('is-invalid');
+
     const data = {
         action: 'signup',
         username: $('#username').val(),
@@ -35,15 +39,15 @@ function signupUser(event) {
         repassword: $('#repassword').val(),
         email: $('#email').val()
     }
-    //console.log("LOGIN DATA:", data);
+    console.log("SIGNUP DATA:", data);
 
     $.post('./includes/userentry.php', data)
         .done(function(response) {
-            console.log("res from signup:", response);
             if (response.success) {
-                window.href.location = './index.php';
+                window.location.href = '../index.php';
             } else {
                 console.log("res from signup:", response.errors);
+                showSignupErrors(response.errors);
             }
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
@@ -59,16 +63,16 @@ function loginUser(event) {
         username: $('#usernameLI').val(),
         password: $('#passwordLI').val()
     }
-    //console.log("LOGIN DATA:", data);
+    console.log("LOGIN DATA:", data);
 
     $.post('./includes/userentry.php', data)
         .done(function(response) {
-            console.log("res from login:", response);
             if (response.success) {
                 view = 'manager';
                 window.location.href = `./pages/dashboard.php?view=${view}`;
             } else {
                 console.log("res from login:", response.errors);
+                showLoginErrors(response.errors);
             }
 
         })
@@ -98,9 +102,10 @@ function homepage() {
     $('#landing-login').toggleClass('d-none');
 }
 
-// function goToLogin() {
-//     homepage();
-// }
+function showSignup() {
+    $('#landing-login').toggleClass('d-none');
+    $('#landing-signup').toggleClass('d-none');
+}
 
 function menu() {
     $('#sidebar').toggleClass('expand');
@@ -258,4 +263,20 @@ function printInvoice() {
             }
         });
     }
+}
+
+function showSignupErrors(errors) {
+    $.each(errors, function(key, value) {
+        $('#' + key).addClass('is-invalid');
+        $('#' + key).siblings('.invalid-feedback').text(value);
+        console.log("key", key, "val", value);
+    });
+}
+
+function showLoginErrors(errors) {
+    $.each(errors, function(key, value) {
+        $('#' + key).addClass('is-invalid');
+        $('#' + key).siblings('.invalid-feedback').text(value);
+        console.log("key", key, "val", value);
+    });
 }
