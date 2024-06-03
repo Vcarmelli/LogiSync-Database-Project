@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap");
 #right-charts.shorten .top-suppliers-chart, #right-charts.shorten .line-chart {
   width: 37vw;
 }
@@ -69,9 +70,14 @@ thead {
 }
 
 .btn-primary {
+  transition: background-color 0.5s ease;
   color: #F5F5F5;
   border: #472D30;
   background-color: #472D30 !important;
+}
+.btn-primary:hover {
+  color: #FFE1A8;
+  background-color: #723D46 !important;
 }
 
 .btn-stock {
@@ -82,16 +88,60 @@ thead {
   display: flex;
 }
 
+.landing-logo {
+  position: absolute;
+  top: 5%;
+  left: 13%;
+}
+.landing-logo button {
+  border: 0;
+  background-color: transparent;
+}
+
+.main-desc {
+  padding: 4% 12%;
+}
+
 .landing {
-  margin:0;
-  padding: 0;
-  /* background-image: url("../assets/main.svg");
-  background-size: cover;
+  background-image: url("../assets/main.svg");
+  background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
-  margin-top: 5%;
   height: 100vh;
-  overflow: visible; */
+  overflow: hidden;
+}
+
+.login {
+  background-image: url("../assets/login.svg");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.landing-text {
+  font-family: "Teko", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 5.7em;
+  color: #472D30;
+  margin: 4rem 0 2rem 0;
+  padding: 0;
+  line-height: 0.8;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+#landing-login {
+  margin: 9% 0 0 56%;
+  background-color: #FFF1DD;
+  border-radius: 10%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#landing-login .landing-text {
+  font-size: 4.2em;
 }
 
 .main {
@@ -99,7 +149,14 @@ thead {
   width: 100vw;
   overflow: hidden;
   transition: all 0.35s ease-in-out;
-  background-color: #EEEFE3;
+  background-color: #FFF1DD;
+}
+
+#guest-btn {
+  color: #472D30;
+}
+#guest-btn:hover {
+  color: #E26D5C;
 }
 
 #sidebar {

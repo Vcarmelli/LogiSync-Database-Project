@@ -4,13 +4,13 @@
             <img src="../assets/logisync-logo.png" alt="LogiSync" height="40">
         </button>
         <div class="sidebar-logo">
-            <a href="./pages/dashboard.php"><img src="../assets/logisync-logo-text.png" alt="LogiSync" height="60"></a>
+            <a href="../pages/dashboard.php"><img src="../assets/logisync-logo-text.png" alt="LogiSync" height="60"></a>
         </div>
     </div>
     <div class="sidebar-pages">
         <ul class="sidebar-nav">
             <li class="sidebar-item">
-                <a href="../index.php" class="sidebar-link">
+                <a href="../pages/dashboard.php" class="sidebar-link">
                     <i class="fa-solid fa-chart-pie"></i>
                     <span>Dashboard</span>
                 </a>
@@ -41,19 +41,16 @@
                         </a>
                     </li>
                 </ul>
-            </li>
-            <?php elseif ($_SESSION["type"] === 'guest'): ?>
-            <li class="sidebar-item">
-                <a href="../index.php" class="sidebar-link">
-                    <i class="fa-solid fa-chart-pie"></i>
-                    <span>WALA BLEH</span>
-                </a>
-            </li>   
+            </li> 
             <?php endif ?>
             <li class="sidebar-item mt-5">
                 <a href="../includes/logout.php" class="sidebar-link">
                     <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Logout</span>
+                    <?php if ($_SESSION["type"] === 'admin' || $_SESSION["type"] === 'manager'): ?>
+                        <span>Logout</span>
+                    <?php else: ?>
+                        <span>Back to Homepage</span>
+                    <?php endif ?>
                 </a>
             </li>  
         </ul> 

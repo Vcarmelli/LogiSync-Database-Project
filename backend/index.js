@@ -3,9 +3,11 @@
 $(document).ready(function() {
     console.log("INDEX LOADED");
 
+    $('#logo-btn').click(homepage);
+    $('#log-btn').click(homepage);
     $('#guest-btn').click(guestDashboard);
     $('#toggle-btn').click(menu);
-
+    
     $('button[data-bs-toggle="modal"]').on('click', addData);
     $('.edit').on('click', editData);
     $('.delete').on('click', deleteData);
@@ -88,6 +90,17 @@ function guestDashboard() {
             console.error('Error:', textStatus, errorThrown);
         });
 }
+
+function homepage() {
+    $('#homepage').toggleClass('login');
+    $('#homepage').toggleClass('landing');
+    $('#landing-main').toggleClass('d-none');
+    $('#landing-login').toggleClass('d-none');
+}
+
+// function goToLogin() {
+//     homepage();
+// }
 
 function menu() {
     $('#sidebar').toggleClass('expand');

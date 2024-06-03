@@ -1,7 +1,8 @@
 <?php
     session_start();
-    $_SESSION["type"] = isset($_GET['view']) ? $_GET['view'] : 'guest'; 
-    echo $_SESSION["type"];
+    if (!isset($_SESSION["type"])) {
+        $_SESSION["type"] = isset($_GET['view']) ? $_GET['view'] : 'guest';
+    }
 ?>
 
 <!DOCTYPE html>
@@ -20,9 +21,8 @@
         <?php include '../components/sidebar.php'; ?>
         <div class="main chart-page">
             <div class="">
-                <?php if(isset($_SESSION["userid"])): ?>        
+                <?php if(isset($_SESSION["username"])): ?>        
                     <span><h1 class="m-3 fs-1">Welcome, <?php echo $_SESSION["username"]; ?></h1></span>
-                    <a href="./includes/logout.php" class="btn btn-primary">Logout</a>
                 <?php else: ?>  
                     <h1 class="m-3 fs-1">Dashboard</h1>
                 <?php endif ?>    
