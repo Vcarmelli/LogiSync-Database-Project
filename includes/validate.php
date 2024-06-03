@@ -2,6 +2,7 @@
 
 require_once 'validator.php';
 class ValidateSupplierForm extends Validator {
+    public $errors = [];
 
     public function __construct($supplierName, $contactPerson, $contactNumber) {
         parent::__construct($supplierName, $contactPerson, $contactNumber, 
@@ -9,23 +10,23 @@ class ValidateSupplierForm extends Validator {
     }
 
     public function validateSupplierForm() {
-        $valid = true;
+
         if ($this->isInvalidSupplierName()) {
-            $valid = false;
+            $this->errors['supplierName'] = "Invalid supplier name format.";
         }
 
         if ($this->isInvalidName("contact")) {
-            $valid = false;
+            $this->errors['contactPerson'] = "Invalid name format.";
         }
 
         if ($this->isInvalidContactNumber()) {
-            $valid = false;
+            $this->errors['contactNumber'] = "Invalid contact number.";
         }
-        return $valid;
     }
 }
 
 class ValidateProductForm extends Validator {
+    public $errors = [];
 
     public function __construct($productName, $supplierId, $price) {
         parent::__construct( null, null, null, $productName, $supplierId, $price, 
@@ -33,15 +34,15 @@ class ValidateProductForm extends Validator {
     }
 
     public function ValidateProductForm() {
-        $valid = true;
+
         if ($this->isInvalidName("product")) {
-            $valid = false;
+            $this->errors['productName'] = "Invalid name format.";
         }
-        return $valid;
     }
 }
 
 class ValidateOrderForm extends Validator {
+    public $errors = [];
 
     public function __construct($supplierIdPO, $orderDate, $deliveryDate) {
         parent::__construct( null, null, null, null, null, null,
@@ -49,10 +50,9 @@ class ValidateOrderForm extends Validator {
     }
 
     public function validateOrderForm() {
-        $valid = true;
+
         if ($this->isInvalidDate()) {
-            $valid = false;
+            $this->errors['deliveryDate'] = "Invalid date.";
         }
-        return $valid;
     }
 }

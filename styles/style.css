@@ -63,6 +63,7 @@ h1 {
 
 body {
   font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
 }
 
 thead {
@@ -86,7 +87,6 @@ thead {
 
 .wrapper {
   display: flex;
-  width: 100vw;
 }
 
 .landing-logo {
@@ -134,14 +134,10 @@ thead {
   text-shadow: 4px 4px 6px rgba(255, 241, 221, 0.99);
 }
 
-#landing-signup {
-  padding: 2.2rem 3rem;
-}
-
 #landing-signup,
 #landing-login {
   width: 30%;
-  margin: 9% 0 0 56%;
+  margin: 11% 0 0 56%;
   background-color: #FFF1DD;
   border-radius: 10%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -152,10 +148,16 @@ thead {
   font-size: 4.2em;
 }
 
+#landing-signup {
+  padding: 3rem;
+  width: 45%;
+  margin: 11% 0 0 43%;
+}
+
 .main {
   min-height: 100vh;
   width: 100vw;
-  overflow: hidden;
+  overflow-x: hidden;
   transition: all 0.35s ease-in-out;
   background-color: #FFF1DD;
 }

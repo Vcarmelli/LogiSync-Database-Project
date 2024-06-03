@@ -35,10 +35,16 @@ function addRow(event) {
         type: 'POST',
         url: '../includes/submit.php',
         data: tableData,
+        dataType: 'json',
         success: function(response) {
-            console.log('response:', response);
-            triggerAlert(response, table);
-            form[0].reset();
+            console.log('add row response:', response);
+            if (response.success) {
+                triggerAlert(response.success, table);
+                form[0].reset();
+            } else {
+                console.log("res from signup:", response.errors);
+                showErrors(response.errors);
+            }
         },
         error: function(error) {
             console.error("Error:", error);
@@ -193,11 +199,12 @@ function getUDProductData() {
 
 function triggerAlert(response, table) {
     console.log("response:", response);
-    if(response === 'true') {
+    if(response) {
         $('#alert-success').removeClass('d-none').fadeTo(2000, 500).slideUp(500, function(){
             $(this).slideUp(500);
         });
         $('#alert-error').addClass('d-none');
+        closeModal(table);
     } else {
         $('#alert-error').html(response.message);
         $('#alert-error').removeClass('d-none').fadeTo(2000, 500).slideUp(500, function(){
@@ -205,7 +212,7 @@ function triggerAlert(response, table) {
         });
         $('#alert-success').addClass('d-none');
     }
-    closeModal(table);
+    
 }
 
 function closeModal(table) {
@@ -223,4 +230,12 @@ function closeModal(table) {
         default:
             break;
     }
+}
+
+function showCRUDErrors(errors) {
+    $.each(errors, function(key, value) {
+        $('#' + key).addClass('is-invalid');
+        $('#' + key).siblings('.invalid-feedback').text(value);
+        console.log("key", key, "val", value);
+    });
 }

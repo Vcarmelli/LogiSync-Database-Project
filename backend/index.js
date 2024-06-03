@@ -47,7 +47,7 @@ function signupUser(event) {
                 window.location.href = '../index.php';
             } else {
                 console.log("res from signup:", response.errors);
-                showSignupErrors(response.errors);
+                showErrors(response.errors);
             }
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
@@ -72,7 +72,7 @@ function loginUser(event) {
                 window.location.href = `./pages/dashboard.php?view=${view}`;
             } else {
                 console.log("res from login:", response.errors);
-                showLoginErrors(response.errors);
+                showErrors(response.errors);
             }
 
         })
@@ -84,13 +84,11 @@ function loginUser(event) {
 
 
 function guestDashboard() {
-    // Send GET request to dashboard.php with view=guest parameter
     $.get('./pages/dashboard.php', { view: 'guest' })
         .done(function(data) {
             window.location.href = './pages/dashboard.php';
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
-            // Handle error
             console.error('Error:', textStatus, errorThrown);
         });
 }
@@ -265,15 +263,7 @@ function printInvoice() {
     }
 }
 
-function showSignupErrors(errors) {
-    $.each(errors, function(key, value) {
-        $('#' + key).addClass('is-invalid');
-        $('#' + key).siblings('.invalid-feedback').text(value);
-        console.log("key", key, "val", value);
-    });
-}
-
-function showLoginErrors(errors) {
+function showErrors(errors) {
     $.each(errors, function(key, value) {
         $('#' + key).addClass('is-invalid');
         $('#' + key).siblings('.invalid-feedback').text(value);

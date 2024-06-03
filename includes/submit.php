@@ -8,12 +8,13 @@ if(isset($_POST['action']) && $_POST['action'] == 'add') {
     
     $table = $_POST['table'];
     $data = $_POST['data'];
+    $errors = validInfo($table, $data);
 
-    if (validInfo($table, $data) == true)  {
+    if (empty($errors))  {
         addInfo($table, $data);
-        echo 'true';
-    } else {
-        echo 'false';
+        $response = ['success' => true, 'message' => 'Added successfully.'];
+    } else {    
+        $response = ['success' => false, 'errors' => $errors];
     }
 
 } else if(isset($_POST['action']) && $_POST['action'] == 'edit') {
@@ -46,17 +47,20 @@ function validInfo($table, $data) {
         case 'addSupplierForm':
         case 'supplier':
             $supplier = new ValidateSupplierForm($data['supplierName'], $data['contactPerson'], $data['contactNumber']);
-            return $supplier->validateSupplierForm();
+            $supplier->validateSupplierForm();
+            return $supplier->errors;
         case 'addProductForm':
         case 'product':
             $product = new ValidateProductForm($data['productName'], $data['supplierId'], $data['price']);
-            return $product->validateProductForm();
+            $product->validateProductForm();
+            return $product->errors;
         case 'addOrderForm':
         case 'purchaseorder':
             $order = new ValidateOrderForm($data['supplierIdPO'], $data['orderDate'], $data['deliveryDate']);
-            return $order->validateOrderForm();
+            $order->validateOrderForm();
+            return $order->errors;
         default:
-            return false;
+            return [];
     }
 }
 
@@ -104,3 +108,8 @@ function removeInfo($table, $id) {
             return false;
     }
 }
+
+
+
+header('Content-Type: application/json');
+echo json_encode($response);

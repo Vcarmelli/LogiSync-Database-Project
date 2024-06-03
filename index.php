@@ -34,33 +34,39 @@
             
         <div id="landing-signup" class="flex-column d-none">
             <div class="landing-text mt-0">Sign Up</div>
-            <div>
-                <form id="signupForm" method="post">
-                    <div class="mb-2">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
-                        <div class="invalid-feedback"></div>
+            <form id="signupForm" method="post">
+                <div class="d-flex gap-5">
+                    <div>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        
                     </div>
-                    <div class="mb-2">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-                        <div class="invalid-feedback"></div>
+                    <div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="repassword" class="form-label">Re-enter Password</label>
+                            <input type="password" class="form-control" id="repassword" name="repassword" placeholder="Re-enter your password" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
                     </div>
-                    
-                    <div class="mb-2">
-                        <label for="repassword" class="form-label">Re-enter Password</label>
-                        <input type="password" class="form-control" id="repassword" name="repassword" placeholder="Re-enter your password" required>
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="mb-2">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" required>
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="text-center"><a id="admin-btn"><i>Login as Admin</i></a></div>
+                </div>
+                <div class="d-flex flex-column text-center gap-4">
+                    <a id="admin-btn"><i>Login as Admin</i></a>
                     <button type="submit" name="signup" class="btn btn-primary logsign-btn" >SIGN UP</button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
 
         <div id="landing-login" class="flex-column p-5 d-none">
