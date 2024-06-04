@@ -4,9 +4,9 @@ $(document).ready(function() {
     console.log("INDEX LOADED");
 
     $('#logo-btn').click(homepage);
-    $('#signup-btn').click(showSignup);
-    $('#admin-btn').click(showSignup);
     $('#log-btn').click(homepage);
+    $('.type-btn').click(toggleTypes);
+    $('.account-btn').click(toggleLogSign);
     $('#guest-btn').click(guestDashboard);
     $('#toggle-btn').click(menu);
     
@@ -18,6 +18,34 @@ $(document).ready(function() {
 
     loginSubmissionHandlers();
 });
+
+function homepage() {
+    $('#homepage').toggleClass('login');
+    $('#homepage').toggleClass('landing');
+    $('#landing-main').toggleClass('d-none');
+    $('#logtypes').toggleClass('d-none');
+    clearLoginForm();
+    clearSignupForm();
+}
+
+function toggleTypes() {
+    $('#admin').toggleClass('active');
+    $('#manager').toggleClass('active');
+    clearLoginForm();
+}
+
+function toggleLogSign() {
+    $('#logtypes').toggleClass('d-none');
+    $('#landing-signup').toggleClass('d-none');
+    clearLoginForm();
+    clearSignupForm();
+}
+
+function menu() {
+    $('#sidebar').toggleClass('expand');
+    $('#right-charts').toggleClass('shorten');
+    $('#left-charts').toggleClass('shorten');
+}
 
 
 function loginSubmissionHandlers() {
@@ -51,6 +79,8 @@ function signupUser(event) {
             console.log("res from signup:", response);
             if (response.success) {
                 window.location.href = '../index.php';
+                alert(response.message);
+                clearSignupForm();
             } else {
                 console.log("res from signup:", response.errors);
                 showErrors(response.errors);
@@ -65,6 +95,7 @@ function signupUser(event) {
 
 function loginUser(event) {
     event.preventDefault();
+    const accType = $('#logtypes .nav-link.active').attr('id');
 
     const data = {
         action: 'login',
@@ -76,8 +107,8 @@ function loginUser(event) {
     $.post('../includes/userentry.php', data)
         .done(function(response) {
             if (response.success) {
-                view = 'admin';
-                window.location.href = `../pages/dashboard.php?view=${view}`;
+                window.location.href = `../pages/dashboard.php?view=${accType}`;
+                clearLoginForm();
             } else {
                 console.log("res from login:", response.errors);
                 showErrors(response.errors);
@@ -89,8 +120,6 @@ function loginUser(event) {
         });
 };
 
-
-
 function guestDashboard() {
     $.get('./pages/dashboard.php', { view: 'guest' })
         .done(function(data) {
@@ -99,24 +128,6 @@ function guestDashboard() {
         .fail(function(jqXHR, textStatus, errorThrown) {
             console.error('Error:', textStatus, errorThrown);
         });
-}
-
-function homepage() {
-    $('#homepage').toggleClass('login');
-    $('#homepage').toggleClass('landing');
-    $('#landing-main').toggleClass('d-none');
-    $('#landing-login').toggleClass('d-none');
-}
-
-function showSignup() {
-    $('#landing-login').toggleClass('d-none');
-    $('#landing-signup').toggleClass('d-none');
-}
-
-function menu() {
-    $('#sidebar').toggleClass('expand');
-    $('#right-charts').toggleClass('shorten');
-    $('#left-charts').toggleClass('shorten');
 }
 
 function addData() {
@@ -271,10 +282,22 @@ function printInvoice() {
     }
 }
 
+function clearSignupForm() {
+    $('#signupForm')[0].reset();
+}
+
+function clearLoginForm() {
+    $('#loginForm')[0].reset();
+}
+
+
 function showErrors(errors) {
     $.each(errors, function(key, value) {
-        $('#' + key).addClass('is-invalid');
-        $('#' + key).siblings('.invalid-feedback').text(value);
-        console.log("key", key, "val", value);
+        if (key === 'query') {
+            console.log("Query Error:", val);
+        } else {
+            $('#' + key).addClass('is-invalid');
+            $('#' + key).siblings('.invalid-feedback').text(value);
+        }
     });
 }

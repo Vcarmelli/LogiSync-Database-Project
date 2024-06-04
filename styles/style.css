@@ -128,30 +128,54 @@ thead {
   font-style: normal;
   font-size: 5.7em;
   color: #472D30;
-  margin: 4rem 0 1rem 0;
   padding: 0;
   line-height: 0.8;
   text-shadow: 4px 4px 6px rgba(255, 241, 221, 0.99);
 }
 
-#landing-signup,
-#landing-login {
+.nav-text {
+  font-family: "Teko", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.5em;
+}
+
+.nav-link {
+  color: #472D30 !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+.nav-link.active {
+  font-weight: 400 !important;
+  color: #E26D5C !important;
+}
+
+#logtypes, #landing-signup {
   width: 30%;
-  margin: 11% 0 0 56%;
+  height: 75vh;
+  margin: 9% 0 0 56%;
+  padding: 2rem 3rem;
   background-color: #FFF1DD;
   border-radius: 10%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: auto;
 }
 
-#landing-signup .landing-text,
-#landing-login .landing-text {
-  font-size: 4.2em;
+::-webkit-scrollbar {
+  width: 5px;
+  color: #FFE1A8;
 }
 
-#landing-signup {
-  padding: 3rem;
-  width: 45%;
-  margin: 11% 0 0 43%;
+::-webkit-scrollbar-track {
+  margin: 0;
+  border-radius: 100px;
+}
+
+.logtypes-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .main {
@@ -163,14 +187,14 @@ thead {
 }
 
 #admin-btn,
-#signup-btn {
+.account-btn {
   transition: color 0.4s ease;
   font-size: 0.8em;
   color: #723D46;
   cursor: pointer;
 }
 #admin-btn:hover,
-#signup-btn:hover {
+.account-btn:hover {
   color: #E26D5C;
 }
 
