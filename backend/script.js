@@ -5,7 +5,9 @@ function formSubmissionHandlers() {
     $('#addSupplierForm').on('submit', addRow);
     $('#addProductForm').on('submit', addRow);
     $('#addOrderForm').on('submit', addRow);
-}; 
+    $('#supplierIdPO').change(() => getProducts('add'));
+    $('#supplierIdPOUD').change(() => getProducts('update'));
+}
 
 function formModificationHandlers(rowID) {
     console.log("MODIFY TABLE");
@@ -15,6 +17,31 @@ function formModificationHandlers(rowID) {
     $('#updateOrderForm').on('submit', function(event) { editRow(event, rowID, $(this).closest('form')); });
 
     $('#deleteForm').on('submit', function(event) { deleteRow(event, rowID, $(this).closest('form')); });
+}
+
+function getProducts(operation) {
+    var supplierId = '';
+    var targetElement = '';
+    if (operation === 'add') {
+        supplierId = $('#supplierIdPO').val();
+        targetElement = '#supplierProducts';
+    } else {
+        supplierId = $('#supplierIdPOUD').val();
+        targetElement = '#supplierProductsUD';
+    } 
+    console.log("supplierId:", supplierId);
+    console.log("targetElement:", targetElement);
+    $.ajax({
+        type: 'GET',
+        url: '../components/get_products.php',
+        data: { supplierId: supplierId },
+        success: function(response) {
+            $(targetElement).html(response);
+        },
+        error: function(error) {
+            console.error("Error:", error);
+        }
+    });
 }
 
 function addRow(event) {
@@ -42,8 +69,7 @@ function addRow(event) {
                 triggerAlert(response.success, table);
                 form[0].reset();
             } else {
-                console.log("res from signup:", response.errors);
-                showErrors(response.errors);
+                showCRUDErrors(response.errors, "add");
             }
         },
         error: function(error) {
@@ -75,9 +101,13 @@ function editRow(event, rowID, form) {
         url: '../includes/submit.php',
         data: sendData,
         success: function(response) {
-            console.log('table:', table);
-            triggerAlert(response, table);
-            form[0].reset();
+            console.log('edit row response:', response);
+            if (response.success) {
+                triggerAlert(response.success, table);
+                form[0].reset();
+            } else {
+                showCRUDErrors(response.errors, "edit");
+            }
         },
         error: function(error) {
             console.error("Error:", error);
@@ -104,9 +134,14 @@ function deleteRow(event, rowID, form) {
         url: '../includes/submit.php',
         data: sendData,
         success: function(response) {
-            console.log('table:', table);
-            triggerAlert(response, table);
-            form[0].reset();
+            console.log('delete row response:', response);
+            if (response.success) {
+                triggerAlert(response.success, table);
+                form[0].reset();
+            } else {
+                showCRUDErrors(response.errors, "delete");
+                console.log("delete errors:", response.errors);
+            }
         },
         error: function(error) {
             console.error("Error:", error);
@@ -115,7 +150,16 @@ function deleteRow(event, rowID, form) {
     });
 }
 
-
+function getProductsQuantity(table) {
+    var products = [];
+    $('#' + table + ' .quantity').each(function() {
+        var productId = $(this).attr('name');
+        var quantity = $(this).val();
+        products.push({ productId: productId, quantity: quantity });
+    });
+    console.log("quan:", products);
+    return products;
+}
 
 // getters
 function getData(table) {
@@ -140,11 +184,14 @@ function getSupplierData() {
 }
 
 function getOrderData() {
+    var quantity = getProductsQuantity("prodsQuantity");
     const data = {
         supplierIdPO: $('#supplierIdPO').val(),
         orderDate: $('#orderDate').val(),
-        deliveryDate: $('#deliveryDate').val()
+        deliveryDate: $('#deliveryDate').val(),
+        quantity: quantity
     }
+    console.log("data w/ quan:", data);
     return data
 }
 
@@ -232,8 +279,12 @@ function closeModal(table) {
     }
 }
 
-function showCRUDErrors(errors) {
+function showCRUDErrors(errors, operation) {
     $.each(errors, function(key, value) {
+        if (operation === "edit") {
+            key = key + "UD";
+        }
+
         $('#' + key).addClass('is-invalid');
         $('#' + key).siblings('.invalid-feedback').text(value);
         console.log("key", key, "val", value);

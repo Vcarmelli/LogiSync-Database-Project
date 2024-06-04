@@ -284,10 +284,12 @@ function printInvoice() {
 
 function clearSignupForm() {
     $('#signupForm')[0].reset();
+    $('.form-control').removeClass('is-invalid');
 }
 
 function clearLoginForm() {
     $('#loginForm')[0].reset();
+    $('.form-control').removeClass('is-invalid');
 }
 
 

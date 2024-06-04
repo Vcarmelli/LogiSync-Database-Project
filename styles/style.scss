@@ -7,7 +7,7 @@ $primary-light: #723D46;
 $secondary: #C9CBA3;
 $tertiary: #FFE1A8;
 $danger: #E26D5C;
-$background: #FFF1DD;
+$background-light: #FFF1DD;
 
 $white: #F5F5F5;
 $gray: #CCCCCC;
@@ -104,6 +104,7 @@ thead {
 
 .btn-primary {
     transition: background-color 0.5s ease; 
+    padding: 0.5em 0.8em;
     color: $white;
     border: $primary;
     background-color: $primary !important;
@@ -184,21 +185,25 @@ thead {
     height: 75vh;
     margin: 9% 0 0 56%;
     padding: 2rem 3rem;
-    background-color: $background;
+    background-color: $background-light;
     border-radius: 10%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: auto;
 }
 
-::-webkit-scrollbar{
-  width: 5px;
-  color: $tertiary;
+::-webkit-scrollbar {
+  width: 3px;
 }
 
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
   margin: 0;
   border-radius: 100px;
+  background-color: $tertiary;
 }
+
+::-webkit-scrollbar-thumb {
+    background-color: $secondary;
+  }
 
 .logtypes-header {
     width: 100%;
@@ -212,7 +217,7 @@ thead {
     width: 100vw;
     overflow-x: hidden;
     transition: all 0.35s ease-in-out;
-    background-color: $background;
+    background-color: $background-light;
 }
 
 #admin-btn,
@@ -442,5 +447,8 @@ a.sidebar-link:hover {
     width: 20vw;
 }
 
-
+.order-modal {
+    height: 75vh;
+    overflow: auto;
+}
 

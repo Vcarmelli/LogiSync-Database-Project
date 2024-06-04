@@ -72,6 +72,7 @@ thead {
 
 .btn-primary {
   transition: background-color 0.5s ease;
+  padding: 0.5em 0.8em;
   color: #F5F5F5;
   border: #472D30;
   background-color: #472D30 !important;
@@ -162,13 +163,17 @@ thead {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
-  color: #FFE1A8;
+  width: 3px;
 }
 
 ::-webkit-scrollbar-track {
   margin: 0;
   border-radius: 100px;
+  background-color: #FFE1A8;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #C9CBA3;
 }
 
 .logtypes-header {
@@ -403,4 +408,9 @@ a.sidebar-link:hover {
 .range-chart,
 .count-chart {
   width: 20vw;
+}
+
+.order-modal {
+  height: 75vh;
+  overflow: auto;
 }/*# sourceMappingURL=style.css.map */

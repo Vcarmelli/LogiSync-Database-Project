@@ -28,7 +28,7 @@
             <!-- ADD Modal -->
             <div class="modal fade mt-5" id="dynamicFormModal" tabindex="-1" aria-labelledby="dynamicFormModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <div class="modal-content px-4 py-3" id="modalContent"></div>
+                    <div class="modal-content px-4 py-3 order-modal" id="modalContent"></div>
                 </div>
             </div>
 

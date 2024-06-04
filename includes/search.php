@@ -44,6 +44,9 @@ if (isset($_GET['querySearch'])) {
                 foreach ($row as $value) {
                     echo '<td>' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8') . '</td>';
                 }
+                if ($whichTable === 'purchaseorder'){
+                    echo '<td><button type="button" class="print btn btn-stock mx-2">Print</button></td>';
+                }
                 if ($_SESSION["type"] === 'admin') {
                     include '../components/edit_delete.php';
                 }

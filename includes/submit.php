@@ -4,6 +4,7 @@ include_once 'database.php';
 include_once 'validate.php';
 include_once 'crud.php';
 
+header('Content-Type: application/json');
 $response = [];
 
 if(isset($_POST['action']) && $_POST['action'] == 'add') {
@@ -19,18 +20,22 @@ if(isset($_POST['action']) && $_POST['action'] == 'add') {
         $response = ['success' => false, 'errors' => $errors];
     }
 
+    echo json_encode($response);
+
 } else if(isset($_POST['action']) && $_POST['action'] == 'edit') {
     
     $table = $_POST['table'];
     $id = $_POST['id'];
     $data = json_decode($_POST['data'], true);
+    $errors = validInfo($table, $data);
 
-    if (validInfo($table, $data) == true)  {
+    if (empty($errors))  {
         saveInfo($table, $id, $data);
-        echo 'true';
+        $response = ['success' => true, 'message' => 'Updated successfully.'];
     } else {
-        echo 'false';
+        $response = ['success' => false, 'errors' => $errors];
     }
+    echo json_encode($response);
 
 } else if(isset($_POST['action']) && $_POST['action'] == 'delete') {
     
@@ -38,10 +43,11 @@ if(isset($_POST['action']) && $_POST['action'] == 'add') {
     $id = $_POST['id'];
 
     if(removeInfo($table, $id) == true) {
-        echo 'true';
+        $response = ['success' => true, 'message' => 'Deleted successfully.'];
     } else {
-        echo 'false';
+        $response = ['success' => false, 'errors' => 'Cannot be deleted.'];
     }
+    echo json_encode($response);
 }
 
 function validInfo($table, $data) {
@@ -111,7 +117,3 @@ function removeInfo($table, $id) {
     }
 }
 
-
-
-header('Content-Type: application/json');
-echo json_encode($response);

@@ -16,16 +16,19 @@
             <div class="mb-3">
                 <label for="supplierNameUD" class="form-label">Supplier Name</label>
                 <input type="text" class="form-control" id="supplierNameUD" name="supplierNameUD"  placeholder="Enter a new supplier name" required>
+                <div class="invalid-feedback"></div>
             </div>
             <div class="mb-3">
                 <label for="contactPersonUD" class="form-label">Contact Person</label>
                 <input type="text" class="form-control" id="contactPersonUD" name="contactPersonUD"  placeholder="Enter a new contact person" required>
+                <div class="invalid-feedback"></div>
             </div>
             <div class="mb-3">
                 <label for="contactNumberUD" class="form-label">Contact Number</label>
                 <div class="input-group">
                     <span class="input-group-text">(+63)</span>
                     <input type="text" class="form-control" id="contactNumberUD" name="contactNumberUD"  placeholder="Enter a new contact number" required>
+                    <div class="invalid-feedback"></div>
                 </div>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
@@ -47,6 +50,7 @@
             <div class="mb-3">
                 <label for="productNameUD" class="form-label">Product Name</label>
                 <input type="text" class="form-control" id="productNameUD" name="productNameUD" placeholder="Enter a new product name" required>
+                <div class="invalid-feedback"></div>
             </div>
             <div class="mb-3">
                 <label for="supplierIdUD" class="form-label">Select Supplier</label>
@@ -61,6 +65,7 @@
                         }
                     ?>
                 </select>
+                <div class="invalid-feedback"></div>
             </div>
             <div class="mb-3">
                 <label for="priceUD" class="form-label">Price</label>
@@ -68,6 +73,7 @@
                     <span class="input-group-text">&#8369;</span>
                     <input type="number" step="0.01" class="form-control" id="priceUD" name="priceUD" placeholder="Enter a new price" required>
                 </div>
+                <div class="invalid-feedback"></div>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
             <div class="d-flex justify-content-end">
@@ -98,14 +104,19 @@
                         }
                     ?>
                 </select>
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3" id="supplierProductsUD">
             </div>
             <div class="mb-3">
-                <label for="orderDateUD" class="form-label">Order Date</label>
+                <label for="orderDateUD" classf="form-label">Order Date</label>
                 <input type="date" class="form-control" id="orderDateUD" name="orderDateUD" placeholder="Enter a new order date" required>
+                <div class="invalid-feedback"></div>
             </div>
             <div class="mb-3">
                 <label for="deliveryDateUD" class="form-label">Delivery Date</label>
                 <input type="date" class="form-control" id="deliveryDateUD" name="deliveryDateUD" placeholder="Enter a new delivery date" required>
+                <div class="invalid-feedback"></div>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
             <div class="d-flex justify-content-end">

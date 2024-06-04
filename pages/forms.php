@@ -24,10 +24,10 @@
                 <div class="input-group">
                     <span class="input-group-text">(+63)</span>
                     <input type="text" class="form-control" id="contactNumber" name="contactNumber" placeholder="Enter a contact number" required>
+                    <div class="invalid-feedback"></div>
                 </div>
-                <div class="invalid-feedback"></div>
             </div>
-            <div class="d-flex justify-content-end">
+            <div class="modal-footer pt-4">
                 <button type="submit" class="btn btn-primary">Add Supplier</button>
             </div>
         </form>
@@ -57,6 +57,7 @@
                         }
                     ?>
                 </select>
+                <div class="invalid-feedback"></div>
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
@@ -66,7 +67,7 @@
                 </div>
                 <div class="invalid-feedback"></div>
             </div>
-            <div class="d-flex justify-content-end">
+            <div class="modal-footer pt-4">
                 <button type="submit" class="btn btn-primary">Add Product</button>
             </div>
         </form>
@@ -91,6 +92,9 @@
                         }
                     ?>
                 </select>
+                <div class="invalid-feedback"></div>
+            </div>
+            <div class="mb-3" id="supplierProducts">
             </div>
             <div class="mb-3">
                 <label for="orderDate" class="form-label">Order Date</label>
@@ -102,7 +106,7 @@
                 <input type="date" class="form-control" id="deliveryDate" name="deliveryDate" placeholder="Enter a delivery date" required>
                 <div class="invalid-feedback"></div>
             </div>
-            <div class="d-flex justify-content-end">
+            <div class="modal-footer pt-4">
                 <button type="submit" class="btn btn-primary">Add Order</button>
             </div>
         </form>
