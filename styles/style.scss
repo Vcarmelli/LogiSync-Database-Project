@@ -213,9 +213,9 @@ thead {
 }
 
 .main {
-    min-height: 100vh;
+    height: 100vh;
     width: 100vw;
-    overflow-x: hidden;
+    overflow: hidden;
     transition: all 0.35s ease-in-out;
     background-color: $background-light;
 }
@@ -377,6 +377,22 @@ a.sidebar-link:hover {
     margin-left: 1rem;
 }
 
+.paging li {
+    color: $primary !important;
+}
+
+.page-link {
+    color: $primary;
+    &:hover {
+        color: $danger !important;
+    }
+}
+
+.active>.page-link {
+    background-color: $primary-light;
+    border-color: $primary;
+    color: $tertiary;
+}
 
 .main-form {
     display: flex;

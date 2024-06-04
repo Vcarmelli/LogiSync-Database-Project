@@ -184,9 +184,9 @@ thead {
 }
 
 .main {
-  min-height: 100vh;
+  height: 100vh;
   width: 100vw;
-  overflow-x: hidden;
+  overflow: hidden;
   transition: all 0.35s ease-in-out;
   background-color: #FFF1DD;
 }
@@ -337,6 +337,23 @@ a.sidebar-link:hover {
 
 .sidebar-dropdown li {
   margin-left: 1rem;
+}
+
+.paging li {
+  color: #472D30 !important;
+}
+
+.page-link {
+  color: #472D30;
+}
+.page-link:hover {
+  color: #E26D5C !important;
+}
+
+.active > .page-link {
+  background-color: #723D46;
+  border-color: #472D30;
+  color: #FFE1A8;
 }
 
 .main-form {

@@ -88,7 +88,7 @@
                             $itemsPerPage = 10;
                             $dbase = new Database();
 
-                            $stmt = $dbase->connect()->prepare('SELECT COUNT(*) FROM supplier');
+                            $stmt = $dbase->connect()->prepare('SELECT COUNT(*) FROM product');
                             $stmt->execute();
 
                             $totalItems = $stmt->fetchColumn();
@@ -101,7 +101,7 @@
                             $offset = ($currentPage - 1) * $itemsPerPage;
                             
                             // Fetch the items for the current page
-                            $stmt = $dbase->connect()->prepare('SELECT * FROM supplier LIMIT :offset, :itemsPerPage');
+                            $stmt = $dbase->connect()->prepare('SELECT * FROM product LIMIT :offset, :itemsPerPage');
                             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
                             $stmt->bindParam(':itemsPerPage', $itemsPerPage, PDO::PARAM_INT);
                             $stmt->execute();
@@ -132,15 +132,23 @@
             </div>
             <div class="d-flex justify-content-center mt-2">
                 <nav aria-label="Page navigation">
-                    <ul class="pagination">
+                    <ul class="pagination pagination-sm">
                         <?php if ($currentPage > 1): ?>
-                        <li class="page-item"><a class="page-link" href="?page=<?php echo $currentPage - 1; ?>">Previous</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<?php echo $currentPage - 1; ?>" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
                         <?php endif; ?>
                         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                         <li class="page-item <?php echo ($i === $currentPage) ? 'active' : ''; ?>"><a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
                         <?php endfor; ?>
                         <?php if ($currentPage < $totalPages): ?>
-                        <li class="page-item"><a class="page-link" href="?page=<?php echo $currentPage + 1; ?>">Next</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<?php echo $currentPage + 1; ?>" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
                         <?php endif; ?>
                     </ul>
                 </nav>

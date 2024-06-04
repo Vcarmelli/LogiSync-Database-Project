@@ -130,17 +130,25 @@
                     </table>
                 </div>
             </div>
-            <div class="d-flex justify-content-center mt-2">
+            <div class="d-flex justify-content-center mt-2 paging">
                 <nav aria-label="Page navigation">
-                    <ul class="pagination">
+                    <ul class="pagination pagination-sm">
                         <?php if ($currentPage > 1): ?>
-                        <li class="page-item"><a class="page-link" href="?page=<?php echo $currentPage - 1; ?>">Previous</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<?php echo $currentPage - 1; ?>" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
                         <?php endif; ?>
                         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                         <li class="page-item <?php echo ($i === $currentPage) ? 'active' : ''; ?>"><a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
                         <?php endfor; ?>
                         <?php if ($currentPage < $totalPages): ?>
-                        <li class="page-item"><a class="page-link" href="?page=<?php echo $currentPage + 1; ?>">Next</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<?php echo $currentPage + 1; ?>" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
                         <?php endif; ?>
                     </ul>
                 </nav>
