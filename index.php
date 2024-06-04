@@ -17,15 +17,16 @@
             <button id="logo-btn" type="button"><img src="../assets/logisync.png" alt="LogiSync" height="50"></button>
         </div>
         <div id="landing-main" class="flex-column w-50 mt-4 main-desc">
-            <div class="">
+            <div>
                 <h1 class="landing-text m-0 mt-5">SUPPLY CHAIN MANAGEMENT</h1>
                 <p>Seamlessly integrate suppliers and retailers into a cohesive network, optimizing logistics and minimizing delays. Get started today and unlock new levels of efficiency and success!</p>
                 <?php if(isset($_SESSION["username"])): ?>        
-                        <a href="./includes/logout.php" class="btn btn-primary">Logout</a>
+                        <div class="my-3"><a href="./pages/dashboard.php">Go to Dashboard? <?php echo $_SESSION["username"]; ?></a></div>
+                        <div><a href="./includes/logout.php" class="btn btn-primary">Logout</a></div>
                 <?php else: ?>
                     <div class="mx-4">
                         <div><a href="#" id="log-btn" class="btn btn-primary my-3">Login as User</a></div>
-                        <div><a href="#" id="guest-btn" >Continue as Guest</a></div>
+                        <div><a href="#" id="guest-btn">Continue as Guest</a></div>
                     </div>
                         
                 <?php endif ?>    

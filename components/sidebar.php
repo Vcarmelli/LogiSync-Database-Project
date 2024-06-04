@@ -4,7 +4,7 @@
             <img src="../assets/logisync-logo.png" alt="LogiSync" height="40">
         </button>
         <div class="sidebar-logo">
-            <a href="../pages/dashboard.php"><img src="../assets/logisync-logo-text.png" alt="LogiSync" height="60"></a>
+            <a href="../index.php"><img src="../assets/logisync-logo-text.png" alt="LogiSync" height="60"></a>
         </div>
     </div>
     <div class="sidebar-pages">

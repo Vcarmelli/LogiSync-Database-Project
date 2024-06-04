@@ -18,7 +18,7 @@
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     echo '<tr>';
                     echo '<td>' . htmlspecialchars($row['ProductName']) . '</td>';
-                    echo '<td><input type="number" name="' . htmlspecialchars($row['ProductID']) . '" value="1" min="1" class="form-control quantity"></td>';
+                    echo '<td><input type="number" name="' . htmlspecialchars($row['ProductID']) . '" value="1" min="0" class="form-control quantity"></td>';
                     echo '</tr>';
                 }
             } else {

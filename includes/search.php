@@ -83,9 +83,7 @@ function additionalColumns($table, $col) {
     $columns = $col;
     switch ($table) {
         case 'supplier':
-            break;
         case 'product':
-            $columns[] = "Quantity";
             break;
         case 'purchaseorder':
             $columns[] = "Details";

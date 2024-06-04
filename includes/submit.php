@@ -81,7 +81,7 @@ function addInfo($table, $data) {
             saveProduct($data['productName'], $data['supplierId'], $data['price']);
             break;
         case 'addOrderForm':
-            saveOrder($data['supplierIdPO'], $data['orderDate'], $data['deliveryDate']);
+            saveOrder($data['supplierIdPO'], $data['orderDate'], $data['deliveryDate'], $data['quantity']);
             break;
         default:
             break;

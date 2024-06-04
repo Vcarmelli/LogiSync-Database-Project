@@ -39,7 +39,7 @@ function saveProduct($productName, $supplierId, $price) {
     }
 }
 
-function saveOrder($supplierIdPO, $orderDate, $deliveryDate) {
+function saveOrder($supplierIdPO, $orderDate, $deliveryDate, $quantity) {
     try {
         $dbase = new Database();
         $newId = getNewOrderID($dbase);
@@ -55,8 +55,36 @@ function saveOrder($supplierIdPO, $orderDate, $deliveryDate) {
             exit();
         }
         $stmt = null;
+        saveQuantities($quantity);
+
     } catch (Exception $e) {
         die("Query Failed in saveOrder:" . $e->getMessage());
+    }
+}
+
+function saveQuantities($quantities) {
+    $dbase = new Database();
+    $conn = $dbase->connect();
+    $conn->beginTransaction();
+    try {
+        $stmt = $conn->prepare("UPDATE product SET Quantity = Quantity + :Quantity
+                                 WHERE ProductID = :ProductID");
+        
+        foreach ($quantities as $quantity) {
+            if(!$stmt->execute([
+                ':Quantity' => $quantity['quantity'],
+                ':ProductID' => $quantity['productId'],
+            ])) {
+                $conn->rollBack();
+                $stmt = null;
+                exit();
+            }
+        }
+        $conn->commit();
+        
+    } catch (Exception $e) {
+        $conn->rollBack();
+        die("Query Failed in saveQuantities:" . $e->getMessage());
     }
 }
 

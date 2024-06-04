@@ -385,7 +385,7 @@ a.sidebar-link:hover {
 
 .table-pad th,
 .table-pad td {
-    padding: 1rem 0.8rem;
+    padding: 0.8rem 0.6rem;
 }
 
 .table-head th {
@@ -393,6 +393,14 @@ a.sidebar-link:hover {
     color: $white;
 }
 
+.card-header {
+    height: 10vh;
+}
+
+.card-body {
+    height: 60vh;
+    overflow: auto;
+}
 
 .counts {
     color: $white;
