@@ -16,43 +16,40 @@ class Login extends Database {
         }
 
         if ($this->isAccountDoesntExist()) { 
-            $this->errors['passwordLI'] = "This account doesn't exist.";  // username not in system
+            $this->errors['usernameLI'] = "This account doesn't exist.";  // username not in system
+        }
+
+        if ($this->passwordNotMatch()) {
+            $this->errors['passwordLI'] = "Wrong password.";
         }
     }
 
     public function loginUser() {
+        session_start();
+        $_SESSION["username"] = $this->un;
+    }
+
+    private function passwordNotMatch() {
         $stmt = $this->connect()->prepare('SELECT UserPass FROM accounts WHERE UserName = ? OR UserEmail = ?;');
     
         if(!$stmt->execute(array($this->un, $this->un))) { // if user enter either username or email
             $stmt = null;
             $this->errors['query'] = "Query statement failed.";
-            return;
+            return false;
         } 
     
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-        // Check if user exists
-        if (!$user) {
-            $stmt = null;
-            $this->errors['passwordLI'] = "This account doesn't exist.";
-            return; 
-        }
-        
-        // User exists, then verify password
         $samePass = password_verify($this->pw, $user["UserPass"]);
         
         if ($samePass) {
-            session_start();
-            $_SESSION["username"] = $this->un;
             $stmt = null;
+            return false;
         } else {
             $stmt = null;
-            $this->errors['passwordLI'] = "Wrong password.";
-            return; 
+            return true;
         }
     }
     
-
     private function isInvalidUsernameOrEmail() {
         // Check if the input is a valid username
         if (preg_match('/^[a-zA-Z0-9]+$/', $this->un)) {
@@ -72,6 +69,7 @@ class Login extends Database {
         if(!$stmt->execute(array($this->un, $this->un))) {
             $stmt = null;
             $this->errors['query'] = "Query statement failed.";
+            return true;
         }
 
         if($stmt->rowCount() == 0) {

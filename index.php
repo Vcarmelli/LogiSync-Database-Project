@@ -64,7 +64,7 @@
                 </div>
                 <div class="d-flex flex-column text-center gap-4">
                     <a id="admin-btn"><i>Login as Admin</i></a>
-                    <button type="submit" name="signup" class="btn btn-primary logsign-btn" >SIGN UP</button>
+                    <button type="submit" name="signup" class="btn btn-primary logsign-btn">SIGN UP</button>
                 </div>
             </form>
         </div>

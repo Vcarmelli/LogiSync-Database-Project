@@ -32,27 +32,35 @@ function signupUser(event) {
 
     $('.form-control').removeClass('is-invalid');
 
-    const data = {
+    const signupData = {
         action: 'signup',
         username: $('#username').val(),
         password: $('#password').val(),
         repassword: $('#repassword').val(),
         email: $('#email').val()
     }
-    console.log("SIGNUP DATA:", data);
+    console.log("SIGNUP DATA:", signupData);
 
-    $.post('./includes/userentry.php', data)
-        .done(function(response) {
+    $.ajax({
+        type: 'POST',
+        url: '../includes/userentry.php',
+        data: signupData,
+        timeout: 15000,
+        dataType: 'json',
+        success: function(response) {
+            console.log("res from signup:", response);
             if (response.success) {
                 window.location.href = '../index.php';
             } else {
                 console.log("res from signup:", response.errors);
                 showErrors(response.errors);
             }
-        })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-            console.error('SIGNUP Error:', textStatus, errorThrown);
-        });
+        },
+        error: function(error) {
+            console.error("SIGNUP Error:", error.responseText);
+            alert('SIGNUP Error', error.responseText);
+        }
+    });
 };
 
 function loginUser(event) {
@@ -65,11 +73,11 @@ function loginUser(event) {
     }
     console.log("LOGIN DATA:", data);
 
-    $.post('./includes/userentry.php', data)
+    $.post('../includes/userentry.php', data)
         .done(function(response) {
             if (response.success) {
-                view = 'manager';
-                window.location.href = `./pages/dashboard.php?view=${view}`;
+                view = 'admin';
+                window.location.href = `../pages/dashboard.php?view=${view}`;
             } else {
                 console.log("res from login:", response.errors);
                 showErrors(response.errors);

@@ -1,5 +1,6 @@
 <?php
 
+// error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
 class Signup extends Database {
     private $un;
     private $pw;
@@ -27,10 +28,10 @@ class Signup extends Database {
         }
 
         if ($this->isUserTaken()) {
-            if ($this->errors['username']) {
-                $this->errors['email'] = "This email already exist.";
-            } else {
+            if (empty($this->errors['username'])) {
                 $this->errors['username'] = "This username already exist.";
+            } else {
+                $this->errors['email'] = "This email already exist.";
             }
         }
     }
@@ -43,7 +44,7 @@ class Signup extends Database {
         if(!$stmt->execute(array($this->un, $hashedPwd, $this->email))) {
             $stmt = null;
             $this->errors['query'] = "Query statement failed.";
-            return;
+            //return;
         }
         $stmt = null;
     }
@@ -75,7 +76,6 @@ class Signup extends Database {
         if(!$stmt->execute(array($this->un, $this->email))) {
             $stmt = null;
             $this->errors['query'] = "Query statement failed.";
-            return;
         }
 
         if ($stmt->rowCount() > 0) {

@@ -4,6 +4,8 @@ include_once 'database.php';
 include_once 'validate.php';
 include_once 'crud.php';
 
+$response = [];
+
 if(isset($_POST['action']) && $_POST['action'] == 'add') {
     
     $table = $_POST['table'];
