@@ -1,6 +1,7 @@
 <?php
+    require_once '../includes/database.php';
     session_start();
-    $show = isset($_GET['report']) ? $_GET['report'] : 'Supplier';
+    $whichTable = "purchaseorder"; 
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +21,28 @@
         <div class="main">
             <div class="d-flex align-items-center mt-3">
                 <h1 class="me-auto fs-1">Orders</h1>
-                <span><button id="view-btn" type="button" class="btn btn-view mx-5 active">View All</button></span>
+                <span>
+                    <div class="dropdown-center">
+                        <button class="btn btn-view dropdown-toggle mx-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Filter by Month
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">January</a></li>
+                            <li><a class="dropdown-item" href="#">February</a></li>
+                            <li><a class="dropdown-item" href="#">March</a></li>
+                            <li><a class="dropdown-item" href="#">April</a></li>
+                            <li><a class="dropdown-item" href="#">May</a></li>
+                            <li><a class="dropdown-item" href="#">June</a></li>
+                            <li><a class="dropdown-item" href="#">July</a></li>
+                            <li><a class="dropdown-item" href="#">August</a></li>
+                            <li><a class="dropdown-item" href="#">September</a></li>
+                            <li><a class="dropdown-item" href="#">October</a></li>
+                            <li><a class="dropdown-item" href="#">November</a></li>
+                            <li><a class="dropdown-item" href="#">December</a></li>
+                        </ul>
+                    </div>
+                </span>
+                <span><button id="view-btn" type="button" class="btn btn-view me-5 active">View All</button></span>
                 <span class="me-5"><button type="button" id="add-order" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dynamicFormModal" data-form="purchaseorder">
                     <i class="fa-solid fa-user-pen"></i> Add Order</button>
                 </span>
@@ -83,76 +105,34 @@
                                 <?php endif ?>
                             </tr>
                         </thead>
-                        <tbody class="table-group-divider">
+                        
+                        <tbody class="table-group-divider load-all">
+                            <?php include '../components/get_all.php'; ?>
+                        </tbody>
+
+                        <tbody id="byMonth" class="table-group-divider d-none">
                         <?php
-                            require_once '../includes/database.php';
-                            $itemsPerPage = 10;
                             $dbase = new Database();
 
-                            $stmt = $dbase->connect()->prepare('SELECT COUNT(*) FROM purchaseorder');
-                            $stmt->execute();
+                            $selectedMonth = isset($_GET['selectedMonth']) ? $_GET['selectedMonth'] : '';
 
-                            $totalItems = $stmt->fetchColumn();
-                            $totalPages = ceil($totalItems / $itemsPerPage);
-                            
-                            $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-                            $currentPage = max($currentPage, 1); // Ensure current page is not less than 1
-                            $currentPage = min($currentPage, $totalPages); // Ensure current page is not more than total pages
-                            
-                            $offset = ($currentPage - 1) * $itemsPerPage;
-                            
-                            // Fetch the items for the current page
-                            $stmt = $dbase->connect()->prepare('SELECT * FROM purchaseorder LIMIT :offset, :itemsPerPage');
-                            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-                            $stmt->bindParam(':itemsPerPage', $itemsPerPage, PDO::PARAM_INT);
-                            $stmt->execute();
-
-                            $firstColumn = null;
-                            while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-                                if ($row) {
-                                    foreach ($row as $column => $value) {
-                                        $firstColumn = $column; ?>
-                                        <tr>
-                                            <input class="rowID" type="hidden" value="<?php echo $row[$firstColumn]; ?>">
-                                            <?php foreach ($row as $value) { ?>
-                                                <td><?php echo $value; ?></td>
-                                            <?php } ?>
-                                                <td><button type="button" class="print btn btn-print mx-2">Print</button></td>
-
-                                            <?php if ($_SESSION["type"] === 'admin'): 
-                                                $whichTable = "purchaseorder"; 
-                                                include '../components/edit_delete.php'; 
-                                            endif ?>                    
-                                        </tr>
-                                        <?php break; 
-                                    }
-                                }
-                            }
+                            $stmt = $dbase->connect()->prepare('SELECT * FROM product WHERE quantity = 0');
+                            $stmt->execute(); 
                         ?>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div id="pagination-nav" class="d-flex justify-content-center mt-2">
+            <div id="pagination-nav" class="d-flex justify-content-center mt-2 paging">
                 <nav aria-label="Page navigation">
-                    <ul class="pagination pagination-sm">
-                        <?php if ($currentPage > 1): ?>
-                        <li class="page-item">
-                            <a class="page-link" href="?page=<?php echo $currentPage - 1; ?>" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <?php endif; ?>
+                    <ul class="pagination">
                         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                        <li class="page-item <?php echo ($i === $currentPage) ? 'active' : ''; ?>"><a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                            <li class="page-item <?php echo ($i === $currentPage) ? 'active' : ''; ?>">
+                                <a class="page-link" href="#" data-page="<?php echo $i; ?>" data-table="<?php echo $whichTable;?>">
+                                    <?php echo $i; ?>
+                                </a>
+                            </li>
                         <?php endfor; ?>
-                        <?php if ($currentPage < $totalPages): ?>
-                        <li class="page-item">
-                            <a class="page-link" href="?page=<?php echo $currentPage + 1; ?>" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                        <?php endif; ?>
                     </ul>
                 </nav>
             </div>

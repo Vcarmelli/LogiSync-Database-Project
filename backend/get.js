@@ -2,7 +2,11 @@
 
 $(document).ready(function() {
     $('#search').on('submit', querySearch);
+
+    $('.page-link').on('click', loadPage);
+    $('#').change(() => getProducts('update'));
 }); 
+
 
 
 function querySearch(event) {
@@ -56,3 +60,29 @@ function querySearch(event) {
     });
 }
 
+function loadPage() {
+    var page = $(this).data('page');
+    var table = $(this).data('table');
+    console.log("page:", page);
+    console.log("table:", table);
+
+    $('.page-item').removeClass('active');
+    $('.page-link[data-page="' + page + '"]').closest('.page-item').addClass('active');
+
+    const data  = {
+        page: page,
+        table: table
+    }
+
+    $.ajax({
+        url: '../components/get_all.php', 
+        type: 'GET',
+        data: data,
+        success: function(response) {
+            $('.load-all').html(response);
+        },
+        error: function(xhr, status, error) {
+            console.error('PAGE Error: ' + status + error);
+        }
+    });
+}

@@ -22,6 +22,7 @@ function formModificationHandlers(rowID) {
 function getProducts(operation) {
     var supplierId = '';
     var targetElement = '';
+
     if (operation === 'add') {
         supplierId = $('#supplierIdPO').val();
         targetElement = '#supplierProducts';
@@ -29,6 +30,7 @@ function getProducts(operation) {
         supplierId = $('#supplierIdPOUD').val();
         targetElement = '#supplierProductsUD';
     } 
+    
     console.log("supplierId:", supplierId);
     console.log("targetElement:", targetElement);
     $.ajax({

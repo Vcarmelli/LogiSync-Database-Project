@@ -1,8 +1,7 @@
 <?php
-
     require_once '../includes/database.php';
     session_start();
-    $show = isset($_GET['report']) ? $_GET['report'] : 'Supplier';
+    $whichTable = "product"; 
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +21,7 @@
         <div class="main">
             <div class="d-flex align-items-center mt-3">
                 <h1 class="me-auto fs-1">Products</h1>
-                <span class="other-filters"><button id="unav-btn" type="button" class="btn btn-view mx-3">Unavailable</button></span>
+                <span><button id="unav-btn" type="button" class="btn btn-view mx-3">Unavailable</button></span>
                 <span><button id="view-btn" type="button" class="btn btn-view me-5 active">View All</button></span>
                 <span class="me-5"><button type="submit" id="add-product" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dynamicFormModal" data-form="product">
                     <i class="fa-solid fa-user-pen"></i> Add Product</button>
@@ -86,59 +85,13 @@
                                 <?php endif ?>
                             </tr>
                         </thead>
-                        <tbody id="allProds" class="table-group-divider">
-                        <?php
-                            $itemsPerPage = 10;
-                            $dbase = new Database();
 
-                            $stmt = $dbase->connect()->prepare('SELECT COUNT(*) FROM product');
-                            $stmt->execute();
 
-                            $totalItems = $stmt->fetchColumn();
-                            $totalPages = ceil($totalItems / $itemsPerPage);
-                            
-                            $currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-                            $currentPage = max($currentPage, 1); // Ensure current page is not less than 1
-                            $currentPage = min($currentPage, $totalPages); // Ensure current page is not more than total pages
-                            
-                            $offset = ($currentPage - 1) * $itemsPerPage;
-                            
-                            // Fetch the items for the current page
-                            $stmt = $dbase->connect()->prepare('SELECT * FROM product LIMIT :offset, :itemsPerPage');
-                            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-                            $stmt->bindParam(':itemsPerPage', $itemsPerPage, PDO::PARAM_INT);
-                            $stmt->execute();
-                            
-                            $firstColumn = null;
-                            while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
-                                if ($row) {
-                                    foreach ($row as $column => $value) {
-                                        $firstColumn = $column; ?>
-                                        <tr>
-                                            <input class="rowID" type="hidden" value="<?php echo $row[$firstColumn]; ?>">
-                                            <?php foreach ($row as $value) { ?>
-                                                <td><?php echo $value; ?></td>
-                                            <?php } ?>
-
-                                            <?php if ($row['Quantity'] == 0): ?>
-                                                <td><div class="stock-out">Out of Stock</div></td>
-                                            <?php else: ?>
-                                                <td><div class="stock-in">In Stock</div></td>
-                                            <?php endif ?>
-                                            
-                                            <?php if ($_SESSION["type"] === 'admin'): 
-                                                $whichTable = "product"; 
-                                                include '../components/edit_delete.php'; 
-                                            endif ?>
-                                        </tr>
-                                        <?php break; 
-                                    }
-                                }
-                            }
-                        ?>
+                        <tbody id="allProds" class="table-group-divider load-all">
+                            <?php include '../components/get_all.php'; ?>
                         </tbody>
 
-                        <tbody id="unavailableProds" class="d-none">
+                        <tbody id="unavailableProds" class="table-group-divider d-none">
                         <?php
                             $dbase = new Database();
 
@@ -176,26 +129,16 @@
                     </table>
                 </div>
             </div>
-            <div id="pagination-nav" class="d-flex justify-content-center mt-2">
+            <div id="pagination-nav" class="d-flex justify-content-center mt-2 paging">
                 <nav aria-label="Page navigation">
-                    <ul class="pagination pagination-sm">
-                        <?php if ($currentPage > 1): ?>
-                        <li class="page-item">
-                            <a class="page-link" href="?page=<?php echo $currentPage - 1; ?>" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <?php endif; ?>
+                    <ul class="pagination">
                         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                        <li class="page-item <?php echo ($i === $currentPage) ? 'active' : ''; ?>"><a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                            <li class="page-item <?php echo ($i === $currentPage) ? 'active' : ''; ?>">
+                                <a class="page-link" href="#" data-page="<?php echo $i; ?>" data-table="<?php echo $whichTable;?>">
+                                    <?php echo $i; ?>
+                                </a>
+                            </li>
                         <?php endfor; ?>
-                        <?php if ($currentPage < $totalPages): ?>
-                        <li class="page-item">
-                            <a class="page-link" href="?page=<?php echo $currentPage + 1; ?>" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                        <?php endif; ?>
                     </ul>
                 </nav>
             </div>
