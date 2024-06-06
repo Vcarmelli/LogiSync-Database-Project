@@ -7,12 +7,13 @@ class Validator {
     private $productName = null;
     private $supplierId = null;
     private $price = null;
+    protected $quantity = null;
     private $supplierIdPO = null;
     private $orderDate = null;
     private $deliveryDate = null;
 
     public function __construct($supplierName, $contactPerson, $contactNumber, 
-                                $productName, $supplierId, $price, 
+                                $productName, $supplierId, $price, $quantity,
                                 $supplierIdPO, $orderDate, $deliveryDate) {
         $this->supplierName = $supplierName;
         $this->contactPerson = $contactPerson;
@@ -20,6 +21,7 @@ class Validator {
         $this->productName = $productName;
         $this->supplierId = $supplierId;
         $this->price = $price;
+        $this->quantity = $quantity;
         $this->supplierIdPO = $supplierIdPO;
         $this->orderDate = $orderDate;
         $this->deliveryDate = $deliveryDate;
@@ -66,6 +68,24 @@ class Validator {
             return false; // valid date
         }
         return true;   // invalid date
+    }
+
+    protected function isInvalidQuantity($num = null) {
+        if ($num === null) {
+            $num = $this->quantity;
+        }
+
+        if ( 0 <= $num && $num <= 1000) {
+            return false; // valid quantity
+        }
+        return true;   // invalid quantity
+    }
+
+    protected function isInvalidPrice() {
+        if ( 0 < $this->price && $this->price < 10000) {
+            return false; // valid price
+        }
+        return true;   // invalid price
     }
 }
 

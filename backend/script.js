@@ -199,7 +199,8 @@ function getProductData() {
     const data = {
         productName: $('#productName').val(),
         supplierId: $('#supplierId').val(),
-        price: $('#price').val()
+        price: $('#price').val(),
+        quantity: $('#quantity').val()
     }
     return data
 }
@@ -238,7 +239,8 @@ function getUDProductData() {
     const data = {
         productName: $('#productNameUD').val(),
         supplierId: $('#supplierIdUD').val(),
-        price: $('#priceUD').val()
+        price: $('#priceUD').val(),
+        quantity: $('#quantityUD').val()
     }
     return data
 }

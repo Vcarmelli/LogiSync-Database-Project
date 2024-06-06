@@ -59,12 +59,12 @@ function validInfo($table, $data) {
             return $supplier->errors;
         case 'addProductForm':
         case 'product':
-            $product = new ValidateProductForm($data['productName'], $data['supplierId'], $data['price']);
+            $product = new ValidateProductForm($data['productName'], $data['supplierId'], $data['price'], $data['quantity']); // quantity here is one for this product only
             $product->validateProductForm();
             return $product->errors;
         case 'addOrderForm':
         case 'purchaseorder':
-            $order = new ValidateOrderForm($data['supplierIdPO'], $data['orderDate'], $data['deliveryDate']);
+            $order = new ValidateOrderForm($data['supplierIdPO'], $data['orderDate'], $data['deliveryDate'], $data['quantity']); // quantity here is multiple for each product of that supplier
             $order->validateOrderForm();
             return $order->errors;
         default:
@@ -78,7 +78,7 @@ function addInfo($table, $data) {
             saveSupplier($data['supplierName'], $data['contactPerson'], $data['contactNumber']);
             break;
         case 'addProductForm':
-            saveProduct($data['productName'], $data['supplierId'], $data['price']);
+            saveProduct($data['productName'], $data['supplierId'], $data['price'], $data['quantity']);
             break;
         case 'addOrderForm':
             saveOrder($data['supplierIdPO'], $data['orderDate'], $data['deliveryDate'], $data['quantity']);
@@ -94,10 +94,10 @@ function saveInfo($table, $id, $data) {
             modifySupplier($id, $data['supplierName'], $data['contactPerson'], $data['contactNumber']);
             break;
         case 'product':
-            modifyProduct($id, $data['productName'], $data['supplierId'], $data['price']);
+            modifyProduct($id, $data['productName'], $data['supplierId'], $data['price'], $data['quantity']);
             break;
         case 'purchaseorder':
-            modifyOrder($id, $data['supplierIdPO'], $data['orderDate'], $data['deliveryDate']);
+            modifyOrder($id, $data['supplierIdPO'], $data['orderDate'], $data['deliveryDate'], $data['quantity']);
             break;
         default:
             break;

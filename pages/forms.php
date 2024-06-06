@@ -64,7 +64,12 @@
                 <div class="input-group">
                     <span class="input-group-text">&#8369;</span>
                     <input type="number" step="0.01" class="form-control" id="price" name="price" placeholder="Enter a price" required>
+                    <div class="invalid-feedback"></div>
                 </div>
+            </div>
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input type="number" step="1" min="0" class="form-control" id="quantity" name="quantity" placeholder="Enter a quantity" required>
                 <div class="invalid-feedback"></div>
             </div>
             <div class="modal-footer pt-4">

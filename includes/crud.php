@@ -20,15 +20,15 @@ function saveSupplier($supplierName, $contactPerson, $contactNumber) {
 
 }
 
-function saveProduct($productName, $supplierId, $price) {
+function saveProduct($productName, $supplierId, $price, $quantity) {
     try {
         $dbase = new Database();
         
         $newId = getNewProductID($dbase);
 
-        $stmt = $dbase->connect()->prepare("INSERT INTO product (ProductID, ProductName, SupplierID, Price) VALUES (?, ?, ?, ?)");
+        $stmt = $dbase->connect()->prepare("INSERT INTO product (ProductID, ProductName, SupplierID, Price, Quantity) VALUES (?, ?, ?, ?, ?)");
     
-        if(!$stmt->execute(array($newId, $productName, $supplierId, $price))) {
+        if(!$stmt->execute(array($newId, $productName, $supplierId, $price, $quantity))) {
             $stmt = null;
             //header("location: ../pages/forms.php?error=inSaveProduct");
             exit();
@@ -39,7 +39,7 @@ function saveProduct($productName, $supplierId, $price) {
     }
 }
 
-function saveOrder($supplierIdPO, $orderDate, $deliveryDate, $quantity) {
+function saveOrder($supplierIdPO, $orderDate, $deliveryDate, $quantities) {
     try {
         $dbase = new Database();
         $newId = getNewOrderID($dbase);
@@ -55,7 +55,7 @@ function saveOrder($supplierIdPO, $orderDate, $deliveryDate, $quantity) {
             exit();
         }
         $stmt = null;
-        saveQuantities($quantity);
+        saveQuantities($quantities);
 
     } catch (Exception $e) {
         die("Query Failed in saveOrder:" . $e->getMessage());
@@ -115,20 +115,22 @@ function modifySupplier($id, $supplierName, $contactPerson, $contactNumber) {
     }
 }
 
-function modifyProduct($id, $productName, $supplierId, $price) {
+function modifyProduct($id, $productName, $supplierId, $price, $quantity) {
     try {
         $dbase = new Database();
 
         $stmt = $dbase->connect()->prepare("UPDATE product 
                                             SET ProductName = :ProductName, 
                                                 SupplierID = :SupplierID, 
-                                                Price = :Price 
+                                                Price = :Price,
+                                                Quantity = :Quantity
                                             WHERE ProductID = :id");
     
         if(!$stmt->execute([
             ':ProductName' => $productName,
             ':SupplierID' => $supplierId,
             ':Price' => $price,
+            ':Quantity' => $quantity,
             ':id' => $id
         ])){
             $stmt = null;
@@ -141,7 +143,7 @@ function modifyProduct($id, $productName, $supplierId, $price) {
     }
 }
 
-function modifyOrder($id, $supplierIdPO, $orderDate, $deliveryDate) {
+function modifyOrder($id, $supplierIdPO, $orderDate, $deliveryDate, $quantities) {
     try {
         $dbase = new Database();
 
@@ -165,6 +167,8 @@ function modifyOrder($id, $supplierIdPO, $orderDate, $deliveryDate) {
             exit();
         }
         $stmt = null;
+        saveQuantities($quantities);
+
     } catch (Exception $e) {
         die("Query Failed in modifyOrder:" . $e->getMessage());
     }

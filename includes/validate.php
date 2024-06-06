@@ -6,7 +6,7 @@ class ValidateSupplierForm extends Validator {
 
     public function __construct($supplierName, $contactPerson, $contactNumber) {
         parent::__construct($supplierName, $contactPerson, $contactNumber, 
-                            null, null, null, null, null, null);
+                             null, null, null, null, null, null, null);
     }
 
     public function validateSupplierForm() {
@@ -28,8 +28,8 @@ class ValidateSupplierForm extends Validator {
 class ValidateProductForm extends Validator {
     public $errors = [];
 
-    public function __construct($productName, $supplierId, $price) {
-        parent::__construct( null, null, null, $productName, $supplierId, $price, 
+    public function __construct($productName, $supplierId, $price, $quantity) {
+        parent::__construct( null, null, null, $productName, $supplierId, $price, $quantity,
                              null, null, null);
     }
 
@@ -38,14 +38,22 @@ class ValidateProductForm extends Validator {
         if ($this->isInvalidName("product")) {
             $this->errors['productName'] = "Invalid name format.";
         }
+
+        if ($this->isInvalidPrice()) {
+            $this->errors['price'] = "Price must be between 0 and 10000.";
+        }
+
+        if ($this->isInvalidQuantity()) {
+            $this->errors['quantity'] = "Quantity must be between 0 and 1000.";
+        }
     }
 }
 
 class ValidateOrderForm extends Validator {
     public $errors = [];
 
-    public function __construct($supplierIdPO, $orderDate, $deliveryDate) {
-        parent::__construct( null, null, null, null, null, null,
+    public function __construct($supplierIdPO, $orderDate, $deliveryDate, $quantities) {
+        parent::__construct( null, null, null, null, null, null, $quantities,
                              $supplierIdPO, $orderDate, $deliveryDate);
     }
 
@@ -54,5 +62,11 @@ class ValidateOrderForm extends Validator {
         if ($this->isInvalidDate()) {
             $this->errors['deliveryDate'] = "Invalid date.";
         }
+        foreach ($this->quantity as $prods) {
+            if ($this->isInvalidQuantity($prods['quantity'])) {
+                $this->errors['quantity'] = "Quantity must be between 0 and 1000.";
+            }
+        }
+        
     }
 }

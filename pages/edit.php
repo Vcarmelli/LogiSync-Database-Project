@@ -72,7 +72,12 @@
                 <div class="input-group">
                     <span class="input-group-text">&#8369;</span>
                     <input type="number" step="0.01" class="form-control" id="priceUD" name="priceUD" placeholder="Enter a new price" required>
+                    <div class="invalid-feedback"></div>
                 </div>
+            </div>
+            <div class="mb-3">
+                <label for="quantityUD" class="form-label">Quantity</label>
+                <input type="number" step="1" min="0" class="form-control" id="quantityUD" name="quantityUD" placeholder="Enter a new quantity" required>
                 <div class="invalid-feedback"></div>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
