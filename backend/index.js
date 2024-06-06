@@ -9,12 +9,16 @@ $(document).ready(function() {
     $('.account-btn').click(toggleLogSign);
     $('#guest-btn').click(guestDashboard);
     $('#toggle-btn').click(menu);
-    
+
+    $('#view-btn').click(showTable);
+    $('#unav-btn').click(showUnavProds);
     $('button[data-bs-toggle="modal"]').on('click', addData);
     $('.edit').on('click', editData);
     $('.delete').on('click', deleteData);
     //$('.stock').on('click', deleteData);
     $('.print').on('click', printInvoice);
+    
+    
 
     loginSubmissionHandlers();
 });
@@ -47,6 +51,30 @@ function menu() {
     $('#left-charts').toggleClass('shorten');
 }
 
+function showTable() {
+    $('#results').hide();
+    $('#unavailableProds').addClass('d-none');
+
+    $('.default-table').show();
+    $('#pagination-nav').removeClass('d-none');
+    $('#allProds').removeClass('d-none');
+    $('#unav-btn').removeClass('d-none');
+
+    $('#unav-btn').removeClass('active');
+    $('#view-btn').addClass('active');
+    
+    $('#search')[0].reset();
+}
+
+function showUnavProds() {
+    $('#results').hide();
+    $('#pagination-nav').addClass('d-none');
+    $('#allProds').addClass('d-none');
+
+    $('#unavailableProds').removeClass('d-none');
+    $('#unav-btn').addClass('active');
+    $('#view-btn').removeClass('active');
+}
 
 function loginSubmissionHandlers() {
     console.log("LOGIN LOADED");
@@ -247,25 +275,10 @@ function deleteData() {
 
 
 function printInvoice() {
-    var formType = $(this).closest('table').attr('id');
     var rowID = $(this).closest('tr').find('.rowID').val();
-    var formUrl = '';
 
     console.log("PRINT rowID:", rowID);
-
-    switch(formType) {
-        case 'supplierTable':
-            formUrl = '../includes/print.php?id=' + rowID;
-            break;
-        case 'productTable':
-            formUrl = '../includes/print.php?id=' + rowID;
-            break;
-        case 'orderTable':
-            formUrl = '../includes/print.php?id=' + rowID;
-            break;
-        default:
-            formUrl = '';
-    }
+    var formUrl = '../includes/print.php?id=' + rowID;
 
     if (formUrl) {
         $.ajax({
@@ -274,6 +287,7 @@ function printInvoice() {
             data: {action: 'print'},
             success: function(response) {
                 console.log("Printer Response:", response);
+                
             },
             error: function() {
                 console.error('Error:', error);

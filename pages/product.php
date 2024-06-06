@@ -1,4 +1,6 @@
 <?php
+
+    require_once '../includes/database.php';
     session_start();
     $show = isset($_GET['report']) ? $_GET['report'] : 'Supplier';
 ?>
@@ -20,6 +22,8 @@
         <div class="main">
             <div class="d-flex align-items-center mt-3">
                 <h1 class="me-auto fs-1">Products</h1>
+                <span class="other-filters"><button id="unav-btn" type="button" class="btn btn-view mx-3">Unavailable</button></span>
+                <span><button id="view-btn" type="button" class="btn btn-view me-5 active">View All</button></span>
                 <span class="me-5"><button type="submit" id="add-product" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dynamicFormModal" data-form="product">
                     <i class="fa-solid fa-user-pen"></i> Add Product</button>
                 </span>
@@ -59,7 +63,7 @@
 
             <div class="card mx-5">
                 <div class="card-header">
-                    <form id="search" action="" method="GET">
+                    <form id="search" method="GET">
                         <div class="input-group mb-5">
                             <input type="text" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control search-input" 
                                     placeholder="Search by ID or Product Name" required>
@@ -73,7 +77,7 @@
                     <table id="productTable" class="table table-hover default-table table-pad">
                         <thead class="table-head">
                             <tr>
-                                <?php foreach (["Product ID", "Product Name", "Supplier ID", "Price", "Quantity"] as $columnName) { ?>
+                                <?php foreach (["Product ID", "Product Name", "Supplier ID", "Price", "Quantity", "Status"] as $columnName) { ?>
                                     <th><?php echo $columnName; ?></th>
                                 <?php } ?>
 
@@ -82,9 +86,8 @@
                                 <?php endif ?>
                             </tr>
                         </thead>
-                        <tbody class="table-group-divider">
+                        <tbody id="allProds" class="table-group-divider">
                         <?php
-                            require_once '../includes/database.php';
                             $itemsPerPage = 10;
                             $dbase = new Database();
 
@@ -116,6 +119,49 @@
                                             <?php foreach ($row as $value) { ?>
                                                 <td><?php echo $value; ?></td>
                                             <?php } ?>
+
+                                            <?php if ($row['Quantity'] == 0): ?>
+                                                <td><div class="stock-out">Out of Stock</div></td>
+                                            <?php else: ?>
+                                                <td><div class="stock-in">In Stock</div></td>
+                                            <?php endif ?>
+                                            
+                                            <?php if ($_SESSION["type"] === 'admin'): 
+                                                $whichTable = "product"; 
+                                                include '../components/edit_delete.php'; 
+                                            endif ?>
+                                        </tr>
+                                        <?php break; 
+                                    }
+                                }
+                            }
+                        ?>
+                        </tbody>
+
+                        <tbody id="unavailableProds" class="d-none">
+                        <?php
+                            $dbase = new Database();
+
+                            $stmt = $dbase->connect()->prepare('SELECT * FROM product WHERE quantity = 0');
+                            $stmt->execute(); 
+
+                            $firstColumn = null;
+                            while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { 
+                                if ($row) {
+                                    foreach ($row as $column => $value) {
+                                        $firstColumn = $column; ?>
+                                        <tr>
+                                            <input class="rowID" type="hidden" value="<?php echo $row[$firstColumn]; ?>">
+                                            <?php foreach ($row as $value) { ?>
+                                                <td><?php echo $value; ?></td>
+                                            <?php } ?>
+
+                                            <?php if ($row['Quantity'] == 0): ?>
+                                                <td><div class="stock-out">Out of Stock</div></td>
+                                            <?php else: ?>
+                                                <td><div class="stock-in">In Stock</div></td>
+                                            <?php endif ?>
+                                            
                                             <?php if ($_SESSION["type"] === 'admin'): 
                                                 $whichTable = "product"; 
                                                 include '../components/edit_delete.php'; 
@@ -130,7 +176,7 @@
                     </table>
                 </div>
             </div>
-            <div class="d-flex justify-content-center mt-2">
+            <div id="pagination-nav" class="d-flex justify-content-center mt-2">
                 <nav aria-label="Page navigation">
                     <ul class="pagination pagination-sm">
                         <?php if ($currentPage > 1): ?>

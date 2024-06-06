@@ -75,7 +75,7 @@ class Validator {
             $num = $this->quantity;
         }
 
-        if ( 0 <= $num && $num <= 1000) {
+        if ( 0 <= $num && $num < 1000) {
             return false; // valid quantity
         }
         return true;   // invalid quantity

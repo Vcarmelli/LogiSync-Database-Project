@@ -1,35 +1,3 @@
-// $(document).ready(function() {
-//     $('#query').on('submit', querySupplier);
-// }); 
-
-// function querySupplier(event) {
-//     event.preventDefault();
-
-//     var supplierID = $('#supplier_id').val();
-//     console.log('supplier_id:', supplierID);
-
-//     var data = {
-//         getProducts: true,
-//         supplierID: supplierID
-//     }
-
-//     $.ajax({
-//         type: 'POST',
-//         url: '../includes/retrieve.php',
-//         data: data,
-//         success: function(response) {
-//             //alert('Supplier product retrieved successfully!');
-//             console.log("list:", response);
-//             $('#result').html(response);
-//             //$('#query')[0].reset();
-//         },
-//         error: function(error) {
-//             alert('Error retrieving supplier products');
-//         }
-//     });
-// }
-
-
 // FOR QUERYING PURPOSES
 
 $(document).ready(function() {
@@ -69,7 +37,13 @@ function querySearch(event) {
             if (response === null){
                 $('#results').html("No matching records found");
             } else {
+                $('#pagination-nav').addClass('d-none');
+                $('#unav-btn').addClass('d-none');
                 $('.default-table').hide();
+
+                $('#view-btn').removeClass('d-none');
+                $('#view-btn').removeClass('active');
+                $('#results').show();
                 $('#results').html(response);
                 $('.edit').on('click', editData);
                 $('.delete').on('click', deleteData);

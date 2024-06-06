@@ -115,8 +115,17 @@ thead {
     }
 }
 
-.btn-stock {
+.btn-print {
     background-color: $secondary !important;
+}
+
+.btn-view {
+    background-color: $tertiary !important;
+}
+
+#view-btn.active,
+#unav-btn.active {
+    border-color: $primary !important;
 }
 
 .wrapper {
@@ -407,6 +416,8 @@ a.sidebar-link:hover {
 .table-head th {
     @include gradientBG();
     color: $white;
+    position: sticky;
+    top: 0px;
 }
 
 .card-header {
@@ -416,6 +427,7 @@ a.sidebar-link:hover {
 .card-body {
     height: 60vh;
     overflow: auto;
+    padding-top: 0;
 }
 
 .counts {
@@ -476,3 +488,19 @@ a.sidebar-link:hover {
     overflow: auto;
 }
 
+.stock-in,
+.stock-out {
+    text-align: center;
+    padding: 0.5em;
+    border-radius: 10px;
+    width: 85%;
+}
+
+.stock-in {
+    background-color: $secondary;
+}
+
+.stock-out {
+    color: $white;
+    background-color: $danger;
+}

@@ -20,6 +20,7 @@
         <div class="main">
             <div class="d-flex align-items-center mt-3">
                 <h1 class="me-auto fs-1">Orders</h1>
+                <span><button id="view-btn" type="button" class="btn btn-view mx-5 active">View All</button></span>
                 <span class="me-5"><button type="button" id="add-order" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dynamicFormModal" data-form="purchaseorder">
                     <i class="fa-solid fa-user-pen"></i> Add Order</button>
                 </span>
@@ -116,7 +117,7 @@
                                             <?php foreach ($row as $value) { ?>
                                                 <td><?php echo $value; ?></td>
                                             <?php } ?>
-                                                <td><button type="button" class="print btn btn-stock mx-2">Print</button></td>
+                                                <td><button type="button" class="print btn btn-print mx-2">Print</button></td>
 
                                             <?php if ($_SESSION["type"] === 'admin'): 
                                                 $whichTable = "purchaseorder"; 
@@ -132,7 +133,7 @@
                     </table>
                 </div>
             </div>
-            <div class="d-flex justify-content-center mt-2">
+            <div id="pagination-nav" class="d-flex justify-content-center mt-2">
                 <nav aria-label="Page navigation">
                     <ul class="pagination pagination-sm">
                         <?php if ($currentPage > 1): ?>

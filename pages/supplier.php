@@ -20,6 +20,7 @@
         <div class="main">
             <div class="d-flex align-items-center mt-3">
                 <h1 class="me-auto fs-1">Suppliers</h1>
+                <span><button id="view-btn" type="button" class="btn btn-view mx-5 active">View All</button></span>
                 <span class="me-5"><button type="button" id="add-supplier" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dynamicFormModal" data-form="supplier">
                     <i class="fa-solid fa-user-pen"></i> Add Supplier</button>
                 </span>
@@ -59,7 +60,7 @@
             
             <div class="card mx-5">
                 <div class="card-header">
-                    <form id="search" action="" method="GET">
+                    <form id="search" method="GET">
                         <div class="input-group mb-5">
                             <input type="text" name="search" value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control search-input" 
                                     placeholder="Search by Supplier ID or Supplier Name" required>
@@ -130,7 +131,7 @@
                     </table>
                 </div>
             </div>
-            <div class="d-flex justify-content-center mt-2 paging">
+            <div id="pagination-nav" class="d-flex justify-content-center mt-2 paging">
                 <nav aria-label="Page navigation">
                     <ul class="pagination pagination-sm">
                         <?php if ($currentPage > 1): ?>

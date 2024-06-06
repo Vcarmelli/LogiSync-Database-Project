@@ -44,8 +44,15 @@ if (isset($_GET['querySearch'])) {
                 foreach ($row as $value) {
                     echo '<td>' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8') . '</td>';
                 }
+                if ($whichTable === 'product') {
+                    if ($row['Quantity'] == 0){
+                        echo '<td><div class="stock-out">Out of Stock</div></td>';
+                    } else {
+                        echo '<td><div class="stock-in">In Stock</div></td>';
+                    }
+                }
                 if ($whichTable === 'purchaseorder'){
-                    echo '<td><button type="button" class="print btn btn-stock mx-2">Print</button></td>';
+                    echo '<td><button type="button" class="print btn btn-print mx-2">Print</button></td>';
                 }
                 if ($_SESSION["type"] === 'admin') {
                     include '../components/edit_delete.php';
@@ -83,7 +90,9 @@ function additionalColumns($table, $col) {
     $columns = $col;
     switch ($table) {
         case 'supplier':
+            break;
         case 'product':
+            $columns[] = "Status";
             break;
         case 'purchaseorder':
             $columns[] = "Details";

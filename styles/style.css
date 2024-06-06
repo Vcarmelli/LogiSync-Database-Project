@@ -82,8 +82,17 @@ thead {
   background-color: #723D46 !important;
 }
 
-.btn-stock {
+.btn-print {
   background-color: #C9CBA3 !important;
+}
+
+.btn-view {
+  background-color: #FFE1A8 !important;
+}
+
+#view-btn.active,
+#unav-btn.active {
+  border-color: #472D30 !important;
 }
 
 .wrapper {
@@ -371,6 +380,8 @@ a.sidebar-link:hover {
   background: linear-gradient(90deg, hsl(353, 22%, 23%) 0%, hsl(350, 30%, 34%) 50%);
   background: -webkit-linear-gradient(90deg, hsl(353, 22%, 23%) 0%, hsl(350, 30%, 34%) 50%);
   color: #F5F5F5;
+  position: sticky;
+  top: 0px;
 }
 
 .card-header {
@@ -380,6 +391,7 @@ a.sidebar-link:hover {
 .card-body {
   height: 60vh;
   overflow: auto;
+  padding-top: 0;
 }
 
 .counts {
@@ -439,4 +451,21 @@ a.sidebar-link:hover {
 .order-modal {
   height: 75vh;
   overflow: auto;
+}
+
+.stock-in,
+.stock-out {
+  text-align: center;
+  padding: 0.5em;
+  border-radius: 10px;
+  width: 85%;
+}
+
+.stock-in {
+  background-color: #C9CBA3;
+}
+
+.stock-out {
+  color: #F5F5F5;
+  background-color: #E26D5C;
 }/*# sourceMappingURL=style.css.map */
