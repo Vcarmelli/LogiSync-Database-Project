@@ -61,7 +61,7 @@
                         $stmt = $dbase->connect()->prepare('SELECT SupplierID, SupplierName FROM supplier ORDER BY SupplierName;');
                         $stmt->execute();
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo '<option value="' . $row['SupplierID'] . '">' . $row['SupplierName'] . '</option>';
+                            echo '<option value="' . $row['SupplierID'] . '">' . $row['SupplierID'] . ' - ' . $row['SupplierName'] . '</option>';
                         }
                     ?>
                 </select>
@@ -105,7 +105,7 @@
                         $stmt = $dbase->connect()->prepare('SELECT SupplierID, SupplierName FROM supplier ORDER BY SupplierName;');
                         $stmt->execute();
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo '<option value="' . $row['SupplierID'] . '">' . $row['SupplierName'] . '</option>';
+                            echo '<option value="' . $row['SupplierID'] . '">' . $row['SupplierID'] . ' - ' . $row['SupplierName'] . '</option>';
                         }
                     ?>
                 </select>

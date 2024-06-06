@@ -3,7 +3,7 @@
 session_start();
 require_once 'database.php';
 
-if (isset($_GET['querySearch'])) {
+if (isset($_GET['action']) && $_GET['action'] == 'search') {
     $filterValues = $_GET['searchInput'];
     $whichTable = $_GET['searchTable'];
     $searchColumns = $_GET['searchColumns'];

@@ -67,6 +67,5 @@ class ValidateOrderForm extends Validator {
                 $this->errors['quantity'] = "Quantity must be between 0 and 1000.";
             }
         }
-        
     }
 }

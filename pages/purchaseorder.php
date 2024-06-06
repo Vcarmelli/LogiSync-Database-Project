@@ -24,25 +24,21 @@
                 <span>
                     <div class="dropdown-center">
                         <button class="btn btn-view dropdown-toggle mx-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Filter by Month
+                            Orders by Month
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">January</a></li>
-                            <li><a class="dropdown-item" href="#">February</a></li>
-                            <li><a class="dropdown-item" href="#">March</a></li>
-                            <li><a class="dropdown-item" href="#">April</a></li>
-                            <li><a class="dropdown-item" href="#">May</a></li>
-                            <li><a class="dropdown-item" href="#">June</a></li>
-                            <li><a class="dropdown-item" href="#">July</a></li>
-                            <li><a class="dropdown-item" href="#">August</a></li>
-                            <li><a class="dropdown-item" href="#">September</a></li>
-                            <li><a class="dropdown-item" href="#">October</a></li>
-                            <li><a class="dropdown-item" href="#">November</a></li>
-                            <li><a class="dropdown-item" href="#">December</a></li>
+                        <?php $months = ["January", "February", "March", "April", "May", "June",
+                                         "July", "August", "September", "October", "November", "December"];
+
+                            for ($i = 0; $i < count($months); $i++) {
+                                $monthNumber = $i + 1;
+                                echo '<li><a class="dropdown-item" href="#" data-month="' . $monthNumber . '">' . $months[$i] . '</a></li>';
+                            }
+                        ?>
                         </ul>
                     </div>
                 </span>
-                <span><button id="view-btn" type="button" class="btn btn-view me-5 active">View All</button></span>
+                <span><button id="view-btn" type="button" class="btn btn-view me-5 active" data-table="purchaseorder">View All</button></span>
                 <span class="me-5"><button type="button" id="add-order" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dynamicFormModal" data-form="purchaseorder">
                     <i class="fa-solid fa-user-pen"></i> Add Order</button>
                 </span>
@@ -106,20 +102,11 @@
                             </tr>
                         </thead>
                         
-                        <tbody class="table-group-divider load-all">
+                        <tbody id="allOrders" class="table-group-divider load-all">
                             <?php include '../components/get_all.php'; ?>
                         </tbody>
 
-                        <tbody id="byMonth" class="table-group-divider d-none">
-                        <?php
-                            $dbase = new Database();
-
-                            $selectedMonth = isset($_GET['selectedMonth']) ? $_GET['selectedMonth'] : '';
-
-                            $stmt = $dbase->connect()->prepare('SELECT * FROM product WHERE quantity = 0');
-                            $stmt->execute(); 
-                        ?>
-                        </tbody>
+                        <tbody id="byMonth" class="table-group-divider"></tbody>
                     </table>
                 </div>
             </div>

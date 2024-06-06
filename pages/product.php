@@ -22,7 +22,7 @@
             <div class="d-flex align-items-center mt-3">
                 <h1 class="me-auto fs-1">Products</h1>
                 <span><button id="unav-btn" type="button" class="btn btn-view mx-3">Unavailable</button></span>
-                <span><button id="view-btn" type="button" class="btn btn-view me-5 active">View All</button></span>
+                <span><button id="view-btn" type="button" class="btn btn-view me-5 active" data-table="product">View All</button></span>
                 <span class="me-5"><button type="submit" id="add-product" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dynamicFormModal" data-form="product">
                     <i class="fa-solid fa-user-pen"></i> Add Product</button>
                 </span>

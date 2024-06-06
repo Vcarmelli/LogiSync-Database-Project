@@ -59,7 +59,6 @@ function addRow(event) {
         table: table,
         data: data
     }
-
     $.ajax({
         type: 'POST',
         url: '../includes/submit.php',
@@ -75,7 +74,8 @@ function addRow(event) {
             }
         },
         error: function(error) {
-            console.error("Error:", error);
+            console.error("Add Error:", error);
+            alert("Error in adding the data.");
         }
     });
 
@@ -113,7 +113,7 @@ function editRow(event, rowID, form) {
         },
         error: function(error) {
             console.error("Error:", error);
-            alert('Error editing', table);
+            alert("Error in updating the data.");
         }
     });
 }
@@ -147,7 +147,7 @@ function deleteRow(event, rowID, form) {
         },
         error: function(error) {
             console.error("Error:", error);
-            alert('Error deleting', table);
+            alert("Error in deleting the data.");
         }
     });
 }

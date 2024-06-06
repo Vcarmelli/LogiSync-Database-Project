@@ -21,7 +21,7 @@
         <div class="main">
             <div class="d-flex align-items-center mt-3">
                 <h1 class="me-auto fs-1">Suppliers</h1>
-                <span><button id="view-btn" type="button" class="btn btn-view mx-5 active">View All</button></span>
+                <span><button id="view-btn" type="button" class="btn btn-view mx-5 active" data-table="supplier">View All</button></span>
                 <span class="me-5"><button type="button" id="add-supplier" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#dynamicFormModal" data-form="supplier">
                     <i class="fa-solid fa-user-pen"></i> Add Supplier</button>
                 </span>

@@ -52,17 +52,24 @@ function menu() {
 }
 
 function showTable() {
-    $('#results').hide();
-    $('#unavailableProds').addClass('d-none');
+    const table = $(this).data('table');
+    
 
+    if (table === 'product') {
+        $('#unavailableProds').addClass('d-none');
+        $('#unav-btn').removeClass('d-none');
+        $('#unav-btn').removeClass('active');
+        $('#allProds').removeClass('d-none');   
+    } else if (table === 'purchaseorder') {
+        $('#byMonth').hide();
+        $('#allOrders').show();
+    }
+    
+    $('#results').hide();
     $('.default-table').show();
     $('#pagination-nav').removeClass('d-none');
-    $('#allProds').removeClass('d-none');
-    $('#unav-btn').removeClass('d-none');
 
-    $('#unav-btn').removeClass('active');
     $('#view-btn').addClass('active');
-    
     $('#search')[0].reset();
 }
 

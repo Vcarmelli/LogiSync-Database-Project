@@ -15,14 +15,18 @@
             $dbase = new Database();
             $stmt = $dbase->connect()->prepare('SELECT ProductID, ProductName FROM product WHERE SupplierID = ?;');
             if($stmt->execute([$supplierID])) {
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    echo '<tr>';
-                    echo '<td>' . htmlspecialchars($row['ProductName']) . '</td>';
-                    echo '<td><input type="number" name="' . htmlspecialchars($row['ProductID']) . '" value="1" min="0" class="form-control quantity"></td>';
-                    echo '</tr>';
+                if($stmt->rowCount() > 0){
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        echo '<tr>';
+                        echo '<td>' . htmlspecialchars($row['ProductName']) . '</td>';
+                        echo '<td><input type="number" name="' . htmlspecialchars($row['ProductID']) . '" value="1" min="0" class="form-control quantity"></td>';
+                        echo '</tr>';
+                    }
+                } else {
+                    echo '<tr><td colspan="2">No products found.</td></tr>';
                 }
             } else {
-                echo '<tr><td colspan="2">No products found</td></tr>';
+                echo '<tr><td colspan="2">No products found.</td></tr>';
             }
         ?>
     </tbody>

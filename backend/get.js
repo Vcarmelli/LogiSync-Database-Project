@@ -4,9 +4,8 @@ $(document).ready(function() {
     $('#search').on('submit', querySearch);
 
     $('.page-link').on('click', loadPage);
-    $('#').change(() => getProducts('update'));
+    $('.dropdown-item').on('click', getOrderByMonth);
 }); 
-
 
 
 function querySearch(event) {
@@ -27,7 +26,7 @@ function querySearch(event) {
     console.log('Columns to be checked:', searchColumns);
 
     const data = {
-        querySearch: true,
+        action: 'search',
         searchInput: searchInput,
         searchTable: searchTable,
         searchColumns: searchColumns
@@ -80,6 +79,36 @@ function loadPage() {
         data: data,
         success: function(response) {
             $('.load-all').html(response);
+        },
+        error: function(xhr, status, error) {
+            console.error('PAGE Error: ' + status + error);
+        }
+    });
+}
+
+function getOrderByMonth() {
+    var month = $(this).data('month');
+    console.log("month selected:", month);
+
+    const data  = {
+        action: 'orderbymonth',
+        month: month,
+    }
+
+    $.ajax({
+        url: '../components/get_bymonth.php', 
+        type: 'GET',
+        data: data,
+        success: function(response) {
+            //console.log(response);
+            $('#pagination-nav').addClass('d-none');
+            $('#allOrders').hide();
+            $('.default-table').show();
+            $('#byMonth').show();
+            $('#byMonth').html(response);
+            $('.edit').on('click', editData);
+            $('.delete').on('click', deleteData);
+            $('.print').on('click', printInvoice);
         },
         error: function(xhr, status, error) {
             console.error('PAGE Error: ' + status + error);
