@@ -120,7 +120,13 @@ thead {
 }
 
 .btn-view {
+    transition: background-color 0.7s ease; 
     background-color: $tertiary !important;
+
+    &:hover {
+        border-color: $primary !important;
+        background-color: $background-light !important;
+    }
 }
 
 #view-btn.active,

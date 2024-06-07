@@ -87,7 +87,12 @@ thead {
 }
 
 .btn-view {
+  transition: background-color 0.7s ease;
   background-color: #FFE1A8 !important;
+}
+.btn-view:hover {
+  border-color: #472D30 !important;
+  background-color: #FFF1DD !important;
 }
 
 #view-btn.active,

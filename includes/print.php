@@ -1,11 +1,7 @@
 <?php
+    $orderID = isset($_GET['id']) ? $_GET['id'] : '';
 
-include_once '../includes/database.php';
-include_once '../vendor/autoload.php';
-
-if(isset($_GET['action']) && $_GET['action'] == 'print') {
-    $id = $_GET['id'];
-
+    require_once '../includes/database.php';
     $dbase = new Database();
     $stmt = $dbase->connect()->prepare("SELECT 
                                             S.SupplierID,
@@ -30,72 +26,35 @@ if(isset($_GET['action']) && $_GET['action'] == 'print') {
 
     $stmt->execute([':id' => $id]);
     $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 
-    openPrinter($row);
-}
-
-function openPrinter($rows) {
-    $mpdf = new \Mpdf\Mpdf();
-
-    $total = 0;
-    $orderInfo = $rows[0];
-    $titleHtml = '<h1 align="center">LogiSync</h1>';
-    $titleHtml .= '<h1 align="center">Order Invoice</h1>';
-
-    // Build HTML for order information (upper right)
-    $orderHtml = '<div style="position: absolute; top: 180px; right: 80px;">';
-    $orderHtml .= '<h4>Order ID: ' . $orderInfo['OrderID'] . '</h4>';
-    $orderHtml .= '<p>Order Date: ' . $orderInfo['OrderDate'] . '</p>';
-    $orderHtml .= '<p>Delivery Date: ' . $orderInfo['DeliveryDate'] . '</p>';
-    $orderHtml .= '</div>';
-
-    // Build HTML for supplier information (upper left)
-    $supplierHtml = '<div style="position: absolute; top: 180px; left: 70px;">';
-    $supplierHtml .= '<h4>' . $orderInfo['SupplierName'] . '</h4>';
-    $supplierHtml .= '<p>Supplier ID: ' . $orderInfo['SupplierID'] . '</p>';
-    $supplierHtml .= '<p>Contact Person: ' . $orderInfo['ContactPerson'] . '</p>';
-    $supplierHtml .= '<p>Contact Number: ' . $orderInfo['ContactNumber'] . '</p>';
-    $supplierHtml .= '</div>';
-
-    // Build HTML for product table (below)
-    $tableHtml = '<div align="center" style="margin-top: 220px; margin-left: 150px">';
-    $tableHtml .= '<h2>Product Information</h2>';
-    $tableHtml .= '<table border="0" cellpadding="20">';
-    $tableHtml .= '<tr><th>Product ID</th><th>Product Name</th><th>Price</th></tr>';
-
-    // Iterate over each product and add row to the table
-    foreach ($rows as $row) {
-        $tableHtml .= '<tr>';
-        $tableHtml .= '<td>' . $row['ProductID'] . '</td>';
-        $tableHtml .= '<td>' . $row['ProductName'] . '</td>';
-        $tableHtml .= '<td>' . $row['Price'] . '</td>';
-        $tableHtml .= '</tr>';
-        $total += $row['Price'];
-    }
-
-    // Close the table
-    $tableHtml .= '</table>';
-
-    // Add space for total price
-    $tableHtml .= '<div align="center" style="margin-top: 20px;">';
-    $tableHtml .= '<h3>Total Price:  ₱' . $total . '</h3>';
-    $tableHtml .= '</div>';
-
-    // Close the div for the product table
-    $tableHtml .= '</div>';
-
-    // Combine HTML for order, supplier, and table
-    $html = $titleHtml . $orderHtml . $supplierHtml . $tableHtml;
-
-    // Add the HTML markup to the PDF
-    $mpdf->WriteHTML($html);
-
-    // Output the PDF
-    ob_clean(); 
-    header('Content-Type: application/pdf');
-
-    $mpdf->Output('invoice.pdf', 'D');
-
-    //echo "Invoice printed as invoice.pdf";
-}
-
+<div class="modal-header">
+    <h5 class="modal-title fs-4 fw-bold" id="invoiceModalLabel">Order Details</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <form id="orderDetails" method="post">
+        <div class="mb-3">
+            <label for="supplierNameUD" class="form-label">Supplier Name</label>
+            <input type="text" class="form-control" id="supplierNameUD" name="supplierNameUD"  placeholder="Enter a new supplier name" required>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="mb-3">
+            <label for="contactPersonUD" class="form-label">Contact Person</label>
+            <input type="text" class="form-control" id="contactPersonUD" name="contactPersonUD"  placeholder="Enter a new contact person" required>
+            <div class="invalid-feedback"></div>
+        </div>
+        <div class="mb-3">
+            <label for="contactNumberUD" class="form-label">Contact Number</label>
+            <div class="input-group">
+                <span class="input-group-text">(+63)</span>
+                <input type="text" class="form-control" id="contactNumberUD" name="contactNumberUD"  placeholder="Enter a new contact number" required>
+                <div class="invalid-feedback"></div>
+            </div>
+        </div>
+        <input type="hidden" id="dbTable" value="">
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Print Invoice</button>
+        </div>
+    </form>
+</div>

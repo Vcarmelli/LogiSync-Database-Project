@@ -102,10 +102,12 @@ function getOrderByMonth() {
         success: function(response) {
             //console.log(response);
             $('#pagination-nav').addClass('d-none');
+            $('#view-btn').removeClass('active');
             $('#allOrders').hide();
             $('.default-table').show();
             $('#byMonth').show();
             $('#byMonth').html(response);
+
             $('.edit').on('click', editData);
             $('.delete').on('click', deleteData);
             $('.print').on('click', printInvoice);

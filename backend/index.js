@@ -15,7 +15,6 @@ $(document).ready(function() {
     $('button[data-bs-toggle="modal"]').on('click', addData);
     $('.edit').on('click', editData);
     $('.delete').on('click', deleteData);
-    //$('.stock').on('click', deleteData);
     $('.print').on('click', printInvoice);
     
     
@@ -152,6 +151,7 @@ function loginUser(event) {
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
             console.error('LOGIN Error:', textStatus, errorThrown);
+            alert("Cannot log in user.");
         });
 };
 
@@ -287,14 +287,13 @@ function printInvoice() {
     console.log("PRINT rowID:", rowID);
     var formUrl = '../includes/print.php?id=' + rowID;
 
+    console.log('PRINT Form URL:', formUrl);
     if (formUrl) {
         $.ajax({
             url: formUrl,
             method: 'GET',
-            data: {action: 'print'},
             success: function(response) {
-                console.log("Printer Response:", response);
-                
+                $('#printModalContent').html(response);
             },
             error: function() {
                 console.error('Error:', error);

@@ -65,6 +65,13 @@
                 </div>
             </div>
 
+            <!-- PRINT Modal -->
+            <div class="modal fade mt-5" id="dynamicPrintModal" tabindex="-1" aria-labelledby="dynamicPrintModalLabel" aria-hidden="true">
+                <div class="modal-dialog d-flex justify-self-center modal-lg">
+                    <div class="modal-content px-4 py-3" id="printModalContent"></div>
+                </div>
+            </div>
+
              <!-- Alerts -->
             <div class="container w-50">
                 <div id="alert-success" class="alert alert-success d-none fade show" role="alert">
