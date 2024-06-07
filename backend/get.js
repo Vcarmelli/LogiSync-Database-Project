@@ -2,11 +2,17 @@
 
 $(document).ready(function() {
     $('#search').on('submit', querySearch);
-
-    $('.page-link').on('click', loadPage);
     $('.dropdown-item').on('click', getOrderByMonth);
+    
+    bindEventHandlers();
 }); 
 
+function bindEventHandlers() {
+    $('.edit').on('click', editData);
+    $('.delete').on('click', deleteData);
+    $('.print').on('click', printInvoice);
+    $('.page-link').on('click', loadPage); // Ensure pagination links are bound
+}
 
 function querySearch(event) {
     event.preventDefault();
@@ -48,9 +54,7 @@ function querySearch(event) {
                 $('#view-btn').removeClass('active');
                 $('#results').show();
                 $('#results').html(response);
-                $('.edit').on('click', editData);
-                $('.delete').on('click', deleteData);
-                $('.print').on('click', printInvoice);
+                bindEventHandlers();
             }
         },
         error: function(error) {
@@ -79,6 +83,7 @@ function loadPage() {
         data: data,
         success: function(response) {
             $('.load-all').html(response);
+            bindEventHandlers();
         },
         error: function(xhr, status, error) {
             console.error('PAGE Error: ' + status + error);
@@ -108,9 +113,7 @@ function getOrderByMonth() {
             $('#byMonth').show();
             $('#byMonth').html(response);
 
-            $('.edit').on('click', editData);
-            $('.delete').on('click', deleteData);
-            $('.print').on('click', printInvoice);
+            bindEventHandlers();
         },
         error: function(xhr, status, error) {
             console.error('PAGE Error: ' + status + error);

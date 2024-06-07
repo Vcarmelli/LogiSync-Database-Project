@@ -5,6 +5,10 @@ function formSubmissionHandlers() {
     $('#addSupplierForm').on('submit', addRow);
     $('#addProductForm').on('submit', addRow);
     $('#addOrderForm').on('submit', addRow);
+    supplierProdsHandlers();
+}
+
+function supplierProdsHandlers() {
     $('#supplierIdPO').change(() => getProducts('add'));
     $('#supplierIdPOUD').change(() => getProducts('update'));
 }

@@ -32,7 +32,7 @@
                 </div>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
-            <div class="d-flex justify-content-end">
+            <div class="modal-footer pt-4">
                 <button type="submit" class="btn btn-primary">Update Supplier</button>
             </div>
         </form>
@@ -81,7 +81,7 @@
                 <div class="invalid-feedback"></div>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
-            <div class="d-flex justify-content-end">
+            <div class="modal-footer pt-4">
                 <button type="submit" class="btn btn-primary">Update Product</button>
             </div>
         </form>
@@ -124,7 +124,7 @@
                 <div class="invalid-feedback"></div>
             </div>
             <input type="hidden" id="dbTable" value="<?php echo $show ?>">
-            <div class="d-flex justify-content-end">
+            <div class="modal-footer pt-4">
                 <button type="submit" class="btn btn-primary">Update Order</button>
             </div>
         </form>

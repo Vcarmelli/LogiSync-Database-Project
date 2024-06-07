@@ -116,7 +116,13 @@ thead {
 }
 
 .btn-print {
-    background-color: $secondary !important;
+    transition: background-color 0.5s ease; 
+    background-color: $tertiary !important;
+
+    &:hover {
+        color: $tertiary;
+        background-color: $primary-light !important;
+    }
 }
 
 .btn-view {
@@ -427,6 +433,12 @@ a.sidebar-link:hover {
     top: 0px;
 }
 
+.foot td {
+    background-color: $primary-light !important;
+    color: $white !important;
+    padding-right: 4rem;
+}
+
 #supplierTable td {
     padding: 0.8rem 0.6rem;
 }
@@ -514,4 +526,20 @@ a.sidebar-link:hover {
 .stock-out {
     color: $white;
     background-color: $danger;
+}
+
+@media print {
+    //#dynamicPrintModal.modal-dialog#printMo~dalContent
+    .invoice-container {
+        max-width: unset;
+        border: 0px;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 20px;
+        font-size: 14px;
+    }
 }

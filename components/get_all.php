@@ -45,7 +45,7 @@ while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     <?php endif ?>
 
                 <?php elseif ($whichTable === 'purchaseorder'): ?>
-                    <td><button type="button" class="print btn btn-print" data-bs-toggle="modal" data-bs-target="#dynamicPrintModal">Print</button></td>
+                    <td><button type="button" class="print btn btn-print" data-bs-toggle="modal" data-bs-target="#dynamicPrintModal">View Details</button></td>
                 <?php endif ?>
 
                 <?php if ($_SESSION["type"] === 'admin'): 

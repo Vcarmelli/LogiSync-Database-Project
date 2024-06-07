@@ -83,7 +83,12 @@ thead {
 }
 
 .btn-print {
-  background-color: #C9CBA3 !important;
+  transition: background-color 0.5s ease;
+  background-color: #FFE1A8 !important;
+}
+.btn-print:hover {
+  color: #FFE1A8;
+  background-color: #723D46 !important;
 }
 
 .btn-view {
@@ -390,6 +395,12 @@ a.sidebar-link:hover {
   top: 0px;
 }
 
+.foot td {
+  background-color: #723D46 !important;
+  color: #F5F5F5 !important;
+  padding-right: 4rem;
+}
+
 #supplierTable td {
   padding: 0.8rem 0.6rem;
 }
@@ -478,4 +489,19 @@ a.sidebar-link:hover {
 .stock-out {
   color: #F5F5F5;
   background-color: #E26D5C;
+}
+
+@media print {
+  .invoice-container {
+    max-width: unset;
+    border: 0px;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 20px;
+    font-size: 14px;
+  }
 }/*# sourceMappingURL=style.css.map */

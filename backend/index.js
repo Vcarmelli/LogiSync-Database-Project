@@ -13,13 +13,9 @@ $(document).ready(function() {
     $('#view-btn').click(showTable);
     $('#unav-btn').click(showUnavProds);
     $('button[data-bs-toggle="modal"]').on('click', addData);
-    $('.edit').on('click', editData);
-    $('.delete').on('click', deleteData);
-    $('.print').on('click', printInvoice);
     
-    
-
     loginSubmissionHandlers();
+    bindEventHandlers();
 });
 
 function homepage() {
@@ -70,6 +66,11 @@ function showTable() {
 
     $('#view-btn').addClass('active');
     $('#search')[0].reset();
+}
+
+function showPrint() {
+    console.log('Print INvoice clicked');
+    window.print();
 }
 
 function showUnavProds() {
@@ -231,6 +232,7 @@ function editData() {
             method: 'GET',
             success: function(response) {
                 $('#editModalContent').html(response);
+                supplierProdsHandlers();
                 formModificationHandlers(rowID);
             },
             error: function() {
@@ -270,6 +272,7 @@ function deleteData() {
             method: 'GET',
             success: function(response) {
                 $('#deleteModalContent').html(response);
+                supplierProdsHandlers();
                 formModificationHandlers(rowID);
             },
             error: function() {
@@ -294,6 +297,8 @@ function printInvoice() {
             method: 'GET',
             success: function(response) {
                 $('#printModalContent').html(response);
+                $('.print-btn').on('click', showPrint);
+                
             },
             error: function() {
                 console.error('Error:', error);

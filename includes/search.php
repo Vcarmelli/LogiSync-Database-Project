@@ -52,7 +52,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'search') {
                     }
                 }
                 if ($whichTable === 'purchaseorder'){
-                    echo '<td><button type="button" class="print btn btn-print" data-bs-toggle="modal" data-bs-target="#dynamicPrintModal">Print</button></td>';
+                    echo '<td><button type="button" class="print btn btn-print" data-bs-toggle="modal" data-bs-target="#dynamicPrintModal">View Details</button></td>';
                 }
                 if ($_SESSION["type"] === 'admin') {
                     include '../components/edit_delete.php';
