@@ -1,6 +1,8 @@
 <?php
 
-class Validator {
+require_once 'database.php';
+
+class Validator extends Database {
     private $supplierName = null;
     private $contactPerson = null;
     private $contactNumber = null;
@@ -27,8 +29,34 @@ class Validator {
         $this->deliveryDate = $deliveryDate;
     }
 
-    // Add validation methods here
+    protected function supplierExists() {
+        $query = "SELECT COUNT(SupplierName) AS supplierCount FROM supplier
+                  WHERE LOWER(SupplierName) = LOWER(:supplierName)
+                  AND LOWER(ContactPerson) = LOWER(:contactPerson)";
 
+        $stmt = $this->connect()->prepare($query);
+        $stmt->bindParam(':supplierName', $this->supplierName);
+        $stmt->bindParam(':contactPerson', $this->contactPerson);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['supplierCount'] > 0;  // true if greater than zero else no supplier exist, false
+    }
+
+
+    protected function productExists() {
+        $query = "SELECT COUNT(ProductName) AS productCount FROM product
+                  WHERE LOWER(ProductName) = LOWER(:productName)
+                  AND SupplierId = :supplierId";
+
+        $stmt = $this->connect()->prepare($query);
+        $stmt->bindParam(':productName', $this->productName);
+        $stmt->bindParam(':supplierId', $this->supplierId);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['productCount'] > 0;  // true if greater than zero else no product exist, false
+    }
 
     protected function isInvalidContactNumber() {
         if (preg_match('/^9[0-9]{9}$/', $this->contactNumber)) {

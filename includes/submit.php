@@ -15,6 +15,11 @@ if(isset($_POST['action']) && $_POST['action'] == 'add') {
 
     if (empty($errors))  {
         addInfo($table, $data);
+        // if (empty($query_errors)) {
+        //     $response = ['success' => true, 'message' => 'Added successfully.'];
+        // } else {
+        //     $response = ['success' => false, 'errors' => $query_errors];
+        // }
         $response = ['success' => true, 'message' => 'Added successfully.'];
     } else {    
         $response = ['success' => false, 'errors' => $errors];

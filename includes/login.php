@@ -69,7 +69,7 @@ class Login extends Database {
         if(!$stmt->execute(array($this->un, $this->un))) {
             $stmt = null;
             $this->errors['query'] = "Query statement failed.";
-            return true;
+            return false;
         }
 
         if($stmt->rowCount() == 0) {

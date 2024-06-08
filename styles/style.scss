@@ -434,8 +434,7 @@ a.sidebar-link:hover {
 }
 
 .foot td {
-    background-color: $primary-light !important;
-    color: $white !important;
+    background-color: $tertiary !important;
     padding-right: 4rem;
 }
 
@@ -529,7 +528,14 @@ a.sidebar-link:hover {
 }
 
 @media print {
-    //#dynamicPrintModal.modal-dialog#printMo~dalContent
+    body * {
+        visibility: hidden;
+    }
+
+    .invoice-container, .invoice-container * {
+        visibility: visible;
+    }
+
     .invoice-container {
         max-width: unset;
         border: 0px;
@@ -541,5 +547,9 @@ a.sidebar-link:hover {
         margin: 0;
         padding: 20px;
         font-size: 14px;
+    }
+
+    .invoice-container table {
+        margin-top: 100px;
     }
 }

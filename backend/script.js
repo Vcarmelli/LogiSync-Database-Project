@@ -77,10 +77,14 @@ function addRow(event) {
                 showCRUDErrors(response.errors, "add");
             }
         },
-        error: function(error) {
-            console.error("Add Error:", error);
-            alert("Error in adding the data.");
+        error: function(xhr, status, error) {
+            console.error('Error:', xhr, status, error);
+            alert('An error occurred: ' + xhr.responseText);
         }
+        // error: function(error) {
+        //     console.error("Add Error:", error);
+        //     alert("Error in adding the data.");
+        // }
     });
 
 };
