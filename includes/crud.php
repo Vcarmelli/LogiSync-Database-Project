@@ -12,10 +12,8 @@ function saveSupplier($supplierName, $contactPerson, $contactNumber) {
             $stmt = null;
             //header("location: ../pages/forms.php?error=inSaveSupplier");
             exit();
-            //return false;
         }
         $stmt = null;
-        //return true;
     } catch (Exception $e) {
         die("Query Failed in saveSupplier:" . $e->getMessage());
     }
@@ -34,10 +32,8 @@ function saveProduct($productName, $supplierId, $price, $quantity) {
             $stmt = null;
             //header("location: ../pages/forms.php?error=inSaveProduct");
             exit();
-            //return false;
         }
         $stmt = null;
-        //return true;
     } catch (Exception $e) {
         die("Query Failed in saveProduct:" . $e->getMessage());
     }
@@ -57,13 +53,9 @@ function saveOrder($supplierIdPO, $orderDate, $deliveryDate, $quantities) {
             $stmt = null;
             //header("location: ../pages/forms.php?error=inSaveOrder");
             exit();
-            //return false;
         }
         $stmt = null;
-        // if(!saveQuantities($quantities)) {
-        //     return false;
-        // }
-        // return true;
+        
         saveQuantities($quantities);
     } catch (Exception $e) {
         die("Query Failed in saveOrder:" . $e->getMessage());

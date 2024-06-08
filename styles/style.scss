@@ -253,6 +253,15 @@ thead {
     }
 }
 
+.dashboard-back {
+    transition: color 0.4s ease; 
+    color: $danger;
+
+    &:hover {
+        color: $primary;
+    }
+}
+
 #guest-btn {
     transition: color 0.4s ease; 
     color: $primary;

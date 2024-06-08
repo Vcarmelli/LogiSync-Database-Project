@@ -48,7 +48,6 @@ function menu() {
 
 function showTable() {
     const table = $(this).data('table');
-    
 
     if (table === 'product') {
         $('#unavailableProds').addClass('d-none');
@@ -132,15 +131,23 @@ function loginUser(event) {
     event.preventDefault();
     const accType = $('#logtypes .nav-link.active').attr('id');
 
-    const data = {
+    $('.form-control').removeClass('is-invalid');
+
+    const loginData = {
         action: 'login',
         username: $('#usernameLI').val(),
         password: $('#passwordLI').val()
     }
-    console.log("LOGIN DATA:", data);
+    console.log("LOGIN DATA:", loginData);
 
-    $.post('../includes/userentry.php', data)
-        .done(function(response) {
+    $.ajax({
+        type: 'POST',
+        url: '../includes/userentry.php',
+        data: loginData,
+        timeout: 15000,
+        dataType: 'json',
+        success: function(response) {
+            console.log("res from signup:", response);
             if (response.success) {
                 window.location.href = `../pages/dashboard.php?view=${accType}`;
                 clearLoginForm();
@@ -148,12 +155,12 @@ function loginUser(event) {
                 console.log("res from login:", response.errors);
                 showErrors(response.errors);
             }
-
-        })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-            console.error('LOGIN Error:', textStatus, errorThrown);
+        },
+        error: function(error) {
+            console.error('LOGIN Error:', error.responseText);
             alert("Cannot log in user.");
-        });
+        }
+    });
 };
 
 function guestDashboard() {

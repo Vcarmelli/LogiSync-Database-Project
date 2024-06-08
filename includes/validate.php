@@ -9,7 +9,7 @@ class ValidateSupplierForm extends Validator {
                              null, null, null, null, null, null, null);
     }
 
-    public function validateSupplierForm() {
+    public function validateSupplierForm($operation) {
 
         if ($this->isInvalidSupplierName()) {
             $this->errors['supplierName'] = "Invalid supplier name format.";
@@ -22,10 +22,12 @@ class ValidateSupplierForm extends Validator {
         if ($this->isInvalidContactNumber()) {
             $this->errors['contactNumber'] = "Invalid contact number.";
         }
-        
-        if ($this->supplierExists()) {
-            $this->errors['supplierName'] = "This supplier already exists.";
+        if ($operation == 'add') {
+            if ($this->supplierExists()) {
+                $this->errors['supplierName'] = "This supplier already exists.";
+            }
         }
+        
     }
 }
 
@@ -37,7 +39,7 @@ class ValidateProductForm extends Validator {
                              null, null, null);
     }
 
-    public function ValidateProductForm() {
+    public function ValidateProductForm($operation) {
 
         if ($this->isInvalidName("product")) {
             $this->errors['productName'] = "Invalid name format.";
@@ -50,11 +52,11 @@ class ValidateProductForm extends Validator {
         if ($this->isInvalidQuantity()) {
             $this->errors['quantity'] = "Quantity must be between 0 and 1000.";
         }
-
-        if ($this->productExists()) {
-            $this->errors['productName'] = "This product already exists.";
+        if ($operation == 'add') {
+            if ($this->productExists()) {
+                $this->errors['productName'] = "This product already exists.";
+            }
         }
-
     }
 }
 

@@ -58,7 +58,7 @@
                     <?php
                         require_once '../includes/database.php';
                         $dbase = new Database();
-                        $stmt = $dbase->connect()->prepare('SELECT SupplierID, SupplierName FROM supplier ORDER BY SupplierName;');
+                        $stmt = $dbase->connect()->prepare('SELECT SupplierID, SupplierName FROM supplier ORDER BY SupplierID;');
                         $stmt->execute();
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                             echo '<option value="' . $row['SupplierID'] . '">' . $row['SupplierID'] . ' - ' . $row['SupplierName'] . '</option>';
@@ -102,7 +102,7 @@
                     <?php
                         require_once '../includes/database.php';
                         $dbase = new Database();
-                        $stmt = $dbase->connect()->prepare('SELECT SupplierID, SupplierName FROM supplier ORDER BY SupplierName;');
+                        $stmt = $dbase->connect()->prepare('SELECT SupplierID, SupplierName FROM supplier ORDER BY SupplierID;');
                         $stmt->execute();
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                             echo '<option value="' . $row['SupplierID'] . '">' . $row['SupplierID'] . ' - ' . $row['SupplierName'] . '</option>';

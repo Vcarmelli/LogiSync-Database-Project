@@ -10,17 +10,17 @@ class Login extends Database {
         $this->pw = $pw;
     } 
     public function validateLogInAccount() {
-    
-        if ($this->isInvalidUsernameOrEmail()) {
-            $this->errors['usernameLI'] = "Invalid username or email.";
-        }
 
-        if ($this->isAccountDoesntExist()) { 
+        if (!$this->accountExist()) { 
             $this->errors['usernameLI'] = "This account doesn't exist.";  // username not in system
-        }
+        } else {
+            if ($this->isInvalidUsernameOrEmail()) {
+                $this->errors['usernameLI'] = "Invalid username or email.";
+            }
 
-        if ($this->passwordNotMatch()) {
-            $this->errors['passwordLI'] = "Wrong password.";
+            if ($this->passwordNotMatch()) {
+                $this->errors['passwordLI'] = "Wrong password.";
+            }
         }
     }
 
@@ -63,19 +63,16 @@ class Login extends Database {
     }
 
 
-    private function isAccountDoesntExist() {
-        $stmt = $this->connect()->prepare('SELECT UserID FROM accounts WHERE UserName = ? OR UserEmail = ?;');
+    private function accountExist() {
+        $query = "SELECT COUNT(UserID) AS userCount FROM accounts
+                  WHERE LOWER(UserName) = LOWER(:userName)
+                  OR LOWER(userEmail) = LOWER(:userName)";
 
-        if(!$stmt->execute(array($this->un, $this->un))) {
-            $stmt = null;
-            $this->errors['query'] = "Query statement failed.";
-            return false;
-        }
+        $stmt = $this->connect()->prepare($query);
+        $stmt->bindParam(':userName', $this->un);
+        $stmt->execute();
 
-        if($stmt->rowCount() == 0) {
-            //header("location: ../index.php?error=usernotfound");
-            return true;  // username or email not yet sign up
-        }
-        return false;    // username or email is already in system 
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['userCount'] > 0; // true if username or email is already in system, false if user is not in the system
     }
 }

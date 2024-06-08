@@ -109,10 +109,11 @@ function getOrderByMonth() {
             $('#pagination-nav').addClass('d-none');
             $('#view-btn').removeClass('active');
             $('#allOrders').hide();
+            $('#results').hide();
             $('.default-table').show();
             $('#byMonth').show();
             $('#byMonth').html(response);
-
+            $('#search')[0].reset();
             bindEventHandlers();
         },
         error: function(xhr, status, error) {

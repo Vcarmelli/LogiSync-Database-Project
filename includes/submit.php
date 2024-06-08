@@ -11,15 +11,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'add') {
     
     $table = $_POST['table'];
     $data = $_POST['data'];
-    $errors = validInfo($table, $data);
+    $errors = validInfo($table, $data, $_POST['action']);
 
     if (empty($errors))  {
         addInfo($table, $data);
-        // if (empty($query_errors)) {
-        //     $response = ['success' => true, 'message' => 'Added successfully.'];
-        // } else {
-        //     $response = ['success' => false, 'errors' => $query_errors];
-        // }
         $response = ['success' => true, 'message' => 'Added successfully.'];
     } else {    
         $response = ['success' => false, 'errors' => $errors];
@@ -32,7 +27,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'add') {
     $table = $_POST['table'];
     $id = $_POST['id'];
     $data = json_decode($_POST['data'], true);
-    $errors = validInfo($table, $data);
+    $errors = validInfo($table, $data, $_POST['action']);
 
     if (empty($errors))  {
         saveInfo($table, $id, $data);
@@ -55,17 +50,17 @@ if(isset($_POST['action']) && $_POST['action'] == 'add') {
     echo json_encode($response);
 }
 
-function validInfo($table, $data) {
+function validInfo($table, $data, $operation) {
     switch ($table) {
         case 'addSupplierForm':
         case 'supplier':
             $supplier = new ValidateSupplierForm($data['supplierName'], $data['contactPerson'], $data['contactNumber']);
-            $supplier->validateSupplierForm();
+            $supplier->validateSupplierForm($operation);
             return $supplier->errors;
         case 'addProductForm':
         case 'product':
             $product = new ValidateProductForm($data['productName'], $data['supplierId'], $data['price'], $data['quantity']); // quantity here is one for this product only
-            $product->validateProductForm();
+            $product->validateProductForm($operation);
             return $product->errors;
         case 'addOrderForm':
         case 'purchaseorder':

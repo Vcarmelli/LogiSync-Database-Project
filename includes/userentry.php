@@ -4,7 +4,7 @@ include_once 'database.php';
 include_once 'signup.php';
 include_once 'login.php';
 
-// error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
+error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
 header('Content-Type: application/json');
 $response = [];
 

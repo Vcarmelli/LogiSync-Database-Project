@@ -222,6 +222,14 @@ thead {
   color: #E26D5C;
 }
 
+.dashboard-back {
+  transition: color 0.4s ease;
+  color: #E26D5C;
+}
+.dashboard-back:hover {
+  color: #472D30;
+}
+
 #guest-btn {
   transition: color 0.4s ease;
   color: #472D30;

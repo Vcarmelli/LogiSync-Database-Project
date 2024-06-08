@@ -81,10 +81,6 @@ function addRow(event) {
             console.error('Error:', xhr, status, error);
             alert('An error occurred: ' + xhr.responseText);
         }
-        // error: function(error) {
-        //     console.error("Add Error:", error);
-        //     alert("Error in adding the data.");
-        // }
     });
 
 };
@@ -237,10 +233,12 @@ function getUDSupplierData() {
 }
 
 function getUDOrderData() {
+    var quantity = getProductsQuantity("prodsQuantity");
     const data = {
         supplierIdPO: $('#supplierIdPOUD').val(),
         orderDate: $('#orderDateUD').val(),
-        deliveryDate: $('#deliveryDateUD').val()
+        deliveryDate: $('#deliveryDateUD').val(),
+        quantity: quantity
     }
     return data
 }

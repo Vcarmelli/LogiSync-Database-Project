@@ -22,7 +22,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'orderbymonth') {
                 foreach ($row as $column => $value) {
                     echo '<td>' . htmlspecialchars($value) . '</td>';
                 }
-                echo '<td><button type="button" class="print btn btn-print">Print</button></td>';
+                echo '<td><button type="button" class="print btn btn-print" data-bs-toggle="modal" data-bs-target="#dynamicPrintModal">View Details</button></td>';
                 if (isset($_SESSION["type"]) && $_SESSION["type"] === 'admin') {
                     $whichTable = "purchaseorder";
                     include '../components/edit_delete.php'; 
