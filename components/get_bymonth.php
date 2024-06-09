@@ -10,7 +10,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'orderbymonth') {
         
         $selectedMonth = $_GET['month'];
         
-        $stmt = $db->prepare('SELECT * FROM purchaseorder WHERE MONTH(STR_TO_DATE(OrderDate, "%d/%m/%Y")) = :selectedMonth');
+        $stmt = $db->prepare('SELECT * FROM purchaseorder WHERE MONTH(STR_TO_DATE(OrderDate, "%m/%d/%Y")) = :selectedMonth');
         $stmt->bindParam(':selectedMonth', $selectedMonth, PDO::PARAM_INT);
         $stmt->execute();
         
