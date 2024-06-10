@@ -1,5 +1,7 @@
 # 📦LogiSync: A Supply Chain Management System
-**LogiSync** is a website designed to manage suppliers, products, and purchase orders efficiently. This system provides different access levels for Admins, Managers, and Guests, ensuring a streamlined and secure workflow. This project is built using PHP for the backend and MySQL for the database.
+**LogiSync** is a website designed to manage suppliers, products, and purchase orders efficiently. This system provides different access levels for Admins, Managers, and Guests, ensuring a streamlined and secure workflow. 
+
+This project is built using PHP for the backend and MySQL for the database.
 
 ## Features
 
