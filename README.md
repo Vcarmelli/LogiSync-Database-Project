@@ -14,33 +14,47 @@
 
 ## Database Schema
 
-### Supplier
+<table style="border-collapse: collapse;">
+<tr>
+  <th>Supplier </th>
+  <th>Product</th> 
+  <th>Purchase Order</th>
+</tr>
+<tr>
+  <td>
+      
+  | Column Name   | Data Type |
+  | ------------- | --------- |
+  | SupplierID    | INT       |
+  | SupplierName  | VARCHAR   |
+  | ContactPerson | VARCHAR   |
+  | ContactNumber | VARCHAR   |
 
-| Column Name   | Data Type |
-| ------------- | --------- |
-| SupplierID    | INT       |
-| SupplierName  | VARCHAR   |
-| ContactPerson | VARCHAR   |
-| ContactNumber | VARCHAR   |
+  </td>
+  <td>
 
-### Product
+  | Column Name   | Data Type |
+  | ------------- | --------- |
+  | ProductID     | VARCHAR   |
+  | ProductName   | VARCHAR   |
+  | SupplierID    | INT       |
+  | Price         | DECIMAL   |
+  | Quantity      | INT       |
 
-| Column Name   | Data Type |
-| ------------- | --------- |
-| ProductID     | VARCHAR   |
-| ProductName   | VARCHAR   |
-| SupplierID    | INT       |
-| Price         | DECIMAL   |
-| Quantity      | INT       |
+  </td>
+  <td>
 
-### PurchaseOrder
+  | Column Name   | Data Type |
+  | ------------- | --------- |
+  | OrderID       | VARCHAR   |
+  | SupplierID    | INT       |
+  | OrderDate     | DATE      |
+  | DeliveryDate  | DATE      |
 
-| Column Name   | Data Type |
-| ------------- | --------- |
-| OrderID       | VARCHAR   |
-| SupplierID    | INT       |
-| OrderDate     | DATE      |
-| DeliveryDate  | DATE      |
+  </td>
+  
+  </tr> 
+</table>
 
 
 
